@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Exam - शालेय आणि स्पर्धा परीक्षा मंच</title>
+    <title>All Exam - इयत्ता १ ली ते १२ वी ऑनलाईन परीक्षा</title>
     <style>
         * {
             margin: 0;
@@ -43,7 +43,7 @@
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
         }
         .card {
@@ -53,10 +53,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             text-align: center;
             transition: transform 0.3s ease;
-            border-top: 4px solid #0066cc;
-        }
-        .card.special {
-            border-top-color: #ff9900; /* नवोदय व शिष्यवृत्तीसाठी वेगळा रंग */
         }
         .card:hover {
             transform: translateY(-5px);
@@ -64,10 +60,7 @@
         .card h3 {
             color: #0066cc;
             margin-bottom: 0.75rem;
-            font-size: 1.4rem;
-        }
-        .card.special h3 {
-            color: #d35400;
+            font-size: 1.5rem;
         }
         .card p {
             color: #666;
@@ -84,11 +77,8 @@
             font-size: 0.95rem;
             font-weight: bold;
         }
-        .btn.special-btn {
-            background: #ff9900;
-        }
         .btn:hover {
-            opacity: 0.9;
+            background: #004b99;
         }
         footer {
             text-align: center;
@@ -102,28 +92,14 @@
 <body>
 
     <header>
-        <h1>All Exam</h1>
-        <p>शालेय वर्ग, नवोदय, शिष्यवृत्ती आणि इतर स्पर्धा परीक्षांचा ऑनलाईन सराव</p>
+        <h1>All Exam - शालेय परीक्षा मंच</h1>
+        <p>इयत्ता १ ली ते १२ वीच्या सर्व विद्यार्थ्यांसाठी विषयनिहाय सराव परीक्षा</p>
     </header>
 
     <div class="container">
-        <h2 class="section-title">परीक्षा श्रेणी निवडा</h2>
+        <h2 class="section-title">तुमचा वर्ग निवडा</h2>
         
         <div class="grid">
-            <!-- नवोदय परीक्षा -->
-            <div class="card special">
-                <h3>नवोदय परीक्षा (Navodaya)</h3>
-                <p>इयत्ता ५ वी व ६ वीच्या प्रवेशासाठी जवाहर नवोदय विद्यालय प्रवेश परीक्षा सराव.</p>
-                <a href="#" class="btn special-btn">परीक्षा द्या</a>
-            </div>
-
-            <!-- शिष्यवृत्ती परीक्षा -->
-            <div class="card special">
-                <h3>शिष्यवृत्ती परीक्षा (Scholarship)</h3>
-                <p>इयत्ता ५ वी आणि ८ वीच्या पूर्व उच्च प्राथमिक व पूर्व माध्यमिक शिष्यवृत्ती परीक्षा सराव.</p>
-                <a href="#" class="btn special-btn">परीक्षा द्या</a>
-            </div>
-
             <!-- 1st to 5th Primary -->
             <div class="card">
                 <h3>इयत्ता १ ली ते ५ वी</h3>
