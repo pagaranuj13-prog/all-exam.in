@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="mr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Exam - इयत्ता १ ली ते १२ वी ऑनलाईन परीक्षा</title>
+    <title>All Exam - सर्व बोर्ड आणि स्पर्धा परीक्षा मंच</title>
     <style>
         * {
             margin: 0;
@@ -15,6 +15,45 @@
             background-color: #f4f7f6;
             color: #333;
             line-height: 1.6;
+        }
+        /* Top Navigation Bar */
+        nav {
+            background-color: #00264d;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #ff9900;
+        }
+        /* Language Selector */
+        .lang-selector select {
+            padding: 0.4rem;
+            border-radius: 4px;
+            background: white;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
         }
         header {
             background: linear-gradient(135deg, #0066cc, #00264d);
@@ -43,7 +82,7 @@
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
         .card {
@@ -53,6 +92,10 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             text-align: center;
             transition: transform 0.3s ease;
+            border-top: 4px solid #0066cc;
+        }
+        .card.special {
+            border-top-color: #d35400;
         }
         .card:hover {
             transform: translateY(-5px);
@@ -60,7 +103,10 @@
         .card h3 {
             color: #0066cc;
             margin-bottom: 0.75rem;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+        }
+        .card.special h3 {
+            color: #d35400;
         }
         .card p {
             color: #666;
@@ -77,8 +123,11 @@
             font-size: 0.95rem;
             font-weight: bold;
         }
+        .btn.special-btn {
+            background: #d35400;
+        }
         .btn:hover {
-            background: #004b99;
+            opacity: 0.9;
         }
         footer {
             text-align: center;
@@ -91,15 +140,70 @@
 </head>
 <body>
 
+    <!-- वरचा मेनू (Navigation Bar) -->
+    <nav>
+        <div class="logo">All Exam</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">State Board</a></li>
+            <li><a href="#">CBSE Board</a></li>
+            <li><a href="#">ICSE Board</a></li>
+            <li><a href="#">NCERT</a></li>
+            <li><a href="#">Scholarship</a></li>
+        </ul>
+        <div class="lang-selector">
+            <select id="languageSelect" onchange="changeLanguage()">
+                <option value="mr">मराठी (Marathi)</option>
+                <option value="en">English</option>
+                <option value="hi">हिंदी (Hindi)</option>
+            </select>
+        </div>
+    </nav>
+
     <header>
-        <h1>All Exam - शालेय परीक्षा मंच</h1>
-        <p>इयत्ता १ ली ते १२ वीच्या सर्व विद्यार्थ्यांसाठी विषयनिहाय सराव परीक्षा</p>
+        <h1 id="mainTitle">All Exam - सर्व बोर्ड आणि स्पर्धा परीक्षा मंच</h1>
+        <p id="mainSubtitle">State Board, CBSE, NCERT, शिष्यवृत्ती, नवोदय आणि इतर परीक्षांचा सराव</p>
     </header>
 
     <div class="container">
-        <h2 class="section-title">तुमचा वर्ग निवडा</h2>
+        <h2 class="section-title" id="sectionHeading">तुमची परीक्षा किंवा वर्ग निवडा</h2>
         
         <div class="grid">
+            <!-- शिष्यवृत्ती परीक्षा -->
+            <div class="card special">
+                <h3>शिष्यवृत्ती परीक्षा (Scholarship)</h3>
+                <p>इयत्ता ५ वी आणि ८ वीच्या पूर्व उच्च प्राथमिक व पूर्व माध्यमिक शिष्यवृत्ती परीक्षा सराव.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- नवोदय परीक्षा -->
+            <div class="card special">
+                <h3>नवोदय परीक्षा (Navodaya)</h3>
+                <p>इयत्ता ५ वी व ६ वीच्या प्रवेशासाठी जवाहर नवोदय विद्यालय प्रवेश परीक्षा सराव.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- NMMS परीक्षा -->
+            <div class="card special">
+                <h3>NMMS परीक्षा</h3>
+                <p>इयत्ता ८ वीच्या विद्यार्थ्यांसाठी राष्ट्रीय आर्थिक दुर्बल घटक शिष्यवृत्ती परीक्षा.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- NTSE परीक्षा -->
+            <div class="card special">
+                <h3>NTSE परीक्षा</h3>
+                <p>इयत्ता १० वीच्या विद्यार्थ्यांसाठी राष्ट्रीय प्रज्ञाशोध परीक्षा सराव.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- ऑलिम्पियाड परीक्षा -->
+            <div class="card special">
+                <h3>ऑलिम्पियाड परीक्षा (Olympiad)</h3>
+                <p>विज्ञान, गणित आणि इंग्रजी विषयांच्या शालेय ऑलिम्पियाड परीक्षा.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
             <!-- 1st to 5th Primary -->
             <div class="card">
                 <h3>इयत्ता १ ली ते ५ वी</h3>
@@ -133,6 +237,29 @@
     <footer>
         <p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p>
     </footer>
+
+    <script>
+        function changeLanguage() {
+            var lang = document.getElementById("languageSelect").value;
+            var title = document.getElementById("mainTitle");
+            var subtitle = document.getElementById("mainSubtitle");
+            var heading = document.getElementById("sectionHeading");
+
+            if (lang === "en") {
+                title.innerText = "All Exam - All Boards & Competitive Exams Platform";
+                subtitle.innerText = "State Board, CBSE, NCERT, Scholarship, Navodaya & Other Exam Practice";
+                heading.innerText = "Select Your Exam or Class";
+            } else if (lang === "hi") {
+                title.innerText = "All Exam - सभी बोर्ड और प्रतियोगी परीक्षा मंच";
+                subtitle.innerText = "State Board, CBSE, NCERT, छात्रवृत्ति, नवोदय और अन्य परीक्षा अभ्यास";
+                heading.innerText = "अपनी परीक्षा या कक्षा चुनें";
+            } else {
+                title.innerText = "All Exam - सर्व बोर्ड आणि स्पर्धा परीक्षा मंच";
+                subtitle.innerText = "State Board, CBSE, NCERT, शिष्यवृत्ती, नवोदय आणि इतर परीक्षांचा सराव";
+                heading.innerText = "तुमची परीक्षा किंवा वर्ग निवडा";
+            }
+        }
+    </script>
 
 </body>
 </html>
