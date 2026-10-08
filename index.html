@@ -3,281 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Exam - सराव परीक्षा मंच</title>
+    <title>All Exam - शालेय आणि स्पर्धा परीक्षा मंच</title>
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --bg-color: #f3f4f6;
-            --card-bg: #ffffff;
-            --text-color: #1f2937;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, #0066cc, #00264d);
             color: white;
-            padding: 20px;
+            padding: 2.5rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-            gap: 15px;
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
-
-        .lang-selector select {
-            padding: 8px 12px;
-            border-radius: 5px;
-            border: none;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: bold;
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
-
-        .board-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            background: #ffffff;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            flex-wrap: wrap;
-        }
-
-        .board-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--primary-color);
-            background: transparent;
-            color: var(--primary-color);
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .board-btn.active, .board-btn:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
         .container {
             max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
-
-        .section-title {
+        h2.section-title {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 1.5rem;
+            color: #00264d;
             font-size: 1.8rem;
-            color: var(--secondary-color);
         }
-
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 1.5rem;
         }
-
         .card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             text-align: center;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
+            border-top: 4px solid #0066cc;
         }
-
+        .card.special {
+            border-top-color: #d35400;
+        }
         .card:hover {
             transform: translateY(-5px);
         }
-
         .card h3 {
-            margin-top: 0;
-            color: var(--primary-color);
+            color: #0066cc;
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
         }
-
-        .btn-exam {
+        .card.special h3 {
+            color: #d35400;
+        }
+        .card p {
+            color: #666;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+        .btn {
             display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: var(--primary-color);
+            background: #0066cc;
             color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
             text-decoration: none;
-            border-radius: 5px;
+            font-size: 0.95rem;
             font-weight: bold;
-            transition: background 0.2s;
         }
-
-        .btn-exam:hover {
-            background-color: var(--secondary-color);
+        .btn.special-btn {
+            background: #d35400;
         }
-
+        .btn:hover {
+            opacity: 0.9;
+        }
         footer {
             text-align: center;
-            padding: 20px;
-            background: #1f2937;
+            padding: 1.5rem;
+            background: #222;
             color: white;
-            margin-top: 40px;
+            margin-top: 3rem;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-top">
-            <div>
-                <h1 id="main-title">All Exam</h1>
-                <p id="main-subtitle">इयत्ता १ ली ते १२ वी स्वतंत्र विषयनिहाय सराव परीक्षा मंच</p>
-            </div>
-            <div class="lang-selector">
-                <select id="languageSelect" onchange="changeLanguage()">
-                    <option value="mr">मराठी</option>
-                    <option value="en">English</option>
-                    <option value="hi">हिंदी</option>
-                </select>
-            </div>
-        </div>
+        <h1>All Exam</h1>
+        <p>शालेय वर्ग, शिष्यवृत्ती, नवोदय, NMMS, NTSE आणि इतर स्पर्धा परीक्षांचा ऑनलाईन सराव</p>
     </header>
 
-    <!-- बोर्ड निवडा (Board Selection Tabs) -->
-    <div class="board-tabs">
-        <button class="board-btn active" onclick="filterBoard('state', this)" id="btn-state">महाराष्ट्र स्टेट बोर्ड</button>
-        <button class="board-btn" onclick="filterBoard('cbse', this)" id="btn-cbse">CBSE</button>
-        <button class="board-btn" onclick="filterBoard('ncert', this)" id="btn-ncert">NCERT</button>
-        <button class="board-btn" onclick="filterBoard('intl', this)" id="btn-intl">International Board</button>
-    </div>
-
     <div class="container">
-        <h2 class="section-title" id="class-heading">तुमचा वर्ग निवडा</h2>
-        <div class="grid" id="classGrid">
-            <!-- वर्ग डायनॅमिकली लोड केले जातील -->
+        <h2 class="section-title">परीक्षा श्रेणी निवडा</h2>
+        
+        <div class="grid">
+            <!-- शिष्यवृत्ती परीक्षा -->
+            <div class="card special">
+                <h3>शिष्यवृत्ती परीक्षा (Scholarship)</h3>
+                <p>इयत्ता ५ वी आणि ८ वीच्या पूर्व उच्च प्राथमिक व पूर्व माध्यमिक शिष्यवृत्ती परीक्षा सराव.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- नवोदय परीक्षा -->
+            <div class="card special">
+                <h3>नवोदय परीक्षा (Navodaya)</h3>
+                <p>इयत्ता ५ वी व ६ वीच्या प्रवेशासाठी जवाहर नवोदय विद्यालय प्रवेश परीक्षा सराव.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- NMMS परीक्षा -->
+            <div class="card special">
+                <h3>NMMS परीक्षा</h3>
+                <p>इयत्ता ८ वीच्या विद्यार्थ्यांसाठी राष्ट्रीय आर्थिक दुर्बल घटक शिष्यवृत्ती परीक्षा.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- NTSE परीक्षा -->
+            <div class="card special">
+                <h3>NTSE परीक्षा</h3>
+                <p>इयत्ता १० वीच्या विद्यार्थ्यांसाठी राष्ट्रीय प्रज्ञाशोध परीक्षा सराव.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- ऑलिम्पियाड परीक्षा -->
+            <div class="card special">
+                <h3>ऑलिम्पियाड परीक्षा (Olympiad)</h3>
+                <p>विज्ञान, गणित आणि इंग्रजी विषयांच्या शालेय ऑलिम्पियाड परीक्षा.</p>
+                <a href="#" class="btn special-btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- 1st to 5th Primary -->
+            <div class="card">
+                <h3>इयत्ता १ ली ते ५ वी</h3>
+                <p>प्राथमिक स्तरावरील मराठी, इंग्रजी, गणित आणि परिसर अभ्यास विषयांच्या टेस्ट.</p>
+                <a href="#" class="btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- 6th to 8th Middle School -->
+            <div class="card">
+                <h3>इयत्ता ६ वी ते ८ वी</h3>
+                <p>उच्च प्राथमिक स्तरावरील विज्ञान, गणित, इतिहास आणि भूगोल विषयांच्या परीक्षा.</p>
+                <a href="#" class="btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- 9th and 10th High School -->
+            <div class="card">
+                <h3>इयत्ता ९ वी व १० वी</h3>
+                <p>माध्यमिक स्तरावरील बीजगणित, भूमिती, विज्ञान आणि भाषा विषयांचा सराव.</p>
+                <a href="#" class="btn">परीक्षा द्या</a>
+            </div>
+
+            <!-- 11th and 12th Junior College -->
+            <div class="card">
+                <h3>इयत्ता ११ वी व १२ वी</h3>
+                <p>विज्ञान, वाणिज्य आणि कला शाखेच्या विद्यार्थ्यांसाठी विशेष सराव परीक्षा.</p>
+                <a href="#" class="btn">परीक्षा द्या</a>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p id="footer-text">&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p>
+        <p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p>
     </footer>
 
-    <script>
-        // भाषा आणि मजकूर डेटा
-        const translations = {
-            mr: {
-                title: "इयत्ता १ ली ते १२ वी स्वतंत्र विषयनिहाय सराव परीक्षा मंच",
-                selectClass: "तुमचा वर्ग निवडा",
-                examBtn: "परीक्षा द्या",
-                boards: { state: "महाराष्ट्र स्टेट बोर्ड", cbse: "CBSE", ncert: "NCERT", intl: "International Board" },
-                classes: [
-                    "इयत्ता १ ली - मराठी, इंग्रजी आणि गणित",
-                    "इयत्ता २ री - मराठी, इंग्रजी आणि गणित",
-                    "इयत्ता ३ री - मराठी, गणित आणि परिसर अभ्यास",
-                    "इयत्ता ४ थी - मराठी, इंग्रजी, गणित व परिसर अभ्यास",
-                    "इयत्ता ५ वी - सर्व विषयांच्या सराव परीक्षा",
-                    "इयत्ता ६ वी - विज्ञान, गणित, इतिहास व भूगोल",
-                    "इयत्ता ७ वी - विज्ञान, गणित व सामाजिक शास्त्रे",
-                    "इयत्ता ८ वी - शालेय स्तरावरील सर्व महत्त्वाच्या टेस्ट",
-                    "इयत्ता ९ वी - बीजगणित, भूमिती व विज्ञान परीक्षा",
-                    "इयत्ता १० वी - बोर्ड परीक्षेसाठी विशेष सराव टेस्ट",
-                    "इयत्ता ११ वी - विज्ञान, वाणिज्य आणि कला शाखा",
-                    "इयत्ता १२ वी - उच्च माध्यमिक बोर्ड परीक्षा सराव"
-                ]
-            },
-            en: {
-                title: "Class 1st to 12th Independent Subject-wise Practice Exam Portal",
-                selectClass: "Select Your Class",
-                examBtn: "Take Exam",
-                boards: { state: "Maharashtra State Board", cbse: "CBSE", ncert: "NCERT", intl: "International Board" },
-                classes: [
-                    "Class 1 - Marathi, English & Math",
-                    "Class 2 - Marathi, English & Math",
-                    "Class 3 - Marathi, Math & EVS",
-                    "Class 4 - Marathi, English, Math & EVS",
-                    "Class 5 - All Subject Practice Exams",
-                    "Class 6 - Science, Math, History & Geography",
-                    "Class 7 - Science, Math & Social Sciences",
-                    "Class 8 - Important School Level Tests",
-                    "Class 9 - Algebra, Geometry & Science Exams",
-                    "Class 10 - Special Board Exam Practice Tests",
-                    "Class 11 - Science, Commerce & Arts",
-                    "Class 12 - Higher Secondary Board Exam Practice"
-                ]
-            },
-            hi: {
-                title: "कक्षा 1 ली से 12 वी स्वतंत्र विषयवार अभ्यास परीक्षा मंच",
-                selectClass: "अपनी कक्षा चुनें",
-                examBtn: "परीक्षा दें",
-                boards: { state: "महाराष्ट्र स्टेट बोर्ड", cbse: "CBSE", ncert: "NCERT", intl: "इंटरनेशनल बोर्ड" },
-                classes: [
-                    "कक्षा 1 ली - मराठी, अंग्रेजी और गणित",
-                    "कक्षा 2 री - मराठी, अंग्रेजी और गणित",
-                    "कक्षा 3 री - मराठी, गणित और पर्यावरण अध्ययन",
-                    "कक्षा 4 थी - मराठी, अंग्रेजी, गणित और पर्यावरण",
-                    "कक्षा 5 वी - सभी विषयों की अभ्यास परीक्षा",
-                    "कक्षा 6 वी - विज्ञान, गणित, इतिहास और भूगोल",
-                    "कक्षा 7 वी - विज्ञान, गणित और सामाजिक विज्ञान",
-                    "कक्षा 8 वी - स्कूली स्तर की सभी महत्वपूर्ण टेस्ट",
-                    "कक्षा 9 वी - बीजगणित, ज्यामिति और विज्ञान परीक्षा",
-                    "कक्षा 10 वी - बोर्ड परीक्षा के लिए विशेष अभ्यास टेस्ट",
-                    "कक्षा 11 वी - विज्ञान, वाणिज्य और कला संकाय",
-                    "कक्षा 12 वी - उच्च माध्यमिक बोर्ड परीक्षा अभ्यास"
-                ]
-            }
-        };
-
-        let currentLang = 'mr';
-        let currentBoard = 'state';
-
-        function renderClasses() {
-            const grid = document.getElementById('classGrid');
-            grid.innerHTML = '';
-            
-            const data = translations[currentLang];
-            document.getElementById('main-subtitle').innerText = data.title;
-            document.getElementById('class-heading').innerText = data.selectClass;
-
-            data.classes.forEach((className, index) => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <h3>${className.split(' - ')[0]}</h3>
-                    <p>${className.split(' - ')[1] || ''}</p>
-                    <a href="exam.html?board=${currentBoard}&class=${index + 1}" class="btn-exam">${data.examBtn}</a>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function changeLanguage() {
-            currentLang = document.getElementById('languageSelect').value;
-            renderClasses();
-        }
-
-        function filterBoard(boardKey, btnElement) {
-            currentBoard = boardKey;
-            
-            // बटणची ॲक्टिव्ह स्टाईल बदलणे
-            document.querySelectorAll('.board-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-            
-            renderClasses();
-        }
-
-        // पहिली वेळ लोड करताना
-        renderClasses();
-    </script>
 </body>
 </html>
