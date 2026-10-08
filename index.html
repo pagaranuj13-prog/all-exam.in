@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऑनलाइन सराव परीक्षा</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f0f2f5; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .exam-container { background: #fff; width: 100%; max-width: 650px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 25px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eef0f2; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h2 { margin: 0; color: #1a73e8; font-size: 20px; }
+        .timer { background: #ffebee; color: #d32f2f; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        .question-box { font-size: 18px; margin-bottom: 20px; color: #333; font-weight: 600; }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .option-label { display: flex; align-items: center; padding: 12px 15px; border: 1px solid #dcdfe6; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .option-label:hover { background: #f8f9fa; border-color: #1a73e8; }
+        .option-label input { margin-right: 12px; transform: scale(1.2); }
+        .footer-buttons { display: flex; justify-content: space-between; margin-top: 30px; }
+        button { padding: 10px 22px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; font-weight: 600; }
+        .btn-prev { background: #e0e0e0; color: #333; }
+        .btn-next { background: #1a73e8; color: #fff; }
+        .btn-submit { background: #28a745; color: #fff; display: none; }
+        button:hover { opacity: 0.9; }
+        #result-box { display: none; text-align: center; padding: 20px; }
+        .score-circle { width: 100px; height: 100px; border-radius: 50%; background: #e8f0fe; color: #1a73e8; font-size: 24px; font-weight: bold; display: flex; align-items: center; justify-content: center; margin: 20px auto; }
+    </style>
+</head>
+<body>
+
+<div class="exam-container">
+    <div id="quiz-box">
+        <div class="header">
+            <h2>ऑनलाइन परीक्षा</h2>
+            <div class="timer" id="timer">वेळ शिल्लक: 05:00</div>
+        </div>
+
+        <div class="question-box" id="question-text">प्रश्न लोड होत आहे...</div>
+        <div class="options" id="options-container"></div>
+
+        <div class="footer-buttons">
+            <button class="btn-prev" id="prev-btn" onclick="prevQuestion()" disabled>मागे (Previous)</button>
+            <button class="btn-next" id="next-btn" onclick="nextQuestion()">पुढे (Next)</button>
+            <button class="btn-submit" id="submit-btn" onclick="submitExam()">सबमिट (Submit)</button>
+        </div>
+    </div>
+
+    <div id="result-box">
+        <h2>परीक्षेचा निकाल!</h2>
+        <div class="score-circle" id="score-text">0 / 0</div>
+        <p id="result-message"></p>
+        <button class="btn-next" onclick="location.reload()">पुन्हा परीक्षा द्या</button>
+    </div>
+</div>
+
+<script>
+    // तुमचे प्रश्न येथे ॲड करा किंवा बदला
+    const questions = [
+        {
+            q: "१. महाराष्ट्राची राजधानी कोणती आहे?",
+            options: ["पुणे", "नागपूर", "मुंबई", "नाशिक"],
+            answer: 2
+        },
+        {
+            q: "२. संगणकाचा मेंदू (Brain of Computer) कशाला म्हणतात?",
+            options: ["RAM", "CPU", "Hard Disk", "Monitor"],
+            answer: 1
+        },
+        {
+            q: "३. ५ + १० × २ चे उत्तर काय येईल?",
+            options: ["३०", "२५", "२०", "१५"],
+            answer: 1
+        }
+    ];
+
+    let currentQ = 0;
+    let userAnswers = {};
+    let timeLeft = 300; // ५ मिनिटे (सेकंदात)
+
+    function renderQuestion() {
+        const qData = questions[currentQ];
+        document.getElementById("question-text").innerText = qData.q;
+        const optContainer = document.getElementById("options-container");
+        optContainer.innerHTML = "";
+
+        qData.options.forEach((opt, index) => {
+            const isChecked = userAnswers[currentQ] === index ? "checked" : "";
+            optContainer.innerHTML += `
+                <label class="option-label">
+                    <input type="radio" name="opt" value="${index}" ${isChecked} onchange="selectOption(${index})">
+                    ${opt}
+                </label>
+            `;
+        });
+
+        document.getElementById("prev-btn").disabled = currentQ === 0;
+        if (currentQ === questions.length - 1) {
+            document.getElementById("next-btn").style.display = "none";
+            document.getElementById("submit-btn").style.display = "block";
+        } else {
+            document.getElementById("next-btn").style.display = "block";
+            document.getElementById("submit-btn").style.display = "none";
+        }
+    }
+
+    function selectOption(index) {
+        userAnswers[currentQ] = index;
+    }
+
+    function nextQuestion() {
+        if (currentQ < questions.length - 1) {
+            currentQ++;
+            renderQuestion();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentQ > 0) {
+            currentQ--;
+            renderQuestion();
+        }
+    }
+
+    function startTimer() {
+        const timerElement = document.getElementById("timer");
+        const interval = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            timerElement.innerText = `वेळ शिल्लक: ${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(interval);
+                alert("वेळ संपली आहे! तुमची टेस्ट आपोआप सबमिट होत आहे.");
+                submitExam();
+            }
+        }, 1000);
+    }
+
+    function submitExam() {
+        let score = 0;
+        questions.forEach((q, i) => {
+            if (userAnswers[i] === q.answer) {
+                score++;
+            }
+        });
+
+        document.getElementById("quiz-box").style.display = "none";
+        document.getElementById("result-box").style.display = "block";
+        document.getElementById("score-text").innerText = `${score} / ${questions.length}`;
+        document.getElementById("result-message").innerText = score >= (questions.length / 2) 
+            ? "अभिनंदन! तुम्ही उत्तीर्ण झाला आहात." 
+            : "पुढील वेळी चांगला प्रयत्न करा!";
+    }
+
+    renderQuestion();
+    startTimer();
+</script>
+
+</body>
+</html>
