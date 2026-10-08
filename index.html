@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="mr" id="htmlRoot">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Exam - सर्व बोर्ड आणि स्पर्धा परीक्षा मंच</title>
+    <title>All Exam - सर्व वर्ग आणि स्पर्धा परीक्षा मंच</title>
     <style>
         * {
             margin: 0;
@@ -33,7 +33,7 @@
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
             flex-wrap: wrap;
         }
         .nav-links a {
@@ -62,11 +62,11 @@
             text-align: center;
         }
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             margin-bottom: 0.5rem;
         }
         header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.9;
         }
         .container {
@@ -75,19 +75,20 @@
             padding: 0 1rem;
         }
         h2.section-title {
-            text-align: center;
-            margin-bottom: 1.5rem;
+            margin: 2rem 0 1rem 0;
             color: #00264d;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 0.5rem;
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
         }
         .card {
             background: white;
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             text-align: center;
@@ -102,25 +103,25 @@
         }
         .card h3 {
             color: #0066cc;
-            margin-bottom: 0.75rem;
-            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
         .card.special h3 {
             color: #d35400;
         }
         .card p {
             color: #666;
-            margin-bottom: 1.2rem;
-            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
         }
         .btn {
             display: inline-block;
             background: #0066cc;
             color: white;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 4px;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: bold;
         }
         .btn.special-btn {
@@ -162,76 +163,101 @@
 
     <header>
         <h1 id="mainTitle">All Exam - सर्व बोर्ड आणि स्पर्धा परीक्षा मंच</h1>
-        <p id="mainSubtitle">State Board, CBSE, NCERT, शिष्यवृत्ती, नवोदय आणि इतर परीक्षांचा सराव</p>
+        <p id="mainSubtitle">State Board, CBSE, NCERT, शिष्यवृत्ती आणि प्रत्येक वर्गाची स्वतंत्र परीक्षा</p>
     </header>
 
     <div class="container">
-        <h2 class="section-title" id="sectionHeading">तुमची परीक्षा किंवा वर्ग निवडा</h2>
         
+        <!-- स्पर्धा परीक्षा विभाग -->
+        <h2 class="section-title" id="compHeading">महत्त्वाच्या स्पर्धा परीक्षा</h2>
         <div class="grid">
-            <!-- शिष्यवृत्ती परीक्षा -->
             <div class="card special">
-                <h3>शिष्यवृत्ती परीक्षा (Scholarship)</h3>
-                <p>इयत्ता ५ वी आणि ८ वीच्या पूर्व उच्च प्राथमिक व पूर्व माध्यमिक शिष्यवृत्ती परीक्षा सराव.</p>
+                <h3>शिष्यवृत्ती परीक्षा</h3>
+                <p>इयत्ता ५ वी व ८ वी शिष्यवृत्ती सराव टेस्ट.</p>
                 <a href="#" class="btn special-btn">परीक्षा द्या</a>
             </div>
-
-            <!-- नवोदय परीक्षा -->
             <div class="card special">
-                <h3>नवोदय परीक्षा (Navodaya)</h3>
-                <p>इयत्ता ५ वी व ६ वीच्या प्रवेशासाठी जवाहर नवोदय विद्यालय प्रवेश परीक्षा सराव.</p>
+                <h3>नवोदय परीक्षा</h3>
+                <p>जवाहर नवोदय विद्यालय प्रवेश परीक्षा सराव.</p>
                 <a href="#" class="btn special-btn">परीक्षा द्या</a>
             </div>
-
-            <!-- NMMS परीक्षा -->
             <div class="card special">
                 <h3>NMMS परीक्षा</h3>
-                <p>इयत्ता ८ वीच्या विद्यार्थ्यांसाठी राष्ट्रीय आर्थिक दुर्बल घटक शिष्यवृत्ती परीक्षा.</p>
+                <p>इयत्ता ८ वी राष्ट्रीय आर्थिक दुर्बल घटक परीक्षा.</p>
                 <a href="#" class="btn special-btn">परीक्षा द्या</a>
             </div>
-
-            <!-- NTSE परीक्षा -->
             <div class="card special">
-                <h3>NTSE परीक्षा</h3>
-                <p>इयत्ता १० वीच्या विद्यार्थ्यांसाठी राष्ट्रीय प्रज्ञाशोध परीक्षा सराव.</p>
+                <h3>NTSE व ऑलिम्पियाड</h3>
+                <p>प्रज्ञाशोध आणि शालेय ऑलिम्पियाड परीक्षा सराव.</p>
                 <a href="#" class="btn special-btn">परीक्षा द्या</a>
-            </div>
-
-            <!-- ऑलिम्पियाड परीक्षा -->
-            <div class="card special">
-                <h3>ऑलिम्पियाड परीक्षा (Olympiad)</h3>
-                <p>विज्ञान, गणित आणि इंग्रजी विषयांच्या शालेय ऑलिम्पियाड परीक्षा.</p>
-                <a href="#" class="btn special-btn">परीक्षा द्या</a>
-            </div>
-
-            <!-- 1st to 5th Primary -->
-            <div class="card">
-                <h3>इयत्ता १ ली ते ५ वी</h3>
-                <p>प्राथमिक स्तरावरील मराठी, इंग्रजी, गणित आणि परिसर अभ्यास विषयांच्या टेस्ट.</p>
-                <a href="#" class="btn">परीक्षा द्या</a>
-            </div>
-
-            <!-- 6th to 8th Middle School -->
-            <div class="card">
-                <h3>इयत्ता ६ वी ते ८ वी</h3>
-                <p>उच्च प्राथमिक स्तरावरील विज्ञान, गणित, इतिहास आणि भूगोल विषयांच्या परीक्षा.</p>
-                <a href="#" class="btn">परीक्षा द्या</a>
-            </div>
-
-            <!-- 9th and 10th High School -->
-            <div class="card">
-                <h3>इयत्ता ९ वी व १० वी</h3>
-                <p>माध्यमिक स्तरावरील बीजगणित, भूमिती, विज्ञान आणि भाषा विषयांचा सराव.</p>
-                <a href="#" class="btn">परीक्षा द्या</a>
-            </div>
-
-            <!-- 11th and 12th Junior College -->
-            <div class="card">
-                <h3>इयत्ता ११ वी व १२ वी</h3>
-                <p>विज्ञान, वाणिज्य आणि कला शाखेच्या विद्यार्थ्यांसाठी विशेष सराव परीक्षा.</p>
-                <a href="#" class="btn">परीक्षा द्या</a>
             </div>
         </div>
+
+        <!-- इयत्ता १ ली ते १२ वी स्वतंत्र वर्ग विभाग -->
+        <h2 class="section-title" id="classHeading">इयत्ता १ ली ते १२ वी स्वतंत्र वर्ग</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>इयत्ता १ ली</h3>
+                <p>मराठी, गणित, इंग्रजी सराव टेस्ट.</p>
+                <a href="#" class="btn">वर्ग १ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता २ री</h3>
+                <p>विषयनिहाय सराव प्रश्नमंजुषा.</p>
+                <a href="#" class="btn">वर्ग २ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता ३ री</h3>
+                <p>सर्व विषयांच्या ऑनलाईन टेस्ट.</p>
+                <a href="#" class="btn">वर्ग ३ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता ४ थी</h3>
+                <p>शालेय अभ्यासक्रम सराव.</p>
+                <a href="#" class="btn">वर्ग ४ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता ५ वी</h3>
+                <p>गणित, परिसर अभ्यास, भाषा.</p>
+                <a href="#" class="btn">वर्ग ५ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता ६ वी</h3>
+                <p>विज्ञान, गणित, इतिहास टेस्ट.</p>
+                <a href="#" class="btn">वर्ग ६ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता ७ वी</h3>
+                <p>सर्व विषयांचा सराव अभ्यास.</p>
+                <a href="#" class="btn">वर्ग ७ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता ८ वी</h3>
+                <p>गणित, विज्ञान, भूगोल टेस्ट.</p>
+                <a href="#" class="btn">वर्ग ८ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता ९ वी</h3>
+                <p>बीजगणित, भूमिती, विज्ञान.</p>
+                <a href="#" class="btn">वर्ग ९ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता १० वी</h3>
+                <p>बोर्ड परीक्षा सराव टेस्ट.</p>
+                <a href="#" class="btn">वर्ग १० परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता ११ वी</h3>
+                <p>विज्ञान, वाणिज्य, कला शाखा.</p>
+                <a href="#" class="btn">वर्ग ११ परीक्षा</a>
+            </div>
+            <div class="card">
+                <h3>इयत्ता १२ वी</h3>
+                <p>उच्च माध्यमिक बोर्ड परीक्षा सराव.</p>
+                <a href="#" class="btn">वर्ग १२ परीक्षा</a>
+            </div>
+        </div>
+
     </div>
 
     <footer>
@@ -243,20 +269,24 @@
             var lang = document.getElementById("languageSelect").value;
             var title = document.getElementById("mainTitle");
             var subtitle = document.getElementById("mainSubtitle");
-            var heading = document.getElementById("sectionHeading");
+            var compHeading = document.getElementById("compHeading");
+            var classHeading = document.getElementById("classHeading");
 
             if (lang === "en") {
-                title.innerText = "All Exam - All Boards & Competitive Exams Platform";
-                subtitle.innerText = "State Board, CBSE, NCERT, Scholarship, Navodaya & Other Exam Practice";
-                heading.innerText = "Select Your Exam or Class";
+                title.innerText = "All Exam - All Boards & Classes Platform";
+                subtitle.innerText = "State Board, CBSE, NCERT, Scholarship & Separate Class-wise Exams";
+                compHeading.innerText = "Competitive Exams";
+                classHeading.innerText = "Classes 1st to 12th Separate Sections";
             } else if (lang === "hi") {
-                title.innerText = "All Exam - सभी बोर्ड और प्रतियोगी परीक्षा मंच";
-                subtitle.innerText = "State Board, CBSE, NCERT, छात्रवृत्ति, नवोदय और अन्य परीक्षा अभ्यास";
-                heading.innerText = "अपनी परीक्षा या कक्षा चुनें";
+                title.innerText = "All Exam - सभी बोर्ड और कक्षा परीक्षा मंच";
+                subtitle.innerText = "State Board, CBSE, NCERT, छात्रवृत्ति और प्रत्येक कक्षा की स्वतंत्र परीक्षा";
+                compHeading.innerText = "महत्वपूर्ण प्रतियोगी परीक्षाएँ";
+                classHeading.innerText = "कक्षा 1ली से 12वीं तक स्वतंत्र वर्ग";
             } else {
                 title.innerText = "All Exam - सर्व बोर्ड आणि स्पर्धा परीक्षा मंच";
-                subtitle.innerText = "State Board, CBSE, NCERT, शिष्यवृत्ती, नवोदय आणि इतर परीक्षांचा सराव";
-                heading.innerText = "तुमची परीक्षा किंवा वर्ग निवडा";
+                subtitle.innerText = "State Board, CBSE, NCERT, शिष्यवृत्ती आणि प्रत्येक वर्गाची स्वतंत्र परीक्षा";
+                compHeading.innerText = "महत्त्वाच्या स्पर्धा परीक्षा";
+                classHeading.innerText = "इयत्ता १ ली ते १२ वी स्वतंत्र वर्ग";
             }
         }
     </script>
