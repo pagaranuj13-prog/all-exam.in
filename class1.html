@@ -1,37 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 1 - Select Board</title>
-    <!-- तुमची मुख्य CSS फाईल लिंक करण्यासाठी -->
-    <link rel="stylesheet" href="style.css"> 
+    <title>इयत्ता १ ली - बोर्ड निवडा</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        nav {
+            background-color: #00264d;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .back-btn {
+            background: #ff9900;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header {
+            background: linear-gradient(135deg, #0066cc, #00264d);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+        h2.section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #00264d;
+            font-size: 1.8rem;
+        }
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .board-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 5px solid #0066cc;
+            transition: transform 0.3s ease;
+        }
+        .board-card:hover {
+            transform: translateY(-5px);
+        }
+        .board-card h3 {
+            color: #0066cc;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .board-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        .board-btn {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .board-btn:hover {
+            background: #004b99;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #222;
+            color: white;
+            margin-top: 5rem;
+        }
+    </style>
 </head>
 <body>
 
+    <nav>
+        <div class="logo">All Exam - इयत्ता १ ली</div>
+        <a href="index.html" class="back-btn">मुख्य पान (Home)</a>
+    </nav>
+
+    <header>
+        <h1>इयत्ता १ ली - शिक्षण मंडळ (Board) निवडा</h1>
+        <p>तुम्हाला ज्या बोर्डनुसार अभ्यास करायचा आहे, तो पर्याय निवडा</p>
+    </header>
+
     <div class="container">
-        <!-- वरच्या बाजूला मागे जाण्यासाठी होम बटन -->
-        <a href="index.html" class="back-btn">← Back to Home</a>
-
-        <h1 style="text-align: center; margin-top: 20px;">Class 1</h1>
-        <p style="text-align: center; color: #666;">Select your educational board</p>
-
-        <!-- बोर्ड्स दाखवणारी ग्रीड -->
-        <div class="grid" style="margin-top: 30px;">
-            <a href="cbse-class1.html" class="card">
-                <h3>CBSE Board</h3>
-                <p>Central Board of Secondary Education</p>
-            </a>
-            <a href="state-class1.html" class="card">
+        <h2 class="section-title">तुमचे बोर्ड निवडा</h2>
+        
+        <div class="board-grid">
+            <!-- State Board -->
+            <div class="board-card">
                 <h3>State Board</h3>
-                <p>State Education Board</p>
-            </a>
-            <a href="icse-class1.html" class="card">
-                <h3>ICSE Board</h3>
-                <p>Indian Certificate of Secondary Education</p>
-            </a>
+                <p>महाराष्ट्र राज्य माध्यमिक आणि उच्च माध्यमिक शिक्षण मंडळ अभ्यासक्रम व सराव टेस्ट.</p>
+                <a href="state1.html" class="board-btn">निवडा</a>
+            </div>
+
+            <!-- CBSE Board -->
+            <div class="board-card" style="border-top-color: #d35400;">
+                <h3 style="color: #d35400;">CBSE Board</h3>
+                <p>केंद्रीय माध्यमिक शिक्षण मंडळ (CBSE) अभ्यासक्रम व विषयनिहाय टेस्ट.</p>
+                <a href="cbse1.html" class="board-btn" style="background: #d35400;">निवडा</a>
+            </div>
+
+            <!-- ICSE Board -->
+            <div class="board-card" style="border-top-color: #27ae60;">
+                <h3 style="color: #27ae60;">ICSE Board</h3>
+                <p>इंडियन सर्टिफिकेट ऑफ सेकंडरी एज्युकेशन (ICSE) अभ्यासक्रम टेस्ट.</p>
+                <a href="icse1.html" class="board-btn" style="background: #27ae60;">निवडा</a>
+            </div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p>
+    </footer>
 
 </body>
 </html>
