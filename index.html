@@ -6,6 +6,12 @@
     <title>All Exam - सर्व बोर्ड आणि स्कॉलरशिप मंच</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
+        
+        /* मुख्य हेडिंग / बॅनर्स स्टाईल */
+        .main-header { background: linear-gradient(135deg, #007bff, #0056b3); color: white; padding: 25px; border-radius: 10px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .main-header h1 { margin: 0 0 5px 0; font-size: 2rem; }
+        .main-header p { margin: 0; font-size: 1.05rem; opacity: 0.9; }
+
         .section-title { color: #333; margin-top: 30px; border-bottom: 2px solid #007bff; padding-bottom: 5px; font-size: 1.3rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 15px; }
         
@@ -34,10 +40,16 @@
 </head>
 <body>
 
-    <!-- १. मुख्य डॅशबोर्ड (सर्व ७ स्कॉलरशिप्स आणि शैक्षणिक बोर्ड्स) -->
+    <!-- मुख्य डॅशबोर्ड -->
     <div id="boards-main-view">
         
-        <!-- स्कॉलरशिप्सचे बॉक्सेस (प्रत्येकाचा वेगळा रंग) -->
+        <!-- वेबसाईटचे मुख्य टायटल आणि बॅनर्स -->
+        <div class="main-header">
+            <h1>All Exam</h1>
+            <p>सर्व बोर्ड, अभ्यासक्रम आणि स्कॉलरशिप परीक्षांचा सराव मंच</p>
+        </div>
+        
+        <!-- स्कॉलरशिप्सचे बॉक्सेस (रंगीत) -->
         <h2 class="section-title" style="margin-top: 10px; border-color: #e83e8c;">🌟 प्रमुख स्कॉलरशिप आणि स्पर्धा परीक्षा (7 Major Scholarships)</h2>
         <div class="grid">
             <div class="card" style="border-top: 4px solid #e83e8c;">
@@ -104,7 +116,7 @@
 
     </div>
 
-    <!-- २. वर्ग निवडण्याचे पेज (फक्त CBSE, ICSE, NCERT साठी) -->
+    <!-- २. वर्ग निवडण्याचे पेज -->
     <div id="classes-view" style="display: none;">
         <button class="back-btn" onclick="goBackToBoards()">← मागील पानावर जा</button>
         <h2 class="section-title" id="selected-board-title">वर्ग निवडा (Select Class)</h2>
