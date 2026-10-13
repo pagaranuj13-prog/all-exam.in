@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Exam - सर्व बोर्ड आणि स्पर्धा परीक्षा मंच</title>
+    <title>All Exam - सर्व बोर्ड, अभ्यासक्रम आणि स्कॉलरशिप मंच</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
         .section-title { color: #333; margin-top: 30px; border-bottom: 2px solid #007bff; padding-bottom: 5px; }
@@ -16,6 +16,7 @@
         .btn-blue { background: #007bff; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
         .btn-orange { background: #fd7e14; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
         .btn-purple { background: #6f42c1; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
+        .btn-red { background: #e83e8c; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; text-decoration: none; display: inline-block;}
 
         .view-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
         .box-item { background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
@@ -29,29 +30,53 @@
 </head>
 <body>
 
-    <!-- १. मुख्य एज्युकेशनल बोर्ड्स पेज -->
+    <!-- १. मुख्य डॅशबोर्ड (बोर्ड्स आणि स्कॉलरशिप्स एकत्र) -->
     <div id="boards-main-view">
-        <h2 class="section-title">शैक्षणिक बोर्ड्स (Boards)</h2>
+        <h2 class="section-title">शैक्षणिक बोर्ड्स (Educational Boards)</h2>
         <div class="grid">
             <div class="card" style="border-top: 4px solid #28a745;">
                 <h3>State Board</h3>
                 <p>महाराष्ट्र राज्य शिक्षण मंडळ अभ्यासक्रम.</p>
-                <button class="btn-green" onclick="showClasses('State Board')">Select board</button>
+                <button class="btn-green" onclick="showClasses('State Board')">वर्ग निवडा</button>
             </div>
             <div class="card" style="border-top: 4px solid #007bff;">
                 <h3>CBSE Board</h3>
                 <p>केंद्रीय माध्यमिक शिक्षण मंडळ (CBSE).</p>
-                <button class="btn-blue" onclick="showClasses('CBSE Board')">बोर्ड निवडा</button>
+                <button class="btn-blue" onclick="showClasses('CBSE Board')">वर्ग निवडा</button>
             </div>
             <div class="card" style="border-top: 4px solid #fd7e14;">
                 <h3>ICSE Board</h3>
                 <p>इंडियन सर्टिफिकेट ऑफ सेकेंडरी एज्युकेशन.</p>
-                <button class="btn-orange" onclick="showClasses('ICSE Board')">बोर्ड निवडा</button>
+                <button class="btn-orange" onclick="showClasses('ICSE Board')">वर्ग निवडा</button>
             </div>
             <div class="card" style="border-top: 4px solid #6f42c1;">
                 <h3>NCERT अभ्यासक्रम</h3>
                 <p>राष्ट्रीय शैक्षणिक संशोधन आणि प्रशिक्षण परिषद.</p>
-                <button class="btn-purple" onclick="showClasses('NCERT अभ्यासक्रम')">निवडा</button>
+                <button class="btn-purple" onclick="showClasses('NCERT अभ्यासक्रम')">वर्ग निवडा</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">स्कॉलरशिप आणि स्पर्धा परीक्षा (Scholarships)</h2>
+        <div class="grid">
+            <div class="card" style="border-top: 4px solid #e83e8c;">
+                <h3>5वी शिष्यवृत्ती परीक्षा</h3>
+                <p>पूर्व उच्च प्राथमिक शिष्यवृत्ती परीक्षा (5th Std).</p>
+                <a href="scholarship-5th.html" class="btn-red">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #e83e8c;">
+                <h3>8वी शिष्यवृत्ती परीक्षा</h3>
+                <p>पूर्व माध्यमिक शिष्यवृत्ती परीक्षा (8th Std).</p>
+                <a href="scholarship-8th.html" class="btn-red">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #e83e8c;">
+                <h3>NMMS परीक्षा</h3>
+                <p>नॅशनल मिन्स कम मेरिट स्कॉलरशिप (8वी).</p>
+                <a href="nmms.html" class="btn-red">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #e83e8c;">
+                <h3>NTSE परीक्षा</h3>
+                <p>नॅशनल टॅलेंट सर्च परीक्षा (10वी).</p>
+                <a href="ntse.html" class="btn-red">अभ्यास करा</a>
             </div>
         </div>
     </div>
@@ -105,19 +130,16 @@
 
             let subjects = [];
 
-            // बोर्ड आणि वर्गानुसार अचूक विषय ठरवणे
             if (currentBoard === 'ICSE Board') {
                 subjects = ['English Literature', 'English Language', 'Mathematics', 'History & Civics', 'Geography', 'Science (Physics/Chem/Bio)', 'Computer Applications'];
             } else if (currentBoard === 'NCERT अभ्यासक्रम') {
-                subjects = ['NCERT Maths', 'NCERT Science', 'NCERT Social Science (History, Geo, Pol.Sci)', 'English (Honeysuckle/Honeycomb)', 'Hindi (Vasant)', 'Sanskrit / Urdu'];
+                subjects = ['NCERT Maths', 'NCERT Science', 'NCERT Social Science', 'English', 'Hindi', 'Sanskrit'];
             } else if (currentBoard === 'CBSE Board') {
                 subjects = ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Information Technology'];
             } else {
-                // State Board (उदा. महाराष्ट्र बोर्ड)
                 subjects = ['गणित (Mathematics)', 'विज्ञान आणि तंत्रज्ञान', 'इतिहास व राज्यशास्त्र', 'भूगोल', 'इंग्रजी (English)', 'मराठी / हिंदी कुमारभारती'];
             }
 
-            // स्क्रीनवर विषय कार्ड्स तयार करणे
             subjects.forEach(sub => {
                 container.innerHTML += `
                     <div class="box-item">
