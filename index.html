@@ -14,20 +14,13 @@
         .card h3 { margin: 0 0 8px 0; font-size: 1.1rem; color: #333; }
         .card p { margin: 0 0 12px 0; color: #666; font-size: 0.85rem; }
         
-        /* स्कॉलरशिप कार्ड्ससाठी विशेष आकर्षक रंग आणि बॉर्डर */
-        .scholarship-card { background: linear-gradient(135deg, #fff5f8, #ffebee); border-top: 4px solid #ff1744; border-radius: 10px; padding: 18px; box-shadow: 0 4px 10px rgba(255,23,68,0.12); text-align: center; transition: transform 0.2s; }
-        .scholarship-card:hover { transform: translateY(-3px); }
-        .scholarship-card h3 { margin: 0 0 8px 0; font-size: 1.1rem; color: #c51162; font-weight: bold; }
-        .scholarship-card p { margin: 0 0 12px 0; color: #555; font-size: 0.85rem; }
-
         .btn-green { background: #28a745; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; text-decoration: none; display: inline-block; }
         .btn-blue { background: #007bff; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
         .btn-orange { background: #fd7e14; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
         .btn-purple { background: #6f42c1; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
-        
-        /* स्कॉलरशिप बटण नवीन गडद गुलाबी/लाल शेडमध्ये */
-        .btn-scholarship { background: linear-gradient(135deg, #ff1744, #d50000); color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; text-decoration: none; display: inline-block; box-shadow: 0 2px 4px rgba(213,0,0,0.3); }
-        .btn-scholarship:hover { background: linear-gradient(135deg, #d50000, #b71c1c); }
+        .btn-teal { background: #17a2b8; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; text-decoration: none; display: inline-block; }
+        .btn-pink { background: #e83e8c; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; text-decoration: none; display: inline-block; }
+        .btn-brown { background: #795548; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; text-decoration: none; display: inline-block; }
 
         .view-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
         .box-item { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
@@ -44,43 +37,43 @@
     <!-- १. मुख्य डॅशबोर्ड (सर्व ७ स्कॉलरशिप्स आणि शैक्षणिक बोर्ड्स) -->
     <div id="boards-main-view">
         
-        <!-- स्कॉलरशिप्सचे बॉक्सेस (नवीन रंग आणि डिझाईनसह) -->
-        <h2 class="section-title" style="margin-top: 10px; border-color: #ff1744;">🌟 प्रमुख स्कॉलरशिप आणि स्पर्धा परीक्षा (7 Major Scholarships)</h2>
+        <!-- स्कॉलरशिप्सचे बॉक्सेस (प्रत्येकाचा वेगळा रंग) -->
+        <h2 class="section-title" style="margin-top: 10px; border-color: #e83e8c;">🌟 प्रमुख स्कॉलरशिप आणि स्पर्धा परीक्षा (7 Major Scholarships)</h2>
         <div class="grid">
-            <div class="scholarship-card">
+            <div class="card" style="border-top: 4px solid #e83e8c;">
                 <h3>1. 5वी शिष्यवृत्ती परीक्षा</h3>
                 <p>पूर्व उच्च प्राथमिक शिष्यवृत्ती परीक्षा.</p>
-                <a href="scholarship-5th.html" class="btn-scholarship">अभ्यास करा</a>
+                <a href="scholarship-5th.html" class="btn-pink">अभ्यास करा</a>
             </div>
-            <div class="scholarship-card">
+            <div class="card" style="border-top: 4px solid #28a745;">
                 <h3>2. 8वी शिष्यवृत्ती परीक्षा</h3>
                 <p>पूर्व माध्यमिक शिष्यवृत्ती परीक्षा.</p>
-                <a href="scholarship-8th.html" class="btn-scholarship">अभ्यास करा</a>
+                <a href="scholarship-8th.html" class="btn-green">अभ्यास करा</a>
             </div>
-            <div class="scholarship-card">
+            <div class="card" style="border-top: 4px solid #007bff;">
                 <h3>3. NMMS परीक्षा</h3>
                 <p>नॅशनल मिन्स कम मेरिट स्कॉलरशिप (8वी).</p>
-                <a href="nmms.html" class="btn-scholarship">अभ्यास करा</a>
+                <a href="nmms.html" class="btn-blue">अभ्यास करा</a>
             </div>
-            <div class="scholarship-card">
+            <div class="card" style="border-top: 4px solid #fd7e14;">
                 <h3>4. सैनिक स्कुल परीक्षा (AISSEE)</h3>
                 <p>अखिल भारतीय सैनिक शाळा प्रवेश परीक्षा.</p>
-                <a href="sainik.html" class="btn-scholarship">अभ्यास करा</a>
+                <a href="sainik.html" class="btn-orange">अभ्यास करा</a>
             </div>
-            <div class="scholarship-card">
+            <div class="card" style="border-top: 4px solid #6f42c1;">
                 <h3>5. नवोदय विद्यालय परीक्षा (JNVST)</h3>
                 <p>इयत्ता 6वी आणि 9वी प्रवेश परीक्षा.</p>
-                <a href="navodaya.html" class="btn-scholarship">अभ्यास करा</a>
+                <a href="navodaya.html" class="btn-purple">अभ्यास करा</a>
             </div>
-            <div class="scholarship-card">
+            <div class="card" style="border-top: 4px solid #17a2b8;">
                 <h3>6. NTSE परीक्षा</h3>
                 <p>नॅशनल टॅलेंट सर्च परीक्षा (10वी).</p>
-                <a href="ntse.html" class="btn-scholarship">अभ्यास करा</a>
+                <a href="ntse.html" class="btn-teal">अभ्यास करा</a>
             </div>
-            <div class="scholarship-card">
+            <div class="card" style="border-top: 4px solid #795548;">
                 <h3>7. गणित प्रज्ञाशोध परीक्षा</h3>
                 <p>गणित आणि विज्ञान प्रज्ञाशोध स्पर्धा.</p>
-                <a href="maths-talent.html" class="btn-scholarship">अभ्यास करा</a>
+                <a href="maths-talent.html" class="btn-brown">अभ्यास करा</a>
             </div>
         </div>
 
@@ -163,7 +156,7 @@
             if (currentBoard === 'ICSE Board') {
                 subjects = ['English Literature', 'English Language', 'Mathematics', 'History & Civics', 'Geography', 'Science (Physics/Chem/Bio)', 'Computer Applications'];
             } else if (currentBoard === 'NCERT अभ्यासक्रम') {
-                subjects, ['NCERT Maths', 'NCERT Science', 'NCERT Social Science', 'English', 'Hindi', 'Sanskrit'];
+                subjects = ['NCERT Maths', 'NCERT Science', 'NCERT Social Science', 'English', 'Hindi', 'Sanskrit'];
             } else if (currentBoard === 'CBSE Board') {
                 subjects = ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Information Technology'];
             }
