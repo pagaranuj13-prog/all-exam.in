@@ -3,36 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Exam - सर्व बोर्ड, अभ्यासक्रम आणि स्कॉलरशिप मंच</title>
+    <title>All Exam - सर्व बोर्ड आणि स्कॉलरशिप मंच</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
-        .section-title { color: #333; margin-top: 30px; border-bottom: 2px solid #007bff; padding-bottom: 5px; }
+        .section-title { color: #333; margin-top: 30px; border-bottom: 2px solid #007bff; padding-bottom: 5px; font-size: 1.3rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 15px; }
-        .card { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-        .card h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #333; }
-        .card p { margin: 0 0 10px 0; color: #666; font-size: 0.85rem; }
         
-        .btn-green { background: #28a745; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
-        .btn-blue { background: #007bff; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
-        .btn-orange { background: #fd7e14; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
-        .btn-purple { background: #6f42c1; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
-        .btn-red { background: #e83e8c; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; text-decoration: none; display: inline-block;}
+        /* स्टायलिश कार्ड्स */
+        .card { background: #fff; padding: 18px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.08); text-align: center; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-3px); }
+        .card h3 { margin: 0 0 8px 0; font-size: 1.1rem; color: #333; }
+        .card p { margin: 0 0 12px 0; color: #666; font-size: 0.85rem; }
+        
+        /* बटण स्टाईल्स */
+        .btn-green { background: #28a745; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
+        .btn-blue { background: #007bff; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
+        .btn-orange { background: #fd7e14; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
+        .btn-purple { background: #6f42c1; color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
+        .btn-scholarship { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; border: none; padding: 7px 16px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; font-weight: bold; text-decoration: none; display: inline-block; box-shadow: 0 2px 4px rgba(255,65,108,0.3); }
 
         .view-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
-        .box-item { background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .box-item { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .box-item h4 { margin: 0 0 10px 0; color: #333; font-size: 1rem; }
         
-        .back-btn { background: #6c757d; color: white; padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; margin-bottom: 20px; font-size: 0.9rem; }
+        .back-btn { background: #6c757d; color: white; padding: 8px 16px; border-radius: 5px; border: none; cursor: pointer; margin-bottom: 20px; font-size: 0.9rem; font-weight: bold; }
         .back-btn:hover { background: #5a6268; }
 
-        footer { text-align: center; margin-top: 40px; padding: 10px; color: #777; }
+        footer { text-align: center; margin-top: 40px; padding: 15px; color: #777; border-top: 1px solid #ddd; }
     </style>
 </head>
 <body>
 
-    <!-- १. मुख्य डॅशबोर्ड (बोर्ड्स आणि स्कॉलरशिप्स एकत्र) -->
+    <!-- १. मुख्य डॅशबोर्ड (सर्व ७ स्कॉलरशिप्स आणि शैक्षणिक बोर्ड्स) -->
     <div id="boards-main-view">
-        <h2 class="section-title">शैक्षणिक बोर्ड्स (Educational Boards)</h2>
+        
+        <!-- सर्वात वर स्कॉलरशिप्सचे सुंदर बॉक्सेस -->
+        <h2 class="section-title" style="margin-top: 10px; border-color: #ff4b2b;">🌟 प्रमुख स्कॉलरशिप आणि स्पर्धा परीक्षा (7 Major Scholarships)</h2>
+        <div class="grid">
+            <div class="card" style="border-top: 4px solid #ff416c;">
+                <h3>1. 5वी शिष्यवृत्ती परीक्षा</h3>
+                <p>पूर्व उच्च प्राथमिक शिष्यवृत्ती परीक्षा.</p>
+                <a href="scholarship-5th.html" class="btn-scholarship">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #ff416c;">
+                <h3>2. 8वी शिष्यवृत्ती परीक्षा</h3>
+                <p>पूर्व माध्यमिक शिष्यवृत्ती परीक्षा.</p>
+                <a href="scholarship-8th.html" class="btn-scholarship">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #ff416c;">
+                <h3>3. NMMS परीक्षा</h3>
+                <p>नॅशनल मिन्स कम मेरिट स्कॉलरशिप (8वी).</p>
+                <a href="nmms.html" class="btn-scholarship">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #ff416c;">
+                <h3>4. सैनिक स्कुल परीक्षा (AISSEE)</h3>
+                <p>अखिल भारतीय सैनिक शाळा प्रवेश परीक्षा.</p>
+                <a href="sainik.html" class="btn-scholarship">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #ff416c;">
+                <h3>5. नवोदय विद्यालय परीक्षा (JNVST)</h3>
+                <p>इयत्ता 6वी आणि 9वी प्रवेश परीक्षा.</p>
+                <a href="navodaya.html" class="btn-scholarship">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #ff416c;">
+                <h3>6. NTSE परीक्षा</h3>
+                <p>नॅशनल टॅलेंट सर्च परीक्षा (10वी).</p>
+                <a href="ntse.html" class="btn-scholarship">अभ्यास करा</a>
+            </div>
+            <div class="card" style="border-top: 4px solid #ff416c;">
+                <h3>7. गणित प्रज्ञाशोध परीक्षा</h3>
+                <p>गणित आणि विज्ञान प्रज्ञाशोध स्पर्धा.</p>
+                <a href="maths-talent.html" class="btn-scholarship">अभ्यास करा</a>
+            </div>
+        </div>
+
+        <!-- त्यानंतर खाली शैक्षणिक बोर्ड्स -->
+        <h2 class="section-title">📚 शैक्षणिक बोर्ड्स (Educational Boards & Curriculum)</h2>
         <div class="grid">
             <div class="card" style="border-top: 4px solid #28a745;">
                 <h3>State Board</h3>
@@ -56,32 +102,9 @@
             </div>
         </div>
 
-        <h2 class="section-title">स्कॉलरशिप आणि स्पर्धा परीक्षा (Scholarships)</h2>
-        <div class="grid">
-            <div class="card" style="border-top: 4px solid #e83e8c;">
-                <h3>5वी शिष्यवृत्ती परीक्षा</h3>
-                <p>पूर्व उच्च प्राथमिक शिष्यवृत्ती परीक्षा (5th Std).</p>
-                <a href="scholarship-5th.html" class="btn-red">अभ्यास करा</a>
-            </div>
-            <div class="card" style="border-top: 4px solid #e83e8c;">
-                <h3>8वी शिष्यवृत्ती परीक्षा</h3>
-                <p>पूर्व माध्यमिक शिष्यवृत्ती परीक्षा (8th Std).</p>
-                <a href="scholarship-8th.html" class="btn-red">अभ्यास करा</a>
-            </div>
-            <div class="card" style="border-top: 4px solid #e83e8c;">
-                <h3>NMMS परीक्षा</h3>
-                <p>नॅशनल मिन्स कम मेरिट स्कॉलरशिप (8वी).</p>
-                <a href="nmms.html" class="btn-red">अभ्यास करा</a>
-            </div>
-            <div class="card" style="border-top: 4px solid #e83e8c;">
-                <h3>NTSE परीक्षा</h3>
-                <p>नॅशनल टॅलेंट सर्च परीक्षा (10वी).</p>
-                <a href="ntse.html" class="btn-red">अभ्यास करा</a>
-            </div>
-        </div>
     </div>
 
-    <!-- २. वर्ग निवडण्याचे पेज -->
+    <!-- २. वर्ग निवडण्याचे पेज (Class Selection View) -->
     <div id="classes-view" style="display: none;">
         <button class="back-btn" onclick="goBackToBoards()">← मागील पानावर जा</button>
         <h2 class="section-title" id="selected-board-title">वर्ग निवडा (Select Class)</h2>
@@ -95,18 +118,19 @@
         </div>
     </div>
 
-    <!-- ३. विषय दाखवण्याचे पेज (बोर्डनुसार अचूक विषय) -->
+    <!-- ३. विषय दाखवण्याचे पेज (Subjects View) -->
     <div id="subjects-view" style="display: none;">
         <button class="back-btn" onclick="goBackToClasses()">← वर्गांवर जा</button>
         <h2 class="section-title" id="selected-class-title">विषय निवडा (Select Subject)</h2>
         
         <div class="view-grid" id="subjects-container">
-            <!-- विषय इथे डायनॅमिकली लोड होतील -->
+            <!-- विषय डायनॅमिकली लोड होतील -->
         </div>
     </div>
 
     <footer><p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p></footer>
 
+    <!-- जावास्क्रिप्ट लॉजिक -->
     <script>
         let currentBoard = "";
         let currentClass = "";
