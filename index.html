@@ -153,8 +153,7 @@
             document.getElementById('selected-board-title').innerText = boardName + ' - वर्ग निवडा';
             window.scrollTo(0, 0);
         }
-
-        function showSubjects(classNum) {
+function showSubjects(classNum) {
             currentClass = "वर्ग " + classNum;
             document.getElementById('classes-view').style.display = 'none';
             document.getElementById('subjects-view').style.display = 'block';
@@ -165,12 +164,24 @@
 
             let subjects = [];
 
-            if (currentBoard === 'ICSE Board') {
-                subjects = ['English Literature', 'English Language', 'Mathematics', 'History & Civics', 'Geography', 'Science (Physics/Chem/Bio)', 'Computer Applications'];
-            } else if (currentBoard === 'NCERT अभ्यासक्रम') {
-                subjects = ['NCERT Maths', 'NCERT Science', 'NCERT Social Science', 'English', 'Hindi', 'Sanskrit'];
-            } else if (currentBoard === 'CBSE Board') {
-                subjects = ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Information Technology'];
+            // जर वर्ग 1 असेल तर लहान मुलांचे योग्य विषय दाखवा
+            if (classNum == 1) {
+                if (currentBoard === 'ICSE Board') {
+                    subjects = ['English', 'Mathematics', 'General Knowledge', 'Computer Basics', 'Environmental Studies (EVS)'];
+                } else if (currentBoard === 'NCERT अभ्यासक्रम' || currentBoard === 'CBSE Board') {
+                    subjects = ['English', 'Mathematics', 'Hindi', 'Environmental Studies (EVS)', 'General Knowledge'];
+                } else {
+                    subjects = ['मराठी', 'गणित (Mathematics)', 'इंग्रजी (English)', 'परिसर अभ्यास (EVS)', 'चित्रकला'];
+                }
+            } else {
+                // इतर वर्गांसाठी आधीप्रमाणे विषय
+                if (currentBoard === 'ICSE Board') {
+                    subjects = ['English Literature', 'English Language', 'Mathematics', 'History & Civics', 'Geography', 'Science (Physics/Chem/Bio)', 'Computer Applications'];
+                } else if (currentBoard === 'NCERT अभ्यासक्रम') {
+                    subjects = ['NCERT Maths', 'NCERT Science', 'NCERT Social Science', 'English', 'Hindi', 'Sanskrit'];
+                } else if (currentBoard === 'CBSE Board') {
+                    subjects = ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Information Technology'];
+                }
             }
 
             subjects.forEach(sub => {
