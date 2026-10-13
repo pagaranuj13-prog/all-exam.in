@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>वर्ग माहिती - All Exam</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; line-height: 1.6; }
+        nav { background-color: #00264d; color: white; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 2rem; flex-wrap: wrap; }
+        .logo { font-size: 1.5rem; font-weight: bold; }
+        .nav-links { list-style: none; display: flex; gap: 1.2rem; flex-wrap: wrap; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: #ff9900; }
+        header { background: linear-gradient(135deg, #0066cc, #00264d); color: white; padding: 2.5rem 1rem; text-align: center; }
+        header h1 { font-size: 2.3rem; margin-bottom: 0.5rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        h2.section-title { margin: 2rem 0 1rem 0; color: #00264d; font-size: 1.6rem; border-bottom: 2px solid #0066cc; padding-bottom: 0.5rem; }
+        .back { display: inline-block; margin-top: 1.5rem; color: #0066cc; text-decoration: none; font-weight: bold; }
+        footer { text-align: center; padding: 1.5rem; background: #222; color: white; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">All Exam</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#boards">Boards</a></li>
+            <li><a href="index.html#scholarship">Scholarships</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1 id="page-heading">वर्ग माहिती</h1>
+        <p>तुमचा बोर्ड आणि वर्ग</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title" id="class-title"></h2>
+        <p>येथे या वर्गाचे विषय / परीक्षा दाखवा.</p>
+        <a href="index.html#boards" class="back">&larr; मागे जा</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p>
+    </footer>
+
+    <script>
+        const params = new URLSearchParams(location.search);
+        const board = params.get('board') || '';
+        const cls = params.get('class') || '';
+        const text = board + ' - वर्ग ' + cls;
+        document.getElementById('page-heading').textContent = text;
+        document.getElementById('class-title').textContent = text;
+        document.title = text + ' - All Exam';
+    </script>
+</body>
+</html>
