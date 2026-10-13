@@ -11,773 +11,255 @@
         .card { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
         .card h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #007bff; }
         .card p { margin: 0 0 10px 0; color: #666; font-size: 0.9rem; }
-        .btn { background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
+        .btn { background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; text-decoration: none; display: inline-block; }
         .btn:hover { background: #0056b3; }
+
+        /* मुख्य पानासारखे वर्ग निवडण्यासाठी मोठे बॉक्सेस (Grid) */
+        .class-view-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        .class-box { background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .class-box h4 { margin: 0 0 10px 0; color: #333; font-size: 1rem; }
         
-        /* १ ते १२ वी वर्गांचे बॉक्स डिझाईन */
-        .class-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 12px; }
-        .class-item { background: #e9ecef; color: #333; padding: 6px 2px; border-radius: 4px; text-decoration: none; font-size: 0.8rem; font-weight: bold; text-align: center; transition: 0.2s; }
-        .class-item:hover { background: #007bff; color: white; }
+        .back-btn { background: #6c757d; color: white; padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; margin-bottom: 20px; font-size: 0.9rem; }
+        .back-btn:hover { background: #5a6268; }
 
         footer { text-align: center; margin-top: 40px; padding: 10px; color: #777; }
     </style>
 </head>
 <body>
 
-    <h2 class="section-title">राज्यांची बोर्ड्स (State Boards)</h2>
-    <div class="grid">
-        
-        <!-- महाराष्ट्र बोर्ड -->
-        <div class="card">
-            <h3>महाराष्ट्र बोर्ड</h3>
-            <p>MSBSHSE</p>
-            <button class="btn" onclick="toggleClasses('maha-classes')">वर्ग निवडा</button>
-            <div id="maha-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
+    <!-- मुख्य बोर्ड्स लिस्ट पेज -->
+    <div id="boards-main-view">
+        <h2 class="section-title">राज्यांची बोर्ड्स (State Boards)</h2>
+        <div class="grid" id="boards-grid">
+            <!-- महाराष्ट्र बोर्ड -->
+            <div class="card">
+                <h3>महाराष्ट्र बोर्ड</h3>
+                <p>MSBSHSE</p>
+                <button class="btn" onclick="showClasses('महाराष्ट्र बोर्ड - MSBSHSE')">वर्ग निवडा</button>
+            </div>
+            <!-- बिहार बोर्ड -->
+            <div class="card">
+                <h3>बिहार बोर्ड</h3>
+                <p>BSEB</p>
+                <button class="btn" onclick="showClasses('बिहार बोर्ड - BSEB')">वर्ग निवडा</button>
+            </div>
+            <!-- उत्तर प्रदेश बोर्ड -->
+            <div class="card">
+                <h3>उत्तर प्रदेश बोर्ड</h3>
+                <p>UPMSP</p>
+                <button class="btn" onclick="showClasses('उत्तर प्रदेश बोर्ड - UPMSP')">वर्ग निवडा</button>
+            </div>
+            <!-- मध्य प्रदेश बोर्ड -->
+            <div class="card">
+                <h3>मध्य प्रदेश बोर्ड</h3>
+                <p>MPBSE</p>
+                <button class="btn" onclick="showClasses('मध्य प्रदेश बोर्ड - MPBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- राजस्थान बोर्ड -->
+            <div class="card">
+                <h3>राजस्थान बोर्ड</h3>
+                <p>RBSE</p>
+                <button class="btn" onclick="showClasses('राजस्थान बोर्ड - RBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- गुजरात बोर्ड -->
+            <div class="card">
+                <h3>गुजरात बोर्ड</h3>
+                <p>GSEB</p>
+                <button class="btn" onclick="showClasses('गुजरात बोर्ड - GSEB')">वर्ग निवडा</button>
+            </div>
+            <!-- कर्नाटक बोर्ड -->
+            <div class="card">
+                <h3>कर्नाटक बोर्ड</h3>
+                <p>KSEEB</p>
+                <button class="btn" onclick="showClasses('कर्नाटक बोर्ड - KSEEB')">वर्ग निवडा</button>
+            </div>
+            <!-- तामिळनाडू बोर्ड -->
+            <div class="card">
+                <h3>तामिळनाडू बोर्ड</h3>
+                <p>TNBSE</p>
+                <button class="btn" onclick="showClasses('तामिळनाडू बोर्ड - TNBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- आंध्र प्रदेश बोर्ड -->
+            <div class="card">
+                <h3>आंध्र प्रदेश बोर्ड</h3>
+                <p>BSEAP</p>
+                <button class="btn" onclick="showClasses('आंध्र प्रदेश बोर्ड - BSEAP')">वर्ग निवडा</button>
+            </div>
+            <!-- तेलंगणा बोर्ड -->
+            <div class="card">
+                <h3>तेलंगणा बोर्ड</h3>
+                <p>TSBIE</p>
+                <button class="btn" onclick="showClasses('तेलंगणा बोर्ड - TSBIE')">वर्ग निवडा</button>
+            </div>
+            <!-- पश्चिम बंगाल बोर्ड -->
+            <div class="card">
+                <h3>पश्चिम बंगाल बोर्ड</h3>
+                <p>WBBSE</p>
+                <button class="btn" onclick="showClasses('पश्चिम बंगाल बोर्ड - WBBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- केरळ बोर्ड -->
+            <div class="card">
+                <h3>केरळ बोर्ड</h3>
+                <p>KBPE</p>
+                <button class="btn" onclick="showClasses('केरळ बोर्ड - KBPE')">वर्ग निवडा</button>
+            </div>
+            <!-- पंजाब बोर्ड -->
+            <div class="card">
+                <h3>पंजाब बोर्ड</h3>
+                <p>PSEB</p>
+                <button class="btn" onclick="showClasses('पंजाब बोर्ड - PSEB')">वर्ग निवडा</button>
+            </div>
+            <!-- हरियाणा बोर्ड -->
+            <div class="card">
+                <h3>हरियाणा बोर्ड</h3>
+                <p>BSEH</p>
+                <button class="btn" onclick="showClasses('हरियाणा बोर्ड - BSEH')">वर्ग निवडा</button>
+            </div>
+            <!-- ओडिशा बोर्ड -->
+            <div class="card">
+                <h3>ओडिशा बोर्ड</h3>
+                <p>BSE Odisha</p>
+                <button class="btn" onclick="showClasses('ओडिशा बोर्ड - BSE Odisha')">वर्ग निवडा</button>
+            </div>
+            <!-- झारखंड बोर्ड -->
+            <div class="card">
+                <h3>झारखंड बोर्ड</h3>
+                <p>JAC</p>
+                <button class="btn" onclick="showClasses('झारखंड बोर्ड - JAC')">वर्ग निवडा</button>
+            </div>
+            <!-- छत्तीसगड बोर्ड -->
+            <div class="card">
+                <h3>छत्तीसगड बोर्ड</h3>
+                <p>CGBSE</p>
+                <button class="btn" onclick="showClasses('छत्तीसगड बोर्ड - CGBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- उत्तराखंड बोर्ड -->
+            <div class="card">
+                <h3>उत्तराखंड बोर्ड</h3>
+                <p>UBSE</p>
+                <button class="btn" onclick="showClasses('उत्तराखंड बोर्ड - UBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- हिमाचल प्रदेश बोर्ड -->
+            <div class="card">
+                <h3>हिमाचल प्रदेश बोर्ड</h3>
+                <p>HPBOSE</p>
+                <button class="btn" onclick="showClasses('हिमाचल प्रदेश बोर्ड - HPBOSE')">वर्ग निवडा</button>
+            </div>
+            <!-- आसाम बोर्ड -->
+            <div class="card">
+                <h3>आसाम बोर्ड</h3>
+                <p>SEBA</p>
+                <button class="btn" onclick="showClasses('आसाम बोर्ड - SEBA')">वर्ग निवडा</button>
+            </div>
+            <!-- गोवा बोर्ड -->
+            <div class="card">
+                <h3>गोवा बोर्ड</h3>
+                <p>GBSHSE</p>
+                <button class="btn" onclick="showClasses('गोवा बोर्ड - GBSHSE')">वर्ग निवडा</button>
+            </div>
+            <!-- त्रिपुरा बोर्ड -->
+            <div class="card">
+                <h3>त्रिपुरा बोर्ड</h3>
+                <p>TBSE</p>
+                <button class="btn" onclick="showClasses('त्रिपुरा बोर्ड - TBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- मणिपूर बोर्ड -->
+            <div class="card">
+                <h3>मणिपूर बोर्ड</h3>
+                <p>BSEM</p>
+                <button class="btn" onclick="showClasses('मणिपूर बोर्ड - BSEM')">वर्ग निवडा</button>
+            </div>
+            <!-- मेघालय बोर्ड -->
+            <div class="card">
+                <h3>मेघालय बोर्ड</h3>
+                <p>MBOSE</p>
+                <button class="btn" onclick="showClasses('मेघालय बोर्ड - MBOSE')">वर्ग निवडा</button>
+            </div>
+            <!-- नागालँड बोर्ड -->
+            <div class="card">
+                <h3>नागालँड बोर्ड</h3>
+                <p>NBSE</p>
+                <button class="btn" onclick="showClasses('नागालँड बोर्ड - NBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- मिझोरम बोर्ड -->
+            <div class="card">
+                <h3>मिझोरम बोर्ड</h3>
+                <p>MBSE</p>
+                <button class="btn" onclick="showClasses('मिझोरम बोर्ड - MBSE')">वर्ग निवडा</button>
+            </div>
+            <!-- सिक्कीम बोर्ड -->
+            <div class="card">
+                <h3>सिक्कीम बोर्ड</h3>
+                <p>Sikkim Board</p>
+                <button class="btn" onclick="showClasses('सिक्कीम बोर्ड - Sikkim Board')">वर्ग निवडा</button>
+            </div>
+            <!-- अरुणाचल प्रदेश बोर्ड -->
+            <div class="card">
+                <h3>अरुणाचल प्रदेश बोर्ड</h3>
+                <p>AP State Board</p>
+                <button class="btn" onclick="showClasses('अरुणाचल प्रदेश बोर्ड - AP State Board')">वर्ग निवडा</button>
             </div>
         </div>
 
-        <!-- बिहार बोर्ड -->
-        <div class="card">
-            <h3>बिहार बोर्ड</h3>
-            <p>BSEB</p>
-            <button class="btn" onclick="toggleClasses('bihar-classes')">वर्ग निवडा</button>
-            <div id="bihar-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
+        <h2 class="section-title">केंद्रशासित प्रदेश शिक्षण मंडळे (UT Boards)</h2>
+        <div class="grid">
+            <!-- जम्मू आणि काश्मीर बोर्ड -->
+            <div class="card">
+                <h3>जम्मू आणि काश्मीर बोर्ड</h3>
+                <p>JKBOSE</p>
+                <button class="btn" onclick="showClasses('जम्मू आणि काश्मीर बोर्ड - JKBOSE')">वर्ग निवडा</button>
             </div>
-        </div>
-
-        <!-- उत्तर प्रदेश बोर्ड -->
-        <div class="card">
-            <h3>उत्तर प्रदेश बोर्ड</h3>
-            <p>UPMSP</p>
-            <button class="btn" onclick="toggleClasses('up-classes')">वर्ग निवडा</button>
-            <div id="up-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
+            <!-- दिल्ली बोर्ड -->
+            <div class="card">
+                <h3>दिल्ली बोर्ड</h3>
+                <p>DBSE</p>
+                <button class="btn" onclick="showClasses('दिल्ली बोर्ड - DBSE')">वर्ग निवडा</button>
             </div>
-        </div>
-
-        <!-- मध्य प्रदेश बोर्ड -->
-        <div class="card">
-            <h3>मध्य प्रदेश बोर्ड</h3>
-            <p>MPBSE</p>
-            <button class="btn" onclick="toggleClasses('mp-classes')">वर्ग निवडा</button>
-            <div id="mp-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- राजस्थान बोर्ड -->
-        <div class="card">
-            <h3>राजस्थान बोर्ड</h3>
-            <p>RBSE</p>
-            <button class="btn" onclick="toggleClasses('rj-classes')">वर्ग निवडा</button>
-            <div id="rj-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- गुजरात बोर्ड -->
-        <div class="card">
-            <h3>गुजरात बोर्ड</h3>
-            <p>GSEB</p>
-            <button class="btn" onclick="toggleClasses('gj-classes')">वर्ग निवडा</button>
-            <div id="gj-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- कर्नाटक बोर्ड -->
-        <div class="card">
-            <h3>कर्नाटक बोर्ड</h3>
-            <p>KSEEB</p>
-            <button class="btn" onclick="toggleClasses('ka-classes')">वर्ग निवडा</button>
-            <div id="ka-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- तामिळनाडू बोर्ड -->
-        <div class="card">
-            <h3>तामिळनाडू बोर्ड</h3>
-            <p>TNBSE</p>
-            <button class="btn" onclick="toggleClasses('tn-classes')">वर्ग निवडा</button>
-            <div id="tn-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- आंध्र प्रदेश बोर्ड -->
-        <div class="card">
-            <h3>आंध्र प्रदेश बोर्ड</h3>
-            <p>BSEAP</p>
-            <button class="btn" onclick="toggleClasses('ap-classes')">वर्ग निवडा</button>
-            <div id="ap-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- तेलंगणा बोर्ड -->
-        <div class="card">
-            <h3>तेलंगणा बोर्ड</h3>
-            <p>TSBIE</p>
-            <button class="btn" onclick="toggleClasses('ts-classes')">वर्ग निवडा</button>
-            <div id="ts-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- पश्चिम बंगाल बोर्ड -->
-        <div class="card">
-            <h3>पश्चिम बंगाल बोर्ड</h3>
-            <p>WBBSE</p>
-            <button class="btn" onclick="toggleClasses('wb-classes')">वर्ग निवडा</button>
-            <div id="wb-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- केरळ बोर्ड -->
-        <div class="card">
-            <h3>केरळ बोर्ड</h3>
-            <p>KBPE</p>
-            <button class="btn" onclick="toggleClasses('kl-classes')">वर्ग निवडा</button>
-            <div id="kl-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- पंजाब बोर्ड -->
-        <div class="card">
-            <h3>पंजाब बोर्ड</h3>
-            <p>PSEB</p>
-            <button class="btn" onclick="toggleClasses('pb-classes')">वर्ग निवडा</button>
-            <div id="pb-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- हरियाणा बोर्ड -->
-        <div class="card">
-            <h3>हरियाणा बोर्ड</h3>
-            <p>BSEH</p>
-            <button class="btn" onclick="toggleClasses('hr-classes')">वर्ग निवडा</button>
-            <div id="hr-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- ओडिशा बोर्ड -->
-        <div class="card">
-            <h3>ओडिशा बोर्ड</h3>
-            <p>BSE Odisha</p>
-            <button class="btn" onclick="toggleClasses('od-classes')">वर्ग निवडा</button>
-            <div id="od-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- झारखंड बोर्ड -->
-        <div class="card">
-            <h3>झारखंड बोर्ड</h3>
-            <p>JAC</p>
-            <button class="btn" onclick="toggleClasses('jh-classes')">वर्ग निवडा</button>
-            <div id="jh-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- छत्तीसगड बोर्ड -->
-        <div class="card">
-            <h3>छत्तीसगड बोर्ड</h3>
-            <p>CGBSE</p>
-            <button class="btn" onclick="toggleClasses('cg-classes')">वर्ग निवडा</button>
-            <div id="cg-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- उत्तराखंड बोर्ड -->
-        <div class="card">
-            <h3>उत्तराखंड बोर्ड</h3>
-            <p>UBSE</p>
-            <button class="btn" onclick="toggleClasses('uk-classes')">वर्ग निवडा</button>
-            <div id="uk-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- हिमाचल प्रदेश बोर्ड -->
-        <div class="card">
-            <h3>हिमाचल प्रदेश बोर्ड</h3>
-            <p>HPBOSE</p>
-            <button class="btn" onclick="toggleClasses('hp-classes')">वर्ग निवडा</button>
-            <div id="hp-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- आसाम बोर्ड -->
-        <div class="card">
-            <h3>आसाम बोर्ड</h3>
-            <p>SEBA</p>
-            <button class="btn" onclick="toggleClasses('as-classes')">वर्ग निवडा</button>
-            <div id="as-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- बिहार (संस्कृत/मदरसा) / इतर -->
-        <div class="card">
-            <h3>बिहार (संस्कृत/मदरसा) / इतर</h3>
-            <p>विविध मंडळे</p>
-            <button class="btn" onclick="toggleClasses('bihar-other-classes')">वर्ग निवडा</button>
-            <div id="bihar-other-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- गोवा बोर्ड -->
-        <div class="card">
-            <h3>गोवा बोर्ड</h3>
-            <p>GBSHSE</p>
-            <button class="btn" onclick="toggleClasses('ga-classes')">वर्ग निवडा</button>
-            <div id="ga-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- त्रिपुरा बोर्ड -->
-        <div class="card">
-            <h3>त्रिपुरा बोर्ड</h3>
-            <p>TBSE</p>
-            <button class="btn" onclick="toggleClasses('tr-classes')">वर्ग निवडा</button>
-            <div id="tr-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- मणिपूर बोर्ड -->
-        <div class="card">
-            <h3>मणिपूर बोर्ड</h3>
-            <p>BSEM</p>
-            <button class="btn" onclick="toggleClasses('mn-classes')">वर्ग निवडा</button>
-            <div id="mn-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- मेघालय बोर्ड -->
-        <div class="card">
-            <h3>मेघालय बोर्ड</h3>
-            <p>MBOSE</p>
-            <button class="btn" onclick="toggleClasses('ml-classes')">वर्ग निवडा</button>
-            <div id="ml-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- नागालँड बोर्ड -->
-        <div class="card">
-            <h3>नागालँड बोर्ड</h3>
-            <p>NBSE</p>
-            <button class="btn" onclick="toggleClasses('nl-classes')">वर्ग निवडा</button>
-            <div id="nl-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- मिझोरम बोर्ड -->
-        <div class="card">
-            <h3>मिझोरम बोर्ड</h3>
-            <p>MBSE</p>
-            <button class="btn" onclick="toggleClasses('mz-classes')">वर्ग निवडा</button>
-            <div id="mz-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- सिक्कीम बोर्ड -->
-        <div class="card">
-            <h3>सिक्कीम बोर्ड</h3>
-            <p>Sikkim Board</p>
-            <button class="btn" onclick="toggleClasses('sk-classes')">वर्ग निवडा</button>
-            <div id="sk-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- अरुणाचल प्रदेश बोर्ड -->
-        <div class="card">
-            <h3>अरुणाचल प्रदेश बोर्ड</h3>
-            <p>AP State Board</p>
-            <button class="btn" onclick="toggleClasses('ar-classes')">वर्ग निवडा</button>
-            <div id="ar-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
+            <!-- पुद्दुचेरी / इतर केंद्रशासित प्रदेश -->
+            <div class="card">
+                <h3>पुद्दुचेरी / इतर केंद्रशासित प्रदेश</h3>
+                <p>UT Board</p>
+                <button class="btn" onclick="showClasses('पुद्दुचेरी / इतर केंद्रशासित प्रदेश - UT Board')">वर्ग निवडा</button>
             </div>
         </div>
     </div>
 
-    <h2 class="section-title">केंद्रशासित प्रदेश शिक्षण मंडळे (UT Boards)</h2>
-    <div class="grid">
-        <!-- जम्मू आणि काश्मीर बोर्ड -->
-        <div class="card">
-            <h3>जम्मू आणि काश्मीर बोर्ड</h3>
-            <p>JKBOSE</p>
-            <button class="btn" onclick="toggleClasses('jk-classes')">वर्ग निवडा</button>
-            <div id="jk-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- दिल्ली बोर्ड -->
-        <div class="card">
-            <h3>दिल्ली बोर्ड</h3>
-            <p>DBSE</p>
-            <button class="btn" onclick="toggleClasses('dl-classes')">वर्ग निवडा</button>
-            <div id="dl-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- पुद्दुचेरी / इतर केंद्रशासित प्रदेश -->
-        <div class="card">
-            <h3>पुद्दुचेरी / इतर केंद्रशासित प्रदेश</h3>
-            <p>UT Board</p>
-            <button class="btn" onclick="toggleClasses('ut-classes')">वर्ग निवडा</button>
-            <div id="ut-classes" style="display: none;">
-                <div class="class-grid">
-                    <a href="class.html?class=1" class="class-item">१ ली</a>
-                    <a href="class.html?class=2" class="class-item">२ री</a>
-                    <a href="class.html?class=3" class="class-item">३ री</a>
-                    <a href="class.html?class=4" class="class-item">४ थी</a>
-                    <a href="class.html?class=5" class="class-item">५ वी</a>
-                    <a href="class.html?class=6" class="class-item">६ वी</a>
-                    <a href="class.html?class=7" class="class-item">७ वी</a>
-                    <a href="class.html?class=8" class="class-item">८ वी</a>
-                    <a href="class.html?class=9" class="class-item">९ वी</a>
-                    <a href="class.html?class=10" class="class-item">१० वी</a>
-                    <a href="class.html?class=11" class="class-item">११ वी</a>
-                    <a href="class.html?class=12" class="class-item">१२ वी</a>
-                </div>
-            </div>
+    <!-- वर्ग निवडण्याचे पेज (सुरुवातीला लपलेले असेल) -->
+    <div id="classes-view" style="display: none;">
+        <button class="back-btn" onclick="goBackToBoards()">← मागील पाнаवर जा</button>
+        <h2 class="section-title" id="selected-board-title">बोर्ड - वर्ग निवडा (Select Class)</h2>
+        
+        <div class="class-view-grid">
+            <div class="class-box"><h4>वर्ग 1</h4><a href="class.html?class=1" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 2</h4><a href="class.html?class=2" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 3</h4><a href="class.html?class=3" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 4</h4><a href="class.html?class=4" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 5</h4><a href="class.html?class=5" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 6</h4><a href="class.html?class=6" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 7</h4><a href="class.html?class=7" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 8</h4><a href="class.html?class=8" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 9</h4><a href="class.html?class=9" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 10</h4><a href="class.html?class=10" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 11</h4><a href="class.html?class=11" class="btn">निवडा</a></div>
+            <div class="class-box"><h4>वर्ग 12</h4><a href="class.html?class=12" class="btn">निवडा</a></div>
         </div>
     </div>
 
     <footer><p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p></footer>
 
-    <!-- जावास्क्रिप्ट फंक्शन -->
+    <!-- जावास्क्रिप्ट -->
     <script>
-        function toggleClasses(id) {
-            var element = document.getElementById(id);
-            if (element.style.display === "none") {
-                element.style.display = "block";
-            } else {
-                element.style.display = "none";
-            }
+        function showClasses(boardName) {
+            document.getElementById('boards-main-view').style.display = 'none';
+            document.getElementById('classes-view').style.display = 'block';
+            document.getElementById('selected-board-title').innerText = boardName + ' - वर्ग निवडा (Select Class)';
+            window.scrollTo(0, 0);
+        }
+
+        function goBackToBoards() {
+            document.getElementById('classes-view').style.display = 'none';
+            document.getElementById('boards-main-view').style.display = 'block';
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
