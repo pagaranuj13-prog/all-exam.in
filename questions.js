@@ -1,6 +1,6 @@
 // प्रश्न जोडण्याचा फॉरमॅट: {t:"Topic", q:"English question", qm:"मराठी प्रश्न", o:[4 English options], om:[4 मराठी options], a:correctIndex(0-3), e:"English explanation"}
 const TESTS = {
-1: {name:"onclick="location.href='quiz.html?test=1'" (easy)", qs:[
+1: {name:"टेस्ट १ (easy)", qs:[
 {t:"Chapter",q:"Who wrote 'A Bottle of Dew'?",qm:"'A Bottle of Dew' कोणी लिहिले?",o:["Sudha Murty","R. K. Narayan","Ruskin Bond","A. P. J. Abdul Kalam"],om:["सुधा मूर्ती","आर. के. नारायण","रस्किन बाँड","ए. पी. जे. अब्दुल कलाम"],a:0,e:"Sudha Murty is the author of this story."},
 {t:"Chapter",q:"Rama Natha wanted a potion that could turn things into ____.",qm:"रामा नाथाला असे औषध हवे होते जे वस्तूंचे ____ मध्ये रूपांतर करेल.",o:["gold","water","stone","paper"],om:["सोने","पाणी","दगड","कागद"],a:0,e:"He hoped the magic potion would turn objects into gold."},
 {t:"Chapter",q:"From which plants did he collect dew?",qm:"त्याने कोणत्या झाडांवरून दव गोळा केले?",o:["Mango trees","Banana plants","Neem trees","Rose plants"],om:["आंब्याची झाडे","केळीची झाडे","कडुनिंबाची झाडे","गुलाबाची झाडे"],a:1,e:"The sage told him to plant banana trees and collect dew from their leaves."},
@@ -17,7 +17,7 @@ const TESTS = {
 {t:"One word",q:"One word for 'a person who writes books':",qm:"'पुस्तके लिहिणारी व्यक्ती' यासाठी एक शब्द:",o:["doctor","author","farmer","sage"],om:["डॉक्टर","लेखक","शेतकरी","ऋषी"],a:1,e:"A person who writes books is an author."},
 {t:"Verb",q:"Find the verb: 'Rama Natha collected the dew.'",qm:"क्रियापद ओळखा: 'Rama Natha collected the dew.'",o:["Rama","Natha","collected","dew"],om:["रामा","नाथा","गोळा केले","दव"],a:2,e:"A verb shows an action. 'Collected' is the action word."}
 ]},
-2: {name:"onclick="location.href='quiz.html?test=2'" (medium)", qs:[
+2: {name:"टेस्ट २ (medium)", qs:[
 {t:"Chapter",q:"Why did the sage ask Rama Natha to plant banana trees and collect dew?",qm:"ऋषींनी रामा नाथाला केळीची झाडे लावून दव गोळा करायला का सांगितले?",o:["To teach him the value of hard work","To make him poor","To get free bananas","To test his wife"],om:["कष्टाचे महत्त्व शिकवण्यासाठी","त्याला गरीब करण्यासाठी","फुकट केळी मिळवण्यासाठी","त्याच्या पत्नीची परीक्षा घेण्यासाठी"],a:0,e:"The dew was a way to make him work; the real lesson was that effort creates wealth."},
 {t:"Chapter",q:"When did he collect dew from the leaves?",qm:"त्याने पानांवरून दव केव्हा गोळा केले?",o:["In summer","During the winter months","In the rainy season","At noon"],om:["उन्हाळ्यात","हिवाळ्याच्या महिन्यांत","पावसाळ्यात","दुपारी"],a:1,e:"Dew forms on leaves in cool conditions, and he collected it during the winter months."},
 {t:"Chapter",q:"Who supported Rama Natha in looking after the plantation?",qm:"मळ्याची देखभाल करण्यात रामा नाथाला कोणी साथ दिली?",o:["His wife","His brother","The sage","His teacher"],om:["त्याची पत्नी","त्याचा भाऊ","ऋषी","त्याचे शिक्षक"],a:0,e:"His wife supported him in nurturing the banana plantation."},
@@ -27,7 +27,7 @@ const TESTS = {
 {t:"One word",q:"A place where banana trees are grown in large numbers:",qm:"जिथे केळीची झाडे मोठ्या संख्येने वाढवली जातात ते ठिकाण:",o:["plantation","factory","market","museum"],om:["मळा","कारखाना","बाजार","संग्रहालय"],a:0,e:"A plantation is a large farm where crops such as bananas are grown."},
 {t:"Conjunction",q:"He expected magic ___ he got a lesson instead.",qm:"त्याला जादूची अपेक्षा होती ___ त्याऐवजी त्याला धडा मिळाला.",o:["but","because","until","or"],om:["पण","कारण","जोपर्यंत","किंवा"],a:0,e:"'But' joins two contrasting ideas: magic expected, lesson received."}
 ]},
-3: {name:"onclick="location.href='quiz.html?test=3'" (difficult)", qs:[
+3: {name:"टेस्ट ३ (difficult)", qs:[
 {t:"Chapter",q:"Why is the title 'A Bottle of Dew' symbolic?",qm:"'A Bottle of Dew' हे शीर्षक प्रतीकात्मक का आहे?",o:["Dew stands for slow, patient effort","Dew is a costly liquid","Dew means magic","Dew is only drinking water"],om:["दव हे हळू, संयमी प्रयत्नांचे प्रतीक आहे","दव हा महागडा द्रव आहे","दव म्हणजे जादू","दव फक्त पिण्याचे पाणी आहे"],a:0,e:"Dew is slow to collect but valuable, like steady hard work."},
 {t:"Chapter",q:"What did Rama Natha expect after giving the dew to the sage?",qm:"ऋषींना दव दिल्यानंतर रामा नाथाला काय अपेक्षित होते?",o:["That it would become a magic potion","A big feast","That the sage would be angry","A new bottle"],om:["ते जादूचे औषध बनेल","मोठी मेजवानी","ऋषी रागावतील","नवी बाटली"],a:0,e:"He expected the dew to become a potion that turns objects into gold."},
 {t:"Adverb",q:"He worked ___ for six years.",qm:"त्याने सहा वर्षे ___ काम केले.",o:["hard","hardly","harder","hardest"],om:["कठोर/जोमाने","क्वचितच","अधिक कठोर","सर्वाधिक कठोर"],a:0,e:"'Hard' means with great effort. 'Hardly' means almost not at all."},
