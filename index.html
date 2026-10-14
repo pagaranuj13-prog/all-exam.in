@@ -153,7 +153,8 @@
             document.getElementById('selected-board-title').innerText = boardName + ' - वर्ग निवडा';
             window.scrollTo(0, 0);
         }
-function showSubjects(classNum) {
+
+        function showSubjects(classNum) {
             currentClass = "वर्ग " + classNum;
             document.getElementById('classes-view').style.display = 'none';
             document.getElementById('subjects-view').style.display = 'block';
@@ -164,7 +165,7 @@ function showSubjects(classNum) {
 
             let subjects = [];
 
-            // जर वर्ग 1 असेल तर लहान मुलांचे योग्य विषय दाखवा
+            // वर्ग १ साठी विषय
             if (classNum == 1) {
                 if (currentBoard === 'ICSE Board') {
                     subjects = ['English', 'Mathematics', 'General Knowledge', 'Computer Basics', 'Environmental Studies (EVS)'];
@@ -173,14 +174,59 @@ function showSubjects(classNum) {
                 } else {
                     subjects = ['मराठी', 'गणित (Mathematics)', 'इंग्रजी (English)', 'परिसर अभ्यास (EVS)', 'चित्रकला'];
                 }
-            } else {
-                // इतर वर्गांसाठी आधीप्रमाणे विषय
+            } 
+            // वर्ग २ ते ५ साठी प्राथमिक स्तर विषय
+            else if (classNum >= 2 && classNum <= 5) {
                 if (currentBoard === 'ICSE Board') {
-                    subjects = ['English Literature', 'English Language', 'Mathematics', 'History & Civics', 'Geography', 'Science (Physics/Chem/Bio)', 'Computer Applications'];
+                    subjects = ['English', 'Mathematics', 'Science', 'Social Studies', 'Computer Studies', 'General Knowledge', 'Second Language'];
+                } else if (currentBoard === 'NCERT अभ्यासक्रम' || currentBoard === 'CBSE Board') {
+                    subjects = ['Mathematics', 'EVS / Science', 'English', 'Hindi', 'General Knowledge'];
+                } else {
+                    subjects = ['मराठी', 'गणित', 'इंग्रजी', 'परिसर अभ्यास (भाग १ व २)', 'हिंदी', 'कला व कार्यानुभव'];
+                }
+            } 
+            // वर्ग ६ ते ८ साठी उच्च प्राथमिक स्तर विषय
+            else if (classNum >= 6 && classNum <= 8) {
+                if (currentBoard === 'ICSE Board') {
+                    subjects = ['English Literature', 'English Language', 'Mathematics', 'Physics', 'Chemistry', 'Biology', 'History & Civics', 'Geography', 'Computer Applications', 'Second Language'];
                 } else if (currentBoard === 'NCERT अभ्यासक्रम') {
                     subjects = ['NCERT Maths', 'NCERT Science', 'NCERT Social Science', 'English', 'Hindi', 'Sanskrit'];
                 } else if (currentBoard === 'CBSE Board') {
-                    subjects = ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Information Technology'];
+                    subjects = ['Mathematics', 'Science', 'Social Science', 'English', 'Hindi', 'Information Technology', 'Sanskrit'];
+                } else {
+                    subjects = ['मराठी', 'गणित', 'विज्ञान व तंत्रज्ञान', 'इतिहास व नागरिकशास्त्र', 'भूगोल', 'इंग्रजी', 'हिंदी', 'संस्कृत'];
+                }
+            } 
+            // वर्ग ९ आणि १० साठी माध्यमिक स्तर (Secondary) विषय
+            else if (classNum >= 9 && classNum <= 10) {
+                if (currentBoard === 'ICSE Board') {
+                    subjects = ['English Literature', 'English Language', 'Mathematics', 'Physics', 'Chemistry', 'Biology', 'History, Civics & Geography', 'Computer Applications / Economics', 'Second Language'];
+                } else if (currentBoard === 'NCERT अभ्यासक्रम' || currentBoard === 'CBSE Board') {
+                    subjects = ['Mathematics', 'Science (Physics, Chem, Bio)', 'Social Science (History, Geo, Pol.Sci, Eco)', 'English Language & Literature', 'Hindi Course A/B', 'Information Technology'];
+                } else {
+                    subjects = ['मराठी', 'इंग्रजी', 'हिंदी', 'गणित (भाग १ व २)', 'विज्ञान व तंत्रज्ञान (भाग १ व २)', 'इतिहास व राज्यशास्त्र', 'भूगोल'];
+                }
+            } 
+            // वर्ग ११ आणि १२ साठी उच्च माध्यमिक / कनिष्ठ महाविद्यालय (Higher Secondary) विषय
+            else if (classNum >= 11 && classNum <= 12) {
+                if (currentBoard === 'ICSE Board' || currentBoard === 'CBSE Board' || currentBoard === 'NCERT अभ्यासक्रम') {
+                    subjects = ['Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science / IP', 'English Core', 'Accountancy', 'Business Studies', 'Economics', 'History', 'Political Science', 'Geography'];
+                } else {
+                    // State Board Streams (Science, Commerce, Arts)
+                    subjects = [
+                        'इंग्रजी (English)', 
+                        'मराठी / हिंदी', 
+                        'गणित व संख्याशास्त्र (Mathematics)', 
+                        'भौतिकशास्त्र (Physics)', 
+                        'रसायनशास्त्र (Chemistry)', 
+                        'जीवशास्त्र (Biology)', 
+                        'माहिती तंत्रज्ञान (IT)', 
+                        'नामनिर्देशन आणि लेखाशास्त्र (Accountancy)', 
+                        'संघटन व व्यवस्थापन (OCM)', 
+                        'अर्थशास्त्र (Economics)', 
+                        'इतिहास (History)', 
+                        'भूगोल (Geography)'
+                    ];
                 }
             }
 
