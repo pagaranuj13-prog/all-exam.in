@@ -62,7 +62,8 @@ TOPICS.forEach((t, i) => {
   c.style.setProperty("--bg", col[0]); c.style.setProperty("--bd", col[1]); c.style.setProperty("--bt", col[2]);
   const b = document.createElement("b"); b.textContent = "धडा " + (i + 1);
   const s = document.createElement("span"); s.textContent = t;
-  const btn = document.createElement("button"); btn.className = "btn"; btn.textContent = "परीक्षा द्या";
+  const btn = document.createElement("a"); btn.className = "btn"; btn.textContent = "परीक्षा द्या";
+btn.href = "quiz.html?chapter=" + (i + 1);
   const n = document.createElement("p"); n.className = "note";
   btn.onclick = () => startQuiz(i, n);
   c.append(b, s, btn, n); grid.appendChild(c);
