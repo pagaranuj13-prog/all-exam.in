@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="mr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBSE वर्ग 6 - Marathi | all-exam.in</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:24px;background:#f4f5fa;color:#222;font-family:Arial,"Noto Sans Devanagari",sans-serif}
+.wrap{max-width:1100px;margin:0 auto}
+.back{display:inline-block;background:#6c757d;color:#fff;padding:10px 16px;border-radius:6px;font-weight:bold;font-size:15px;text-decoration:none}
+h1{font-size:24px;margin:32px 0 20px;padding-bottom:10px;border-bottom:2px solid #007bff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.card{background:var(--bg);border:2px solid var(--bd);border-radius:10px;padding:18px;text-align:center}
+.card b{display:block;font-size:13px;color:#444;margin-bottom:6px}
+.card span{display:block;font-size:16px;font-weight:bold;margin-bottom:12px}
+.btn{background:var(--bt);color:#fff;border:0;padding:8px 18px;border-radius:6px;font:bold 15px Arial,"Noto Sans Devanagari",sans-serif;text-decoration:underline;cursor:pointer}
+.note{margin:10px 0 0;font-size:13px;color:#b35c00}
+.empty{color:#666}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid #ddd;text-align:center;color:#777}
+</style></head><body><div class="wrap">
+<a class="back" href="../">← विषयांवर जा</a>
+<h1>CBSE Board &gt; वर्ग 6 &gt; Marathi - धडे</h1>
+<div id="grid" class="grid"></div>
+<footer>© 2026 all-exam.in | सर्व हक्क सुरक्षित.</footer>
+</div>
+<script>
+// धड्यांची नावे येथे जोडा/बदला
+const TOPICS = [];
+
+// परीक्षा सुरू करण्यासाठी नंतर येथे कोड जोडा (i = धड्याचा क्रमांक, 0 पासून)
+function startQuiz(i, note){ note.textContent = "या धड्याची परीक्षा लवकरच येत आहे."; }
+
+// कार्ड्सचे रंग: [पार्श्वभूमी, किनार, बटण]
+const COLORS = [
+ ["#fdecec","#e57373","#c62828"],
+ ["#e8f5e9","#66bb6a","#2e7d32"],
+ ["#fff8e1","#ffca28","#a86400"],
+ ["#fce4ec","#f06292","#ad1457"],
+ ["#f3e5f5","#ab47bc","#7b1fa2"],
+ ["#e3f2fd","#42a5f5","#1565c0"],
+ ["#fff3e0","#ffa726","#d84315"],
+ ["#e0f7fa","#26c6da","#00796b"]
+];
+const grid = document.getElementById("grid");
+if (!TOPICS.length) {
+  grid.innerHTML = '<p class="empty">धड्यांची यादी लवकरच जोडली जाईल.</p>';
+}
+TOPICS.forEach((t, i) => {
+  const c = document.createElement("div"); c.className = "card";
+  const col = COLORS[i % COLORS.length];
+  c.style.setProperty("--bg", col[0]); c.style.setProperty("--bd", col[1]); c.style.setProperty("--bt", col[2]);
+  const b = document.createElement("b"); b.textContent = "धडा " + (i + 1);
+  const s = document.createElement("span"); s.textContent = t;
+  const btn = document.createElement("button"); btn.className = "btn"; btn.textContent = "परीक्षा द्या";
+  const n = document.createElement("p"); n.className = "note";
+  btn.onclick = () => startQuiz(i, n);
+  c.append(b, s, btn, n); grid.appendChild(c);
+});
+</script></body></html>
