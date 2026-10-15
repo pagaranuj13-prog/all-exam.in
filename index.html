@@ -241,14 +241,16 @@
                 }
             }
 
-            subjects.forEach(sub => {
-                container.innerHTML += `
-                    <div class="box-item">
-                        <h4>${sub}</h4>
-                        <a href="cbsechapters6.html?board=${encodeURIComponent(currentBoard)}&class=${classNum}&subject=${encodeURIComponent(sub)}" class="btn-blue">अभ्यास करा</a>
-                    </div>
-                `;
-            });
+subjects.forEach(sub => {
+    let slug = sub.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    let boardSlug = currentBoard.toLowerCase().split(' ')[0];
+    container.innerHTML += `
+        <div class="box-item">
+            <h4>${sub}</h4>
+            <a href="${boardSlug}/class-${classNum}/${slug}/" class="btn-blue">अभ्यास करा</a>
+        </div>
+    `;
+});           
 
             window.scrollTo(0, 0);
         }
