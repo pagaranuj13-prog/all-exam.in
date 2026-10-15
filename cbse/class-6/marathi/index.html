@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="mr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CBSE वर्ग 6 - Marathi | all-exam.in</title>
+<title>CBSE varg 6 - Marathi | all-exam.in</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;padding:24px;background:#f4f5fa;color:#222;font-family:Arial,"Noto Sans Devanagari",sans-serif}
@@ -16,19 +16,35 @@ h1{font-size:24px;margin:32px 0 20px;padding-bottom:10px;border-bottom:2px solid
 .empty{color:#666}
 footer{margin-top:40px;padding-top:20px;border-top:1px solid #ddd;text-align:center;color:#777}
 </style></head><body><div class="wrap">
-<a class="back" href="../">← विषयांवर जा</a>
-<h1>CBSE Board &gt; वर्ग 6 &gt; Marathi - धडे</h1>
+<a class="back" href="../">&larr; Vishayanvar ja</a>
+<h1>CBSE Board &gt; varg 6 &gt; Marathi - Dhade</h1>
 <div id="grid" class="grid"></div>
-<footer>© 2026 all-exam.in | सर्व हक्क सुरक्षित.</footer>
+<footer>&copy; 2026 all-exam.in | Sarv hakk surakshit.</footer>
 </div>
 <script>
-// धड्यांची नावे येथे जोडा/बदला
-const TOPICS = [];
+// Dhadyanchi nave yethe jodali ahet
+const TOPICS = [
+ "Chimna Vasudev (Abhinaygeet)",
+ "Jagatil Molyavan Vastu",
+ "Rahulcha Vadhadivas",
+ "Gavat Benuya (Shetkarigeet)",
+ "Manuskicha Olava",
+ "Naubat (Kavita)",
+ "Vaktasheerpana",
+ "Padu Aajari...! (Kavita)",
+ "Surat Soor Misalala Nahi Tar?",
+ "Vraksh-Geet (Kavita)",
+ "Handsome Bananyacha Upay",
+ "Ball (Kavita)",
+ "Bajirao Peshave Ani Shetkari",
+ "Madhamashi (Kavita)",
+ "Nisargachin Dan"
+];
 
-// परीक्षा सुरू करण्यासाठी नंतर येथे कोड जोडा (i = धड्याचा क्रमांक, 0 पासून)
-function startQuiz(i, note){ note.textContent = "या धड्याची परीक्षा लवकरच येत आहे."; }
+// Pariksha suru karnyasathi nantar yethe code joda (i = dhadyacha kramank, 0 pasun)
+function startQuiz(i, note){ note.textContent = "Ya dhadyachi pariksha lavkarach yet ahe."; }
 
-// कार्ड्सचे रंग: [पार्श्वभूमी, किनार, बटण]
+// Cardsche rang: [parshvabhumi, kinar, butan]
 const COLORS = [
  ["#fdecec","#e57373","#c62828"],
  ["#e8f5e9","#66bb6a","#2e7d32"],
@@ -41,15 +57,15 @@ const COLORS = [
 ];
 const grid = document.getElementById("grid");
 if (!TOPICS.length) {
-  grid.innerHTML = '<p class="empty">धड्यांची यादी लवकरच जोडली जाईल.</p>';
+  grid.innerHTML = '<p class="empty">Dhadyanchi yadi lavkarach jodali jail.</p>';
 }
 TOPICS.forEach((t, i) => {
   const c = document.createElement("div"); c.className = "card";
   const col = COLORS[i % COLORS.length];
   c.style.setProperty("--bg", col[0]); c.style.setProperty("--bd", col[1]); c.style.setProperty("--bt", col[2]);
-  const b = document.createElement("b"); b.textContent = "धडा " + (i + 1);
+  const b = document.createElement("b"); b.textContent = "Dhada " + (i + 1);
   const s = document.createElement("span"); s.textContent = t;
-  const btn = document.createElement("button"); btn.className = "btn"; btn.textContent = "परीक्षा द्या";
+  const btn = document.createElement("button"); btn.className = "btn"; btn.textContent = "Pariksha dya";
   const n = document.createElement("p"); n.className = "note";
   btn.onclick = () => startQuiz(i, n);
   c.append(b, s, btn, n); grid.appendChild(c);
