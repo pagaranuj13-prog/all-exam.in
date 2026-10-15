@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="mr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>टेस्ट लेव्हल्स | all-exam.in</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:24px;background:#f4f5fa;color:#222;font-family:Arial,"Noto Sans Devanagari",sans-serif}
+.wrap{max-width:900px;margin:0 auto}
+.back{display:inline-block;background:#6c757d;color:#fff;padding:10px 16px;border-radius:6px;font-weight:bold;font-size:15px;text-decoration:none}
+h1{font-size:24px;margin:32px 0 20px;padding-bottom:10px;border-bottom:2px solid #007bff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{background:#fff;border:2px solid #007bff;border-radius:10px;padding:24px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.05)}
+.card h2{font-size:20px;color:#333;margin:10px 0}
+.card p{color:#666;font-size:14px;margin-bottom:20px}
+.btn{background:#28a745;color:#fff;border:0;padding:10px 20px;border-radius:6px;font:bold 15px Arial,"Noto Sans Devanagari",sans-serif;text-decoration:none;cursor:pointer;display:inline-block}
+.btn:hover{background:#218838}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid #ddd;text-align:center;color:#777}
+</style></head><body><div class="wrap">
+<a class="back" href="index.html">&larr; मागे जा</a>
+<h1 id="title">धडा टेस्ट निवडा</h1>
+<div class="grid">
+  <!-- Test One Card (Easy) -->
+  <div class="card" style="border-color: #28a745;">
+    <h2>Test One</h2>
+    <p>सोप्या प्रश्नांची टेस्ट (Easy)</p>
+    <a href="#" class="btn" onclick="startTest('Easy')">टेस्ट सुरू करा</a>
+  </div>
+  <!-- Test Two Card (Medium) -->
+  <div class="card" style="border-color: #ffc107;">
+    <h2>Test Two</h2>
+    <p>मध्यम प्रश्नांची टेस्ट (Medium)</p>
+    <a href="#" class="btn" style="background:#ffc107; color:#000;" onclick="startTest('Medium')">टेस्ट सुरू करा</a>
+  </div>
+  <!-- Test Three Card (Difficult) -->
+  <div class="card" style="border-color: #dc3545;">
+    <h2>Test Three</h2>
+    <p>कठीण प्रश्नांची टेस्ट (Difficult)</p>
+    <a href="#" class="btn" style="background:#dc3545;" onclick="startTest('Difficult')">टेस्ट सुरू करा</a>
+  </div>
+</div>
+<footer>© 2026 all-exam.in | सर्व हक्क सुरक्षित.</footer>
+</div>
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const chapter = urlParams.get('chapter');
+if(chapter) {
+  document.getElementById('title').textContent = "धडा " + chapter + " - टेस्ट लेव्हल निवडा";
+}
+function startTest(level) {
+  alert("तुम्ही धडा " + (chapter || '') + " साठी " + level + " लेव्हल निवडली आहे. टेस्ट लवकरच सुरू होईल!");
+}
+</script></body></html>
