@@ -1,0 +1,32 @@
+name: Create folders
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  make:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create folders
+        run: |
+          for board in cbse ncert icse; do
+            for c in $(seq 1 12); do
+              for s in marathi hindi english maths science social-science; do
+                mkdir -p "$board/class-$c/$s"
+                touch "$board/class-$c/$s/.gitkeep"
+              done
+            done
+          done
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Create board/class/subject folders" || echo "Nothing to commit"
+          git push
