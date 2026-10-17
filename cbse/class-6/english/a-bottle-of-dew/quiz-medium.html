@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Quiz | all-exam.in</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', 'Hind', sans-serif;
+      color: #ffffff;
+      color-scheme: dark;
+      min-height: 100vh;
+      background: #000000;
+      overflow-x: hidden;
+    }
+    .marathi-text { font-family: 'Hind', sans-serif; letter-spacing: .1px; }
+    .custom-shadow { box-shadow: 0 0 0 1px rgba(255,255,255,.04), 0 20px 50px -15px rgba(251,191,36,.18); }
+    .timer-warn { animation: pulse 1s infinite; }
+    @keyframes pulse { 50% { opacity: .6; } }
+  </style>
+</head>
+<body class="text-white flex flex-col justify-between min-h-screen p-3 md:p-5">
+
+  <!-- Header Section -->
+  <header class="max-w-2xl w-full mx-auto mb-3 text-center">
+    <h1 id="pageTitle" class="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+      Dhada Test <span class="text-amber-400 font-bold text-base md:text-lg block md:inline marathi-text">(टेस्ट सुरू आहे)</span>
+    </h1>
+  </header>
+
+  <!-- Main Quiz Container -->
+  <main class="max-w-xl w-full mx-auto bg-neutral-950 rounded-2xl p-4 md:p-6 custom-shadow border border-neutral-800 relative">
+
+    <!-- Top Action Toolbar -->
+    <div class="flex justify-between items-center mb-4 border-b border-neutral-800 pb-2.5 gap-2">
+      <span class="text-[11px] font-bold text-emerald-300 bg-emerald-950 px-2.5 py-1 rounded-full border border-emerald-700">
+        <i class="fa-solid fa-language text-emerald-400"></i> English + मराठी अर्थ
+      </span>
+
+      <!-- TIMER -->
+      <span class="text-[12px] font-extrabold text-indigo-200 bg-indigo-950 px-2.5 py-1 rounded-full border border-indigo-700 flex items-center gap-1">
+        <i class="fa-solid fa-stopwatch text-indigo-300"></i>
+        <span id="timerDisplay">00:00</span>
+      </span>
+
+      <a id="backBtn" href="quiz.html" class="text-[11px] font-semibold bg-neutral-800 hover:bg-neutral-700 text-white px-2.5 py-1 rounded-lg transition">
+        <i class="fa-solid fa-arrow-left"></i> मागे जा
+      </a>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quizScreen">
+      <!-- Progress Bar & Score Counter -->
+      <div class="mb-3">
+        <div class="flex justify-between text-xs font-bold text-neutral-300 mb-1">
+          <span id="questionCounter">Question 1/2</span>
+          <span id="scoreTracker" class="text-emerald-400 font-bold text-xs">Score: 0</span>
+        </div>
+        <div class="w-full bg-neutral-800 rounded-full h-2 overflow-hidden border border-neutral-700">
+          <div id="progressBar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full rounded-full transition-all duration-300" style="width: 50%"></div>
+        </div>
+      </div>
+
+      <!-- Question Box -->
+      <div class="mb-4 bg-neutral-900 p-4 rounded-xl border border-neutral-700">
+        <h3 id="questionTextEng" class="text-base md:text-lg font-bold text-white leading-snug"></h3>
+        <p id="questionTextMar" class="text-sm md:text-base font-semibold text-emerald-300 marathi-text mt-1.5"></p>
+      </div>
+
+      <!-- Options Container -->
+      <div id="optionsContainer" class="space-y-2.5 mb-4"></div>
+
+      <!-- Instant Feedback Box -->
+      <div id="feedbackBox" class="hidden p-3 rounded-xl mb-4 text-sm border">
+        <div class="flex items-start gap-2">
+          <div id="feedbackIcon" class="text-lg mt-0.5"></div>
+          <div>
+            <h4 id="feedbackTitle" class="font-bold text-xs mb-0.5"></h4>
+            <p id="feedbackTextEng" class="text-white font-medium leading-normal"></p>
+            <p id="feedbackTextMar" class="text-neutral-200 font-semibold marathi-text mt-1 pt-1 border-t border-neutral-700"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skip Button -->
+      <button id="skipBtn" onclick="skipQuestion()" class="w-full py-2.5 mb-2 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 border-2 border-amber-500/60 font-bold text-xs md:text-sm rounded-xl transition flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-forward"></i> <span>प्रश्न वगळा (Skip Question)</span>
+      </button>
+
+      <!-- Next Button (Initially Hidden) -->
+      <button id="nextBtn" onclick="nextQuestion()" class="hidden w-full py-2.5 bg-white hover:bg-neutral-200 text-black font-bold text-xs md:text-sm rounded-xl shadow transition flex items-center justify-center gap-1.5">
+        <span>पुढचा प्रश्न (Next Question)</span> <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="resultScreen" class="hidden text-center py-2">
+      <div class="w-12 h-12 bg-amber-400/15 text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-2 text-xl">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+      <h2 class="text-lg md:text-xl font-extrabold text-white">Quiz Completed!</h2>
+      <p class="text-emerald-300 font-bold marathi-text text-sm mb-3">अभिनंदन! टेस्ट पूर्ण झाली!</p>
+
+      <div class="bg-gradient-to-br from-amber-950/60 to-emerald-950/60 rounded-xl p-3 border border-amber-700/60 mb-4 max-w-sm mx-auto">
+        <div class="grid grid-cols-3 divide-x divide-neutral-700">
+          <div class="p-1">
+            <span class="block text-[10px] font-bold text-neutral-300 uppercase">Total Score</span>
+            <span id="finalScore" class="text-xl font-extrabold text-emerald-400">0/0</span>
+          </div>
+          <div class="p-1">
+            <span class="block text-[10px] font-bold text-neutral-300 uppercase">Percentage</span>
+            <span id="finalPercentage" class="text-xl font-extrabold text-white">0%</span>
+          </div>
+          <div class="p-1">
+            <span class="block text-[10px] font-bold text-neutral-300 uppercase">Time Taken</span>
+            <span id="finalTime" class="text-xl font-extrabold text-indigo-300">00:00</span>
+          </div>
+        </div>
+        <p class="mt-2 text-xs font-bold text-neutral-200">वगळलेले प्रश्न (Skipped): <span id="finalSkipped">0</span></p>
+        <p id="performanceMessage" class="mt-2 text-xs font-bold text-amber-200 bg-amber-400/15 py-1 px-2 rounded-lg inline-block marathi-text"></p>
+      </div>
+
+      <div class="flex justify-center">
+        <a id="resultBackBtn" href="quiz.html" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition text-xs flex items-center gap-1.5">
+          <i class="fa-solid fa-rotate-right"></i> पुन्हा प्रयत्न करा / मागे जा
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-4 text-center text-[11px] text-neutral-400">
+    <p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p>
+  </footer>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const chapter = '1';
+    const level = 'Medium';
+
+    document.getElementById('pageTitle').innerHTML = `धडा ${chapter} - टेस्ट (${level}) <span class="text-amber-400 font-bold text-xs md:text-sm block md:inline marathi-text">(${level} Level)</span>`;
+    document.getElementById('backBtn').href = `quiz.html?chapter=${chapter}`;
+    document.getElementById('resultBackBtn').href = `quiz.html?chapter=${chapter}`;
+
+const sh = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
+const P = s => s.split(';').map(x => x.split('|'));
+const Q = (q, qm, ans, pool, ex, exm) => {
+  const o = sh([ans, ...sh(pool.filter(x => x !== ans)).slice(0, 3)]);
+  return { questionEng: q, questionMar: qm, options: o.map(t => ({ eng: t, mar: '' })), correct: o.indexOf(ans), explanationEng: ex, explanationMar: exm };
+};
+const BANK = {
+Medium: {
+ c: [
+  ["How many years did Rama Natha take to collect the dew?","रामा नाथाला दव गोळा करायला किती वर्षे लागली?",["Two years","Six years","Ten years","One year"],1,"It took him six years."],
+  ["From where did he collect the dew?","त्याने दव कुठून गोळा केले?",["From banana leaves","From a river","From a well","From rose petals"],0,"He collected dew from the banana leaves."],
+  ["Why did the sage ask him to collect the dew himself?","ऋषींनी त्याला स्वतः दव गोळा करायला का सांगितले?",["So that he would learn the value of hard work","Because the sage was busy","Because dew was costly","So that his wife could rest"],0,"The sage wanted him to learn the value of labour."],
+  ["On what did Rama Natha waste his wealth?","रामा नाथाने आपली संपत्ती कशात वाया घालवली?",["Travelling the world","Buying new houses","Searching for a magic potion","Building a temple"],2,"He wasted wealth searching for a magic potion."],
+  ["Rama Natha was the son of a ___.","रामा नाथा कोणाचा मुलगा होता?",["poor farmer","rich landlord","king","teacher"],1,"He was the son of a rich landlord."],
+  ["What did Rama Natha's banana plants become?","रामा नाथाच्या केळीच्या रोपांचे काय झाले?",["They dried up","They were sold","They were washed away","A successful plantation"],3,"He built a successful banana plantation."],
+  ["What is the moral of the story?","या कथेचा बोध काय?",["Hard work brings rewards","Magic solves everything","Wealth is everything","Never trust sages"],0,"The story teaches the value of hard work."],
+  ["How did Madhumati help Rama Natha?","मधुमतीने रामा नाथाला कशी मदत केली?",["She laughed at him","She left the house","She supported him","She sold the land"],2,"Madhumati was wise and supported him."]],
+ tf: "It took Rama Natha six years to collect the dew.~T;The sage really had a magic potion.~F~The sage revealed there was no magic potion;Rama Natha spent his wealth searching for a magic potion.~T;Rama Natha was cheated many times in his search.~T;The sage wanted Rama Natha to learn the value of labour.~T;The sage told Rama Natha to buy dew from the market.~F~He had to plant banana plants and collect dew himself;Rama Natha inherited large tracts of land.~T;Rama Natha's land was well looked after at the start.~F~His land was neglected at first;The sage performed a ritual over the dew.~T;Madhumati was a wise and practical woman.~T;Rama Natha built a banana plantation without realising it.~T;The dew was collected from coconut leaves.~F~It was collected from banana leaves;The story is in Unit 1, Fables and Folk Tales.~T;Rama Natha gave up after the first year.~F~He worked for six years;The sage's trick helped Rama Natha become hardworking.~T;Madhumati was worried about their money.~T;The sage asked for ten litres of dew.~F~He asked for five litres;'Potion' means a magical liquid.~T;'Tended' means cut down.~F~'Tended' means looked after;Rama Natha became rich through magic.~F~He became successful through hard work;Sudha Murty is the author of this story.~T;Rama Natha planted the banana plants himself.~T",
+ syn: "brave|courageous;angry|furious;huge|enormous;gift|present;wise|sensible;buy|purchase;end|finish",
+ ant: "arrive|depart;strong|weak;ancient|modern;generous|selfish;lazy|hardworking;win|lose;polite|rude",
+ one: "One who loves his country|patriot;A person who lives next door|neighbour;A book of maps|atlas;A person who always expects good things|optimist;A child without parents|orphan;A place where old objects are displayed|museum",
+ mean: "landlord|a person who owns land;wealth|a lot of money and riches;plantation|a large area where crops are grown;ritual|a set of actions done as a ceremony",
+ art: "He is ___ European.|a|an|the|no article;She waited for ___ hour.|an|a|some|many;Mahipati was ___ wise sage.|a|an|some|many;India is ___ big country.|a|an|the|no article;Rama bought ___ umbrella.|an|a|some|few;She is ___ MBA student.|an|a|some|few",
+ ten: "By the time he arrived, we ___ dinner.|had finished|have finished|finish|are finishing;She ___ reading since morning.|has been|have been|was|is;If it rains, we ___ at home.|will stay|stayed|have stayed|staying;He ___ in Pune for five years.|has lived|lives|is living|live;Rama Natha ___ banana plants for six years.|tended|tends|will tend|tending;They ___ football when it started to rain.|were playing|are playing|play|plays",
+ vrb: "Neither of the boys ___ present.|was|were|are|have been;Each of the plants ___ watered.|was|were|are|have;She ___ finished her work.|has|have|having|are",
+ adv: "He worked ___ to collect the dew.|patiently|patient|patience|more patient;He answered the question ___.|correctly|correct|correctness|more correct;The train arrived ___.|late|lately|lateness|later than"
+}
+};
+
+function buildPaper(L) {
+  const d = BANK[L], out = [];
+  d.c.forEach(c => out.push({ questionEng: "[Chapter] " + c[0], questionMar: c[1], options: c[2].map(t => ({ eng: t, mar: '' })), correct: c[3], explanationEng: c[4], explanationMar: "योग्य उत्तर: " + c[2][c[3]] }));
+  (d.tf || '').split(';').filter(Boolean).forEach(x => { const [s, t, fix] = x.split('~'); out.push({ questionEng: '[Chapter] True or False: ' + s, questionMar: 'हे विधान बरोबर आहे की चूक?', options: [{ eng: 'True', mar: 'बरोबर' }, { eng: 'False', mar: 'चूक' }], correct: t === 'T' ? 0 : 1, explanationEng: t === 'T' ? 'This statement is true.' : 'False. ' + fix + '.', explanationMar: t === 'T' ? 'हे विधान बरोबर आहे.' : 'हे विधान चूक आहे.' }); });
+  const syn = P(d.syn), ant = P(d.ant), one = P(d.one), mean = P(d.mean);
+  syn.forEach(([w, a]) => out.push(Q(`[Synonym] Choose the word with the same meaning as "${w}".`, `"${w}" चा समानार्थी शब्द निवडा.`, a, syn.map(x => x[1]), `"${w}" = "${a}".`, `"${w}" म्हणजे "${a}" (समानार्थी).`)));
+  ant.forEach(([w, a]) => out.push(Q(`[Antonym] Choose the opposite of "${w}".`, `"${w}" चा विरुद्धार्थी शब्द निवडा.`, a, ant.map(x => x[1]), `Opposite of "${w}" is "${a}".`, `"${w}" चा विरुद्धार्थी "${a}" आहे.`)));
+  one.forEach(([p, w]) => out.push(Q(`[One Word] ${p} is called ___.`, `एका शब्दात सांगा.`, w, one.map(x => x[1]), `"${w}" = ${p}.`, `योग्य शब्द: "${w}".`)));
+  mean.forEach(([w, m]) => out.push(Q(`[Word Meaning] What is the meaning of "${w}"?`, `"${w}" चा अर्थ काय?`, m, mean.map(x => x[1]), `"${w}" means ${m}.`, `"${w}" = ${m}.`)));
+  [['art', 'Article'], ['ten', 'Tense'], ['vrb', 'Verb'], ['adv', 'Adverb']].forEach(([k, tag]) =>
+    P(d[k]).forEach(([s, a, ...w]) => {
+      const o = sh([a, ...w]);
+      out.push({ questionEng: `[${tag}] Fill in the blank: ${s}`, questionMar: 'रिकाम्या जागी योग्य पर्याय निवडा.', options: o.map(t => ({ eng: t, mar: '' })), correct: o.indexOf(a), explanationEng: `Correct sentence: ${s.replace('___', a)}`, explanationMar: `योग्य पर्याय: ${a}` });
+    }));
+  return out;
+}
+
+const COUNTS = { Chapter: 30, Synonym: 3, Antonym: 3, 'One Word': 2, 'Word Meaning': 2, Article: 3, Tense: 3, Verb: 2, Adverb: 2 };
+const MAR_RAW = "Sudha Murty=सुधा मूर्ती;Ruskin Bond=रस्किन बाँड;R. K. Narayan=आर. के. नारायण;Premchand=प्रेमचंद;Mahipati=महिपती;Rama Natha=रामा नाथा;Madhumati=मधुमती;Raman=रामन;Sudha=सुधा;Radha=राधा;Lakshmi=लक्ष्मी;Sage Mahipati=ऋषी महिपती;A potion that turns things into gold=वस्तूंचे सोन्यात रूपांतर करणारे औषध;A potion for long life=दीर्घायुष्याचे औषध;A potion for strength=ताकदीचे औषध;A potion for flying=उडण्याचे औषध;Mango trees=आंब्याची झाडे;Banana plants=केळीची रोपे;Coconut trees=नारळाची झाडे;Rose bushes=गुलाबाची झुडपे;Two litres=दोन लिटर;Three litres=तीन लिटर;Five litres=पाच लिटर;Ten litres=दहा लिटर;Poorvi=पूर्वी;Honeysuckle=हनीसकल;Marigold=मेरीगोल्ड;Santoor=संतूर;Two years=दोन वर्षे;Six years=सहा वर्षे;Ten years=दहा वर्षे;One year=एक वर्ष;From banana leaves=केळीच्या पानांवरून;From a river=नदीतून;From a well=विहिरीतून;From rose petals=गुलाबाच्या पाकळ्यांवरून;So that he would learn the value of hard work=म्हणजे त्याला कष्टाचे मोल कळावे;Because the sage was busy=कारण ऋषी व्यस्त होते;Because dew was costly=कारण दव महाग होते;So that his wife could rest=म्हणजे त्याच्या पत्नीला विश्रांती मिळावी;Travelling the world=जगभर प्रवास करणे;Buying new houses=नवीन घरे विकत घेणे;Searching for a magic potion=जादूचे औषध शोधणे;Building a temple=मंदिर बांधणे;poor farmer=गरीब शेतकरी;rich landlord=श्रीमंत जमीनदार;king=राजा;teacher=शिक्षक;They dried up=ती सुकून गेली;They were sold=ती विकली गेली;They were washed away=ती वाहून गेली;A successful plantation=एक यशस्वी बाग;Hard work brings rewards=कष्टाचे फळ मिळते;Magic solves everything=जादू सर्व काही सोडवते;Wealth is everything=संपत्ती हेच सर्वस्व;Never trust sages=ऋषींवर कधी विश्वास ठेवू नका;She laughed at him=ती त्याला हसली;She left the house=तिने घर सोडले;She supported him=तिने त्याला साथ दिली;She sold the land=तिने जमीन विकली;Laziness=आळस;Effort that is slow but valuable=हळू पण मौल्यवान प्रयत्न;Magic=जादू;Rain=पाऊस;Yes, it made gold=होय, त्याने सोने बनवले;Yes, but it lost power=होय, पण त्याची शक्ती गेली;No, there was no magic potion=नाही, जादूचे औषध नव्हतेच;It was stolen=ते चोरीला गेले;He made Rama Natha work hard without telling him the real aim=खरा हेतू न सांगता त्याने रामा नाथाला कष्ट करायला लावले;He sold him a potion=त्याने त्याला औषध विकले;He cheated him of money=त्याने त्याचे पैसे फसवून घेतले;He ran away=तो पळून गेला;did not give up=हार मानली नाही;became a sage=ऋषी झाला;left his land=जमीन सोडली;stopped searching=शोध थांबवला;Science fiction=विज्ञान कथा;A folk tale with a moral=बोध देणारी लोककथा;A biography=चरित्र;A travel diary=प्रवास वर्णन;cut down=तोडले;sold=विकले;forgot=विसरला;looked after=काळजी घेतली;start again=पुन्हा सुरू करणे;stop trying=प्रयत्न थांबवणे;climb up=वर चढणे;give a gift=भेट देणे;The thief=चोर;Rama=राम;large=मोठा;glad=आनंदी;tiny=लहान;fast=जलद;start=सुरू करणे;clever=हुशार;unhappy=दुःखी;courageous=धाडसी;furious=संतप्त;enormous=प्रचंड;present=भेट;sensible=समजूतदार;purchase=खरेदी करणे;finish=संपवणे;industrious=कष्टाळू;rare=दुर्मिळ;plentiful=भरपूर;unwilling=अनिच्छुक;insignificant=क्षुल्लक;essential=आवश्यक;hide=लपवणे;cold=थंड;down=खाली;night=रात्र;bad=वाईट;new=नवीन;poor=गरीब;soft=मऊ;depart=निघून जाणे;weak=दुर्बल;modern=आधुनिक;selfish=स्वार्थी;hardworking=कष्टाळू;lose=हरणे;rude=उद्धट;extravagant=उधळपट्टी करणारा;malevolent=दुष्ट;precise=अचूक;humble=नम्र;robust=सुदृढ;reject=नाकारणे;permanent=कायमचा;library=ग्रंथालय;pilot=वैमानिक;farmer=शेतकरी;barber=न्हावी;author=लेखक;patriot=देशभक्त;neighbour=शेजारी;atlas=नकाशांचे पुस्तक;optimist=आशावादी;orphan=अनाथ;museum=संग्रहालय;omnipresent=सर्वव्यापी;bilingual=द्विभाषिक;philatelist=टपाल तिकीट संग्राहक;democracy=लोकशाही;omniscient=सर्वज्ञ;illegible=अवाच्य;tiny drops of water on leaves=पानांवरील पाण्याचे बारीक थेंब;a wise person=ज्ञानी व्यक्ती;a magical liquid=जादुई द्रव;a person who owns land=जमिनीचा मालक;a lot of money and riches=भरपूर पैसा व संपत्ती;a large area where crops are grown=पिके घेतली जाणारी मोठी जागा;a set of actions done as a ceremony=समारंभाप्रमाणे केलेल्या कृतींचा संच;large areas of land=जमिनीचे मोठे क्षेत्र;careful and steady hard work=काळजीपूर्वक व सातत्यपूर्ण कष्ट;not giving up despite difficulty=अडचणी असूनही हार न मानणे;having no useful result=निरुपयोगी";
+const MAR = Object.fromEntries(MAR_RAW.split(';').map(x => { const i = x.indexOf('='); return [x.slice(0, i), x.slice(i + 1)]; }));
+function buildPaper30(L) {
+  const all = buildPaper(L), out = [];
+  Object.entries(COUNTS).forEach(([t, n]) => out.push(...all.filter(q => q.questionEng.startsWith('[' + t + ']')).sort(() => t === 'Chapter' ? Math.random() - 0.5 : 0).slice(0, n)));
+  out.forEach(q => q.options.forEach(o => { if (!o.mar) o.mar = MAR[o.eng] || ''; }));
+  return out;
+}
+const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficult';
+
+    const defaultQuestions = [
+      {
+        questionEng: "Sample Question 1 for Chapter " + chapter + " (" + level + ")?",
+        questionMar: "धडा " + chapter + " (" + level + ") साठीचा सराव प्रश्न १?",
+        options: [
+          { eng: "Option A", mar: "पर्याय अ" },
+          { eng: "Option B", mar: "पर्याय ब" },
+          { eng: "Option C", mar: "पर्याय क" },
+          { eng: "Option D", mar: "पर्याय ड" }
+        ],
+        correct: 0,
+        explanationEng: "This is a default sample question explanation.",
+        explanationMar: "हा इंग्रजी आणि मराठीतील डीफॉल्ट स्पष्टीकरण नमुना आहे."
+      }
+    ];
+
+    const activeQuestions = chapter === '1' ? buildPaper30(LV) : defaultQuestions;
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let isAnswered = false;
+    let skipped = 0;
+
+    /* ---------- TIMER ---------- */
+    const timerDisplay = document.getElementById('timerDisplay');
+    const startTime = Date.now();
+    let timerInterval = null;
+    let totalSeconds = 0;
+
+    function formatTime(sec) {
+      const h = Math.floor(sec / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+      const s = sec % 60;
+      const mm = String(m).padStart(2, '0');
+      const ss = String(s).padStart(2, '0');
+      return h > 0 ? `${String(h).padStart(2, '0')}:${mm}:${ss}` : `${mm}:${ss}`;
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        totalSeconds = Math.floor((Date.now() - startTime) / 1000);
+        timerDisplay.textContent = formatTime(totalSeconds);
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      totalSeconds = Math.floor((Date.now() - startTime) / 1000);
+      timerDisplay.textContent = formatTime(totalSeconds);
+    }
+    /* --------------------------- */
+
+    const quizScreen = document.getElementById('quizScreen');
+    const resultScreen = document.getElementById('resultScreen');
+    const questionCounter = document.getElementById('questionCounter');
+    const scoreTracker = document.getElementById('scoreTracker');
+    const progressBar = document.getElementById('progressBar');
+    const questionTextEng = document.getElementById('questionTextEng');
+    const questionTextMar = document.getElementById('questionTextMar');
+    const optionsContainer = document.getElementById('optionsContainer');
+    
+    const feedbackBox = document.getElementById('feedbackBox');
+    const feedbackIcon = document.getElementById('feedbackIcon');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackTextEng = document.getElementById('feedbackTextEng');
+    const feedbackTextMar = document.getElementById('feedbackTextMar');
+    const nextBtn = document.getElementById('nextBtn');
+    const skipBtn = document.getElementById('skipBtn');
+
+    function renderQuestion() {
+      isAnswered = false;
+      feedbackBox.classList.add('hidden');
+      nextBtn.style.display = 'none';
+      skipBtn.style.display = 'flex';
+
+      const q = activeQuestions[currentQuestionIndex];
+      questionCounter.textContent = `Question ${currentQuestionIndex + 1}/${activeQuestions.length}`;
+      scoreTracker.textContent = `Score: ${score}`;
+      progressBar.style.width = `${((currentQuestionIndex + 1) / activeQuestions.length) * 100}%`;
+
+      questionTextEng.textContent = q.questionEng;
+      questionTextMar.textContent = q.questionMar;
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-neutral-700 hover:border-emerald-400 hover:bg-emerald-400/10 transition flex items-center justify-between group bg-neutral-900";
+        btn.innerHTML = `
+          <div class="flex items-start gap-2.5">
+            <span class="w-6 h-6 rounded-lg bg-neutral-800 group-hover:bg-emerald-400 group-hover:text-black text-white flex items-center justify-center font-bold text-xs transition shrink-0 mt-0.5">
+              ${String.fromCharCode(65 + idx)}
+            </span>
+            <div>
+              <p class="text-sm md:text-base font-semibold text-white">${opt.eng}</p>
+              <p class="text-xs md:text-sm font-medium text-emerald-300 marathi-text mt-0.5">${opt.mar}</p>
+            </div>
+          </div>
+        `;
+        btn.onclick = () => selectOption(idx, btn);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIndex, selectedBtn) {
+      if (isAnswered) return;
+      isAnswered = true;
+      skipBtn.style.display = 'none';
+
+      const q = activeQuestions[currentQuestionIndex];
+      const isCorrect = selectedIndex === q.correct;
+
+      if (isCorrect) score++;
+      scoreTracker.textContent = `Score: ${score}`;
+
+      const optionButtons = optionsContainer.children;
+      Array.from(optionButtons).forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.correct) {
+          btn.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-emerald-400 bg-emerald-950 font-bold text-white flex items-center justify-between";
+        } else if (idx === selectedIndex && !isCorrect) {
+          btn.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-rose-400 bg-rose-950 font-bold text-white flex items-center justify-between";
+        } else {
+          btn.classList.add('opacity-50');
+        }
+      });
+
+      feedbackBox.classList.remove('hidden');
+      if (isCorrect) {
+        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-emerald-950 border-emerald-600";
+        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+        feedbackTitle.textContent = "बरोबर उत्तर! (Correct Answer)";
+        feedbackTitle.className = "font-bold text-emerald-300 text-sm mb-0.5";
+      } else {
+        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-rose-950 border-rose-600";
+        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
+        feedbackTitle.textContent = "चुकीचे उत्तर! (Incorrect Answer)";
+        feedbackTitle.className = "font-bold text-rose-300 text-sm mb-0.5";
+      }
+
+      feedbackTextEng.textContent = q.explanationEng;
+      feedbackTextMar.textContent = "स्पष्टीकरण: " + q.explanationMar;
+
+      nextBtn.style.display = 'flex';
+      nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function skipQuestion() {
+      if (isAnswered) return;
+      skipped++;
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < activeQuestions.length) {
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      stopTimer();
+      quizScreen.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+
+      const percentage = Math.round((score / activeQuestions.length) * 100);
+      document.getElementById('finalScore').textContent = `${score}/${activeQuestions.length}`;
+      document.getElementById('finalPercentage').textContent = `${percentage}%`;
+      document.getElementById('finalTime').textContent = formatTime(totalSeconds);
+      document.getElementById('finalSkipped').textContent = skipped;
+
+      const perfMsg = document.getElementById('performanceMessage');
+      if (percentage === 100) {
+        perfMsg.textContent = "उत्तुंग यश! तुम्ही सर्व प्रश्नांची उत्तरे बरोबर दिली आहेत.";
+      } else if (percentage >= 50) {
+        perfMsg.textContent = "छान प्रयत्न! तुमचा अभ्यास चांगला आहे.";
+      } else {
+        perfMsg.textContent = "पुन्हा एकदा धडा वाचा आणि सराव करा!";
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    startTimer();
+    renderQuestion();
+  </script>
+</body>
+</html>
