@@ -148,7 +148,6 @@
     document.getElementById('backBtn').href = `quiz.html?chapter=${chapter}`;
     document.getElementById('resultBackBtn').href = `quiz.html?chapter=${chapter}`;
 
-    // Question Bank with Meaningful Options in Marathi and English
     const baseQuestions = [
       {
         questionEng: "What primary psychological transformation does Rama Natha undergo in the beginning of the story?",
@@ -200,7 +199,6 @@
     for (let i = 1; i <= 100; i++) {
       let baseQ = baseQuestions[(i - 1) % baseQuestions.length];
       
-      // Creating professional distractor options in Marathi and English
       let opts = [
         { eng: `Option A relating to chapter context and moral principles for item ${i}.`, mar: `पर्याय A: धड्याच्या संदर्भाशी व नैतिक मूल्यांशी संबंधित माहिती #${i}` },
         { eng: `Option B relating to chapter context and moral principles for item ${i}.`, mar: `पर्याय B: धड्याच्या संदर्भाशी व नैतिक मूल्यांशी संबंधित माहिती #${i}` },
@@ -208,16 +206,13 @@
         { eng: `Option D relating to chapter context and moral principles for item ${i}.`, mar: `पर्याय D: धड्याच्या संदर्भाशी व नैतिक मूल्यांशी संबंधित माहिती #${i}` }
       ];
 
-      // Assigning original meaningful options for the first 4 questions
       if (i <= 4) {
         opts = JSON.parse(JSON.stringify(baseQ.options));
       }
 
-      // Pattern mapping for correct answers: B(1), D(3), C(2), C(2), A(0) repeating
       const pattern = [1, 3, 2, 2, 0];
       const correctIdx = pattern[(i - 1) % pattern.length];
 
-      // If beyond first 4, make sure the correct option has authentic text based on the chapter theme
       if (i > 4) {
         opts[correctIdx] = {
           eng: `The most accurate and agriculturally grounded conclusion for question ${i}.`,
@@ -240,7 +235,6 @@
     let isAnswered = false;
     let skipped = 0;
 
-    /* ---------- TIMER ---------- */
     const timerDisplay = document.getElementById('timerDisplay');
     const startTime = Date.now();
     let timerInterval = null;
@@ -267,7 +261,6 @@
       totalSeconds = Math.floor((Date.now() - startTime) / 1000);
       timerDisplay.textContent = formatTime(totalSeconds);
     }
-    /* --------------------------- */
 
     const quizScreen = document.getElementById('quizScreen');
     const resultScreen = document.getElementById('resultScreen');
