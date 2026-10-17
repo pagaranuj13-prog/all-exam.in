@@ -44,9 +44,9 @@
         <span id="timerDisplay">00:00</span>
       </span>
 
-      <a id="backBtn" href="quiz.html" class="text-[11px] font-semibold bg-neutral-800 hover:bg-neutral-700 text-white px-2.5 py-1 rounded-lg transition">
+      <button id="backBtn" onclick="goBack()" class="text-[11px] font-semibold bg-neutral-800 hover:bg-neutral-700 text-white px-2.5 py-1 rounded-lg transition">
         <i class="fa-solid fa-arrow-left"></i> मागे जा
-      </a>
+      </button>
     </div>
 
     <div id="quizScreen">
@@ -132,7 +132,6 @@
     const level = 'Ultra-level';
 
     document.getElementById('pageTitle').innerHTML = `धडा ${chapter} - टेस्ट (${level}) <span class="text-amber-400 font-bold text-xs md:text-sm block md:inline marathi-text">(${level} Level)</span>`;
-    document.getElementById('backBtn').href = `quiz.html?chapter=${chapter}`;
     document.getElementById('resultBackBtn').href = `quiz.html?chapter=${chapter}`;
 
     // ============================================================
@@ -1037,19 +1036,6 @@
         explanationMar: "नाही, तांबे तांबेच राहिले."
       },
       {
-        questionEng: "What was the real 'magic' in the story?",
-        questionMar: "कथेतील खरी 'जादू' काय होती?",
-        options: [
-          { eng: "Hard work", mar: "कष्ट" },
-          { eng: "Dew", mar: "दव" },
-          { eng: "Copper", mar: "तांबे" },
-          { eng: "Banana leaves", mar: "केळीची पाने" }
-        ],
-        correct: 0,
-        explanationEng: "The real magic was hard work.",
-        explanationMar: "खरी जादू म्हणजे कष्ट होय."
-      },
-      {
         questionEng: "Which word best describes the sage?",
         questionMar: "ऋषींचे वर्णन करण्यासाठी कोणता शब्द सर्वात योग्य आहे?",
         options: [
@@ -1204,19 +1190,6 @@
         correct: 2,
         explanationEng: "The bottle of dew symbolises hard work disguised as magic.",
         explanationMar: "दवाची बाटली ही जादूच्या रूपातील कष्टाचे प्रतीक आहे."
-      },
-      {
-        questionEng: "What did Rama Natha do with his money before the sage's visit?",
-        questionMar: "ऋषींच्या भेटीपूर्वी रामा नाथने पैशांचे काय केले?",
-        options: [
-          { eng: "Spent it on learning about the potion", mar: "औषधाबद्दल शिकण्यावर खर्च केले" },
-          { eng: "Saved it", mar: "साठवले" },
-          { eng: "Gave it to the poor", mar: "गरीबांना दिले" },
-          { eng: "Bought bananas", mar: "केळी विकत घेतली" }
-        ],
-        correct: 0,
-        explanationEng: "He spent it on learning about the magic potion.",
-        explanationMar: "त्याने ते जादुई औषधाबद्दल शिकण्यावर खर्च केले."
       },
       {
         questionEng: "What did Rama Natha stop doing after learning the lesson?",
@@ -1414,19 +1387,6 @@
         explanationMar: "ऋषींनी सांगितले की त्याच्या कष्टाने ही संपत्ती निर्माण झाली, जादूने नाही."
       },
       {
-        questionEng: "What did Rama Natha do after realising the truth?",
-        questionMar: "सत्य समजल्यानंतर रामा नाथाने काय केले?",
-        options: [
-          { eng: "Worked even harder on his plantation", mar: "आपल्या बागेत अधिक कष्ट केले" },
-          { eng: "Left the village", mar: "गाव सोडले" },
-          { eng: "Searched for the potion", mar: "औषधाचा शोध घेतला" },
-          { eng: "Became a sage", mar: "ऋषी झाले" }
-        ],
-        correct: 0,
-        explanationEng: "He understood the wisdom and worked even harder on his plantation.",
-        explanationMar: "तो शहाणपण समजला आणि त्याने आपल्या बागेत अधिक कष्ट केले."
-      },
-      {
         questionEng: "Which is the best alternative title for the story?",
         questionMar: "कथेसाठी सर्वोत्तम पर्यायी शीर्षक कोणते?",
         options: [
@@ -1438,15 +1398,53 @@
         correct: 3,
         explanationEng: "'Hard Work Is True Magic' best captures the story's moral.",
         explanationMar: "'हार्ड वर्क इज ट्रू मॅजिक' हे कथेचा बोध सर्वोत्तमपणे व्यक्त करते."
+      },
+      {
+        questionEng: "Why did Madhumati not stop Rama Natha from collecting dew?",
+        questionMar: "मधुमतीने रामा नाथाला दव गोळा करण्यापासून का थांबवले नाही?",
+        options: [
+          { eng: "She was lazy", mar: "ती आळशी होती" },
+          { eng: "She knew the work would ultimately benefit them", mar: "तिला माहीत होते की या कामाचा शेवटी त्यांना फायदा होईल" },
+          { eng: "She did not love him", mar: "तिला त्याच्यावर प्रेम नव्हते" },
+          { eng: "She wanted him to leave", mar: "तिला त्याने निघून जावे असे वाटत होते" }
+        ],
+        correct: 1,
+        explanationEng: "Madhumati wisely understood that tending the banana plants would bring real prosperity, so she supported him.",
+        explanationMar: "मधुमतीला शहाणपणाने समजले की केळीच्या बागेची काळजी घेतल्याने खरी समृद्धी येईल, म्हणून तिने त्याला आधार दिला."
+      },
+      {
+        questionEng: "What is the significance of the copper vessel in the story?",
+        questionMar: "कथेत तांब्याच्या भांड्याचे काय महत्त्व आहे?",
+        options: [
+          { eng: "It was magic and turned into gold", mar: "ते जादुई होते आणि सोन्यात बदलले" },
+          { eng: "It proved that the dew had no magical power", mar: "त्याने सिद्ध केले की दवात कोणतीही जादुई शक्ती नव्हती" },
+          { eng: "It was sold for a high price", mar: "ते मोठ्या किंमतीला विकले गेले" },
+          { eng: "It was given to Madhumati", mar: "ते मधुमतीला दिले होते" }
+        ],
+        correct: 1,
+        explanationEng: "The copper vessel remained copper even after the dew was sprinkled on it, proving there was no magic — only hard work.",
+        explanationMar: "दव शिंपडल्यावरही तांब्याचे भांडे तांबेच राहिले, ज्याने सिद्ध झाले की जादू नव्हती — फक्त कष्ट होते."
+      },
+      {
+        questionEng: "What important change occurred in Rama Natha by the end of the story?",
+        questionMar: "कथेच्या शेवटी रामा नाथामध्ये कोणता महत्त्वाचा बदल झाला?",
+        options: [
+          { eng: "He became rich by finding the magic potion", mar: "जादुई औषध सापडल्यामुळे तो श्रीमंत झाला" },
+          { eng: "He left the village forever", mar: "त्याने गाव कायमचे सोडले" },
+          { eng: "He became hardworking and wise", mar: "तो कष्टाळू आणि शहाणा बनला" },
+          { eng: "He became a sage himself", mar: "तो स्वतः ऋषी बनला" }
+        ],
+        correct: 2,
+        explanationEng: "By the end of the story, Rama Natha transformed from a lazy dreamer into a hardworking and wise man.",
+        explanationMar: "कथेच्या शेवटी रामा नाथ आळशी स्वप्नाळूपासून कष्टाळू आणि शहाण्या माणसामध्ये बदलला."
       }
     ];
 
     console.log("Total questions loaded:", activeQuestions.length);
 
     let currentQuestionIndex = 0;
-    let score = 0;
+    let userAnswers = new Array(activeQuestions.length).fill(null);
     let isAnswered = false;
-    let skipped = 0;
 
     const timerDisplay = document.getElementById('timerDisplay');
     const startTime = Date.now();
@@ -1492,15 +1490,52 @@
     const nextBtn = document.getElementById('nextBtn');
     const skipBtn = document.getElementById('skipBtn');
 
-    function renderQuestion() {
-      isAnswered = false;
-      feedbackBox.classList.add('hidden');
-      nextBtn.style.display = 'none';
-      skipBtn.style.display = 'flex';
+    function getScore() {
+      let s = 0;
+      userAnswers.forEach((ans, i) => {
+        if (ans !== null && ans !== -1 && ans === activeQuestions[i].correct) s++;
+      });
+      return s;
+    }
 
+    function getSkipped() {
+      return userAnswers.filter(a => a === -1).length;
+    }
+
+    function showFeedback(isCorrect, q) {
+      feedbackBox.classList.remove('hidden');
+      if (isCorrect) {
+        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-emerald-950 border-emerald-600";
+        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+        feedbackTitle.textContent = "बरोबर उत्तर! (Correct Answer)";
+        feedbackTitle.className = "font-bold text-emerald-300 text-sm mb-0.5";
+      } else {
+        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-rose-950 border-rose-600";
+        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
+        feedbackTitle.textContent = "चुकीचे उत्तर! (Incorrect Answer)";
+        feedbackTitle.className = "font-bold text-rose-300 text-sm mb-0.5";
+      }
+      feedbackTextEng.textContent = q.explanationEng;
+      feedbackTextMar.textContent = "स्पष्टीकरण: " + q.explanationMar;
+    }
+
+    function renderQuestion() {
       const q = activeQuestions[currentQuestionIndex];
+      const prevAnswer = userAnswers[currentQuestionIndex];
+      isAnswered = (prevAnswer !== null && prevAnswer !== -1);
+
+      feedbackBox.classList.add('hidden');
+
+      if (isAnswered) {
+        nextBtn.style.display = 'flex';
+        skipBtn.style.display = 'none';
+      } else {
+        nextBtn.style.display = 'none';
+        skipBtn.style.display = 'flex';
+      }
+
       questionCounter.textContent = `Question ${currentQuestionIndex + 1}/${activeQuestions.length}`;
-      scoreTracker.textContent = `Score: ${score}`;
+      scoreTracker.textContent = `Score: ${getScore()}`;
       progressBar.style.width = `${((currentQuestionIndex + 1) / activeQuestions.length) * 100}%`;
 
       questionTextEng.textContent = q.questionEng;
@@ -1521,9 +1556,25 @@
             </div>
           </div>
         `;
-        btn.onclick = () => selectOption(idx, btn);
+
+        if (isAnswered) {
+          btn.disabled = true;
+          if (idx === q.correct) {
+            btn.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-emerald-400 bg-emerald-950 font-bold text-white flex items-center justify-between";
+          } else if (idx === prevAnswer) {
+            btn.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-rose-400 bg-rose-950 font-bold text-white flex items-center justify-between";
+          } else {
+            btn.classList.add('opacity-50');
+          }
+        } else {
+          btn.onclick = () => selectOption(idx, btn);
+        }
         optionsContainer.appendChild(btn);
       });
+
+      if (isAnswered) {
+        showFeedback(prevAnswer === q.correct, q);
+      }
     }
 
     function selectOption(selectedIndex, selectedBtn) {
@@ -1531,11 +1582,12 @@
       isAnswered = true;
       skipBtn.style.display = 'none';
 
+      userAnswers[currentQuestionIndex] = selectedIndex;
+
       const q = activeQuestions[currentQuestionIndex];
       const isCorrect = selectedIndex === q.correct;
 
-      if (isCorrect) score++;
-      scoreTracker.textContent = `Score: ${score}`;
+      scoreTracker.textContent = `Score: ${getScore()}`;
 
       const optionButtons = optionsContainer.children;
       Array.from(optionButtons).forEach((btn, idx) => {
@@ -1549,21 +1601,7 @@
         }
       });
 
-      feedbackBox.classList.remove('hidden');
-      if (isCorrect) {
-        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-emerald-950 border-emerald-600";
-        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
-        feedbackTitle.textContent = "बरोबर उत्तर! (Correct Answer)";
-        feedbackTitle.className = "font-bold text-emerald-300 text-sm mb-0.5";
-      } else {
-        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-rose-950 border-rose-600";
-        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
-        feedbackTitle.textContent = "चुकीचे उत्तर! (Incorrect Answer)";
-        feedbackTitle.className = "font-bold text-rose-300 text-sm mb-0.5";
-      }
-
-      feedbackTextEng.textContent = q.explanationEng;
-      feedbackTextMar.textContent = "स्पष्टीकरण: " + q.explanationMar;
+      showFeedback(isCorrect, q);
 
       nextBtn.style.display = 'flex';
       nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1571,17 +1609,27 @@
 
     function skipQuestion() {
       if (isAnswered) return;
-      skipped++;
+      userAnswers[currentQuestionIndex] = -1;
       nextQuestion();
     }
 
     function nextQuestion() {
-      currentQuestionIndex++;
-      if (currentQuestionIndex < activeQuestions.length) {
+      if (currentQuestionIndex < activeQuestions.length - 1) {
+        currentQuestionIndex++;
         renderQuestion();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         showResults();
+      }
+    }
+
+    function goBack() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.location.href = `quiz.html?chapter=${chapter}`;
       }
     }
 
@@ -1590,11 +1638,13 @@
       quizScreen.classList.add('hidden');
       resultScreen.classList.remove('hidden');
 
-      const percentage = Math.round((score / activeQuestions.length) * 100);
-      document.getElementById('finalScore').textContent = `${score}/${activeQuestions.length}`;
+      const finalScore = getScore();
+      const percentage = Math.round((finalScore / activeQuestions.length) * 100);
+
+      document.getElementById('finalScore').textContent = `${finalScore}/${activeQuestions.length}`;
       document.getElementById('finalPercentage').textContent = `${percentage}%`;
       document.getElementById('finalTime').textContent = formatTime(totalSeconds);
-      document.getElementById('finalSkipped').textContent = skipped;
+      document.getElementById('finalSkipped').textContent = getSkipped();
 
       const perfMsg = document.getElementById('performanceMessage');
       if (percentage === 100) {
