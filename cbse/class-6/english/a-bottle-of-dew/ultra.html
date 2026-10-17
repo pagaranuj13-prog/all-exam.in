@@ -148,87 +148,1314 @@
     document.getElementById('backBtn').href = `quiz.html?chapter=${chapter}`;
     document.getElementById('resultBackBtn').href = `quiz.html?chapter=${chapter}`;
 
-    const baseQuestions = [
+    // ============================================================
+    // ALL 100 QUESTIONS — "A Bottle of Dew" (Class 6, Sudha Murty)
+    // ============================================================
+    const activeQuestions = [
       {
-        questionEng: "What primary psychological transformation does Rama Natha undergo in the beginning of the story?",
-        questionMar: "कथेच्या सुरुवातीला रामा नाथाच्या मानसिकतेत काय बदल होतो?",
+        questionEng: "Who wrote the story 'A Bottle of Dew'?",
+        questionMar: "'अ बॉटल ऑफ ड्यू' ही कथा कोणी लिहिली?",
         options: [
-          { eng: "He stops working completely.", mar: "तो पूर्णपणे काम करणे थांबवतो." },
-          { eng: "He transitions from a daydreamer relying on destiny to a diligent agriculturist.", mar: "तो नशिबावर अवलंबून असणाऱ्या दिवास्वप्न पाहणाऱ्या व्यक्तीकडून कष्टाळू शेतीत रूपांतरित होतो." },
-          { eng: "He becomes a wealthy king instantly.", mar: "तो एका रात्रीत राजा बनतो." },
-          { eng: "He moves to another village.", mar: "तो दुसऱ्या गावात निघून जातो." }
+          { eng: "Ruskin Bond", mar: "रस्किन बॉंड" },
+          { eng: "Sudha Murty", mar: "सुधा मूर्ती" },
+          { eng: "R.K. Narayan", mar: "आर. के. नारायण" },
+          { eng: "Mahipati", mar: "महिपती" }
         ],
-        correct: 1
+        correct: 1,
+        explanationEng: "The story 'A Bottle of Dew' is written by Sudha Murty.",
+        explanationMar: "'अ बॉटल ऑफ ड्यू' ही कथा सुधा मूर्ती यांनी लिहिली आहे."
       },
       {
-        questionEng: "Why did collecting the dew require such an exacting, conditional process?",
-        questionMar: "दवाचे थेंब गोळा करण्यासाठी अशी किचकट प्रक्रिया का ठेवली होती?",
+        questionEng: "Who is the main character of the story?",
+        questionMar: "कथेचा मुख्य पात्र कोण आहे?",
         options: [
-          { eng: "Because the dew was toxic.", mar: "कारण दव विषारी होते." },
-          { eng: "To test his magical powers.", mar: "त्याच्या जादुई शक्तीची परीक्षा घेण्यासाठी." },
-          { eng: "To make the bottle look expensive.", mar: "बाटली महाग आणि सुंदर दिसण्यासाठी." },
-          { eng: "To covertly trick Rama Natha into performing months of continuous agricultural labor.", mar: "रामनाथला नकळत शेतीची कष्टाची कामे करायला लावण्यासाठी." }
+          { eng: "Rama Natha", mar: "रामा नाथ" },
+          { eng: "Mahipati", mar: "महिपती" },
+          { eng: "Madhumati", mar: "मधुमती" },
+          { eng: "Sudha", mar: "सुधा" }
         ],
-        correct: 3
+        correct: 0,
+        explanationEng: "Rama Natha is the protagonist of the story.",
+        explanationMar: "रामा नाथ हा कथेचा नायक आहे."
       },
       {
-        questionEng: "Which Marathi concept closely mirrors the underlying moral theme of 'Karmayoga' in the chapter?",
-        questionMar: "पाठातील 'कर्मयोगाच्या' मुळाशी कोणती महत्त्वाची संकल्पना आहे?",
+        questionEng: "What is the name of Rama Natha's wife?",
+        questionMar: "रामा नाथाच्या पत्नीचे नाव काय आहे?",
         options: [
-          { eng: "Believing blindly in luck.", mar: "केवळ नशिबावर विसंबून राहणे." },
-          { eng: "Avoiding physical exertion at all costs.", mar: "कोणतीही शारीरिक मेहनत टाळणे." },
-          { eng: "Kashtavina phal milat nahi - No fruit without hard work.", mar: "कष्टाविना फळ मिळत नाही - कष्टाशिवाय समृद्धी नाही." },
-          { eng: "Depending entirely on royal charity.", mar: "पूर्णपणे राजघराण्याच्या दानावर अवलंबून राहणे." }
+          { eng: "Sudha", mar: "सुधा" },
+          { eng: "Madhumati", mar: "मधुमती" },
+          { eng: "Mahipati", mar: "महिपती" },
+          { eng: "Saraswati", mar: "सरस्वती" }
         ],
-        correct: 2
+        correct: 1,
+        explanationEng: "Rama Natha's wife is Madhumati.",
+        explanationMar: "रामा नाथाची पत्नी मधुमती आहे."
       },
       {
-        questionEng: "What economic role did Madhumati play that structurally dismantled the family's poverty?",
-        questionMar: "कुटुंबाची गरिबी दूर करण्यासाठी मधुमतीने कोणती महत्त्वाची भूमिका बजावली?",
+        questionEng: "What is the name of the sage in the story?",
+        questionMar: "कथेतील ऋषींचे नाव काय आहे?",
         options: [
-          { eng: "She commercialized the harvested yields by systematically marketing and selling bananas.", mar: "तिने केळी बाजारात विकून पैशांचे योग्य व्यवस्थापन केले." },
-          { eng: "She hid all the earnings inside a locked wooden chest.", mar: "तिने सर्व कमाई बंद लाकडी पेटीत लपवून ठेवली." },
-          { eng: "She borrowed huge amounts of money from local moneylenders.", mar: "तिने स्थानिक सावकारांकडून मोठ्या प्रमाणावर कर्ज घेतले." },
-          { eng: "She completely ignored household financial responsibilities.", mar: "तिने कुटुंबातील आर्थिक जबाबदाऱ्यांकडे पूर्णपणे दुर्लक्ष केले." }
+          { eng: "Rama Natha", mar: "रामा नाथ" },
+          { eng: "Madhumati", mar: "मधुमती" },
+          { eng: "Mahipati", mar: "महिपती" },
+          { eng: "Sudha", mar: "सुधा" }
         ],
-        correct: 0
+        correct: 2,
+        explanationEng: "The sage's name is Mahipati.",
+        explanationMar: "ऋषींचे नाव महिपती आहे."
+      },
+      {
+        questionEng: "What was Rama Natha's father?",
+        questionMar: "रामा नाथाचे वडील काय होते?",
+        options: [
+          { eng: "A teacher", mar: "शिक्षक" },
+          { eng: "A wealthy farmer / landlord", mar: "श्रीमंत शेतकरी / जमीनदार" },
+          { eng: "A sage", mar: "ऋषी" },
+          { eng: "A merchant", mar: "व्यापारी" }
+        ],
+        correct: 1,
+        explanationEng: "His father was a wealthy farmer and landlord.",
+        explanationMar: "त्याचे वडील श्रीमंत शेतकरी आणि जमीनदार होते."
+      },
+      {
+        questionEng: "What did Rama Natha's father leave him?",
+        questionMar: "रामा नाथाच्या वडिलांनी त्याला काय दिले?",
+        options: [
+          { eng: "Land and money", mar: "जमीन आणि पैसा" },
+          { eng: "A magic potion", mar: "जादुई औषध" },
+          { eng: "A book", mar: "एक पुस्तक" },
+          { eng: "A bottle", mar: "एक बाटली" }
+        ],
+        correct: 0,
+        explanationEng: "He inherited land and money from his father.",
+        explanationMar: "त्याला वडिलांकडून जमीन आणि पैसा वारसाहक्काने मिळाला."
+      },
+      {
+        questionEng: "What was Rama Natha obsessed with?",
+        questionMar: "रामा नाथ कोणाच्या शोधात होता?",
+        options: [
+          { eng: "Bananas", mar: "केळी" },
+          { eng: "Gold coins", mar: "सोन्याची नाणी" },
+          { eng: "A magic potion that could turn things into gold", mar: "वस्तू सोन्यात बदलणारे जादुई औषध" },
+          { eng: "Dew", mar: "दव" }
+        ],
+        correct: 2,
+        explanationEng: "He was obsessed with finding a magic potion that could turn objects into gold.",
+        explanationMar: "तो वस्तू सोन्यात बदलणाऱ्या जादुई औषधाच्या शोधात होता."
+      },
+      {
+        questionEng: "What did Rama Natha neglect?",
+        questionMar: "रामा नाथाने कशाकडे दुर्लक्ष केले?",
+        options: [
+          { eng: "His wife", mar: "त्याची पत्नी" },
+          { eng: "His banana plantation", mar: "त्याची केळीची बाग" },
+          { eng: "The sage", mar: "ऋषी" },
+          { eng: "The market", mar: "बाजार" }
+        ],
+        correct: 1,
+        explanationEng: "He neglected his banana plantation in pursuit of magic.",
+        explanationMar: "जादूच्या शोधात त्याने आपल्या केळीच्या बागेकडे दुर्लक्ष केले."
+      },
+      {
+        questionEng: "Who was worried about Rama Natha's habits?",
+        questionMar: "रामा नाथाच्या सवयींची चिंता कोणाला होती?",
+        options: [
+          { eng: "Madhumati", mar: "मधुमती" },
+          { eng: "The sage", mar: "ऋषी" },
+          { eng: "His father", mar: "त्याचे वडील" },
+          { eng: "The king", mar: "राजा" }
+        ],
+        correct: 0,
+        explanationEng: "His wife Madhumati was worried about him.",
+        explanationMar: "त्याची पत्नी मधुमती त्याची काळजी करत होती."
+      },
+      {
+        questionEng: "Who visited the town one day?",
+        questionMar: "एके दिवशी गावात कोण आले?",
+        options: [
+          { eng: "A king", mar: "राजा" },
+          { eng: "A merchant", mar: "व्यापारी" },
+          { eng: "Sage Mahipati", mar: "ऋषी महिपती" },
+          { eng: "A farmer", mar: "शेतकरी" }
+        ],
+        correct: 2,
+        explanationEng: "Sage Mahipati visited the town one day.",
+        explanationMar: "एके दिवशी ऋषी महिपती गावात आले."
+      },
+      {
+        questionEng: "What did Rama Natha ask the sage about?",
+        questionMar: "रामा नाथाने ऋषींना कशाबद्दल विचारले?",
+        options: [
+          { eng: "Bananas", mar: "केळी" },
+          { eng: "The magic potion", mar: "जादुई औषध" },
+          { eng: "The weather", mar: "हवामान" },
+          { eng: "Money", mar: "पैसे" }
+        ],
+        correct: 1,
+        explanationEng: "He asked the sage about the magic potion.",
+        explanationMar: "त्याने ऋषींना जादुई औषधाबद्दल विचारले."
+      },
+      {
+        questionEng: "Did the sage say there was a way to make the magic potion?",
+        questionMar: "ऋषींनी सांगितले की जादुई औषध बनवण्याचा मार्ग आहे का?",
+        options: [
+          { eng: "Yes, through a task", mar: "होय, एका कार्याद्वारे" },
+          { eng: "No", mar: "नाही" },
+          { eng: "Only in cities", mar: "फक्त शहरांमध्ये" },
+          { eng: "Never", mar: "कधीच नाही" }
+        ],
+        correct: 0,
+        explanationEng: "The sage said yes, but through a difficult task.",
+        explanationMar: "ऋषींनी होय म्हटले, पण एका कठीण कार्याद्वारे."
+      },
+      {
+        questionEng: "What did the sage ask Rama Natha to collect?",
+        questionMar: "ऋषींनी रामा नाथाला काय गोळा करायला सांगितले?",
+        options: [
+          { eng: "Honey", mar: "मध" },
+          { eng: "Milk", mar: "दूध" },
+          { eng: "Dew", mar: "दव" },
+          { eng: "Rainwater", mar: "पावसाचे पाणी" }
+        ],
+        correct: 2,
+        explanationEng: "The sage asked him to collect dew.",
+        explanationMar: "ऋषींनी त्याला दव गोळा करायला सांगितले."
+      },
+      {
+        questionEng: "From which plants was the dew to be collected?",
+        questionMar: "कोणत्या रोपांवरून दव गोळा करायचे होते?",
+        options: [
+          { eng: "Mango plants", mar: "आंब्याची रोपे" },
+          { eng: "Banana plants", mar: "केळीची रोपे" },
+          { eng: "Neem plants", mar: "कडुलिंबाची रोपे" },
+          { eng: "Rose plants", mar: "गुलाबाची रोपे" }
+        ],
+        correct: 1,
+        explanationEng: "The dew was to be collected from banana plants.",
+        explanationMar: "केळीच्या रोपांवरून दव गोळा करायचे होते."
+      },
+      {
+        questionEng: "How much dew did the sage ask for?",
+        questionMar: "ऋषींनी किती दव मागितले?",
+        options: [
+          { eng: "Five litres", mar: "पाच लिटर" },
+          { eng: "One litre", mar: "एक लिटर" },
+          { eng: "Ten litres", mar: "दहा लिटर" },
+          { eng: "Five kilograms", mar: "पाच किलो" }
+        ],
+        correct: 0,
+        explanationEng: "The sage asked for five litres of dew.",
+        explanationMar: "ऋषींनी पाच लिटर दव मागितले."
+      },
+      {
+        questionEng: "For how long did Rama Natha have to collect the dew?",
+        questionMar: "रामा नाथाला किती काळ दव गोळा करायचे होते?",
+        options: [
+          { eng: "Five days", mar: "पाच दिवस" },
+          { eng: "Five months", mar: "पाच महिने" },
+          { eng: "Five years", mar: "पाच वर्षे" },
+          { eng: "Ten years", mar: "दहा वर्षे" }
+        ],
+        correct: 2,
+        explanationEng: "He had to collect the dew for five years.",
+        explanationMar: "त्याला पाच वर्षे दव गोळा करायचे होते."
+      },
+      {
+        questionEng: "When did Rama Natha have to collect the dew?",
+        questionMar: "रामा नाथाला दव कधी गोळा करायचे होते?",
+        options: [
+          { eng: "At noon", mar: "दुपारी" },
+          { eng: "Every morning before sunrise", mar: "दररोज पहाटे सूर्योदयापूर्वी" },
+          { eng: "At night", mar: "रात्री" },
+          { eng: "Once a month", mar: "महिन्यातून एकदा" }
+        ],
+        correct: 1,
+        explanationEng: "He had to collect the dew every morning before sunrise.",
+        explanationMar: "त्याला दररोज पहाटे सूर्योदयापूर्वी दव गोळा करायचे होते."
+      },
+      {
+        questionEng: "What did Rama Natha store the dew in?",
+        questionMar: "रामा नाथाने दव कशात साठवले?",
+        options: [
+          { eng: "A basket", mar: "टोपलीत" },
+          { eng: "A pot", mar: "मडक्यात" },
+          { eng: "A sack", mar: "पोत्यात" },
+          { eng: "A bottle", mar: "बाटलीत" }
+        ],
+        correct: 3,
+        explanationEng: "He stored the dew in a bottle.",
+        explanationMar: "त्याने दव बाटलीत साठवले."
+      },
+      {
+        questionEng: "Why did Rama Natha agree to collect the dew?",
+        questionMar: "रामा नाथाने दव गोळा करायला का होकार दिला?",
+        options: [
+          { eng: "He believed it would help make the magic potion / gold", mar: "त्याला वाटले की यामुळे जादुई औषध / सोने मिळेल" },
+          { eng: "He wanted to drink it", mar: "त्याला ते प्यायचे होते" },
+          { eng: "He liked mornings", mar: "त्याला सकाळ आवडत होती" },
+          { eng: "His wife asked him to", mar: "त्याच्या पत्नीने सांगितले" }
+        ],
+        correct: 0,
+        explanationEng: "He believed the dew would help make the magic potion and gold.",
+        explanationMar: "त्याला वाटले की दवामुळे जादुई औषध आणि सोने मिळेल."
+      },
+      {
+        questionEng: "What did Rama Natha do to get enough dew?",
+        questionMar: "पुरेसे दव मिळवण्यासाठी रामा नाथाने काय केले?",
+        options: [
+          { eng: "Bought bananas", mar: "केळी विकत घेतली" },
+          { eng: "Sold the bottle", mar: "बाटली विकली" },
+          { eng: "Tended / cared for the banana plants", mar: "केळीच्या रोपांची काळजी घेतली" },
+          { eng: "Slept", mar: "झोपले" }
+        ],
+        correct: 2,
+        explanationEng: "To collect dew he had to tend the banana plants, which grew well.",
+        explanationMar: "दव गोळा करण्यासाठी त्याला केळीच्या रोपांची काळजी घ्यावी लागली, जी भरभराटीस आली."
+      },
+      {
+        questionEng: "Who sold the bananas in the market?",
+        questionMar: "बाजारात केळी कोण विकत होते?",
+        options: [
+          { eng: "Rama Natha", mar: "रामा नाथ" },
+          { eng: "Madhumati", mar: "मधुमती" },
+          { eng: "The sage", mar: "ऋषी" },
+          { eng: "His father", mar: "त्याचे वडील" }
+        ],
+        correct: 1,
+        explanationEng: "Madhumati sold the bananas in the market.",
+        explanationMar: "मधुमती बाजारात केळी विकत होती."
+      },
+      {
+        questionEng: "Where did Madhumati sell the bananas?",
+        questionMar: "मधुमती केळी कुठे विकत होती?",
+        options: [
+          { eng: "In the market", mar: "बाजारात" },
+          { eng: "At the temple", mar: "मंदिरात" },
+          { eng: "At school", mar: "शाळेत" },
+          { eng: "In the forest", mar: "जंगलात" }
+        ],
+        correct: 0,
+        explanationEng: "She sold the bananas in the market.",
+        explanationMar: "ती बाजारात केळी विकत होती."
+      },
+      {
+        questionEng: "What did Madhumati do with the money from selling bananas?",
+        questionMar: "केळी विकून मिळालेल्या पैशांचे मधुमतीने काय केले?",
+        options: [
+          { eng: "Threw it away", mar: "फेकून दिले" },
+          { eng: "Gave it to the sage", mar: "ऋषींना दिले" },
+          { eng: "Saved it", mar: "साठवले" },
+          { eng: "Bought gold", mar: "सोने विकत घेतले" }
+        ],
+        correct: 2,
+        explanationEng: "She saved the money carefully.",
+        explanationMar: "तिने पैसे काळजीपूर्वक साठवले."
+      },
+      {
+        questionEng: "What happened to the banana plantation over the years?",
+        questionMar: "वर्षानुवर्षे केळीच्या बागेचे काय झाले?",
+        options: [
+          { eng: "It dried up", mar: "सुकली" },
+          { eng: "It flourished", mar: "भरभराटीस आली" },
+          { eng: "It disappeared", mar: "नाहीशी झाली" },
+          { eng: "It burned", mar: "जळाली" }
+        ],
+        correct: 1,
+        explanationEng: "The plantation flourished due to constant care.",
+        explanationMar: "सततच्या काळजीमुळे बाग भरभराटीस आली."
+      },
+      {
+        questionEng: "How many years passed before Rama Natha took the dew to the sage?",
+        questionMar: "रामा नाथाने दव ऋषींकडे नेण्यापूर्वी किती वर्षे उलटली?",
+        options: [
+          { eng: "One", mar: "एक" },
+          { eng: "Three", mar: "तीन" },
+          { eng: "Five", mar: "पाच" },
+          { eng: "Ten", mar: "दहा" }
+        ],
+        correct: 2,
+        explanationEng: "Five years passed before he took the dew to the sage.",
+        explanationMar: "दव ऋषींकडे नेण्यापूर्वी पाच वर्षे उलटली."
+      },
+      {
+        questionEng: "What did Rama Natha have after five years?",
+        questionMar: "पाच वर्षांनंतर रामा नाथाकडे काय होते?",
+        options: [
+          { eng: "A bottle of dew", mar: "दवाची बाटली" },
+          { eng: "A pot of gold", mar: "सोन्याचे भांडे" },
+          { eng: "A magic ring", mar: "जादुई अंगठी" },
+          { eng: "A banana basket", mar: "केळीची टोपली" }
+        ],
+        correct: 0,
+        explanationEng: "He had successfully collected a bottle of dew.",
+        explanationMar: "त्याने यशस्वीपणे दवाची बाटली गोळा केली होती."
+      },
+      {
+        questionEng: "To whom did Rama Natha take the bottle of dew?",
+        questionMar: "रामा नाथाने दवाची बाटली कोणाकडे नेली?",
+        options: [
+          { eng: "His father", mar: "त्याचे वडील" },
+          { eng: "His wife", mar: "त्याची पत्नी" },
+          { eng: "The king", mar: "राजा" },
+          { eng: "Sage Mahipati", mar: "ऋषी महिपती" }
+        ],
+        correct: 3,
+        explanationEng: "He took the bottle of dew to Sage Mahipati.",
+        explanationMar: "त्याने दवाची बाटली ऋषी महिपतींकडे नेली."
+      },
+      {
+        questionEng: "What did the sage do with the dew?",
+        questionMar: "ऋषींनी दवाचे काय केले?",
+        options: [
+          { eng: "Drank it", mar: "ते प्याले" },
+          { eng: "Sprinkled it on a copper vessel", mar: "तांब्याच्या भांड्यावर शिंपडले" },
+          { eng: "Sold it", mar: "ते विकले" },
+          { eng: "Threw it away", mar: "ते फेकून दिले" }
+        ],
+        correct: 1,
+        explanationEng: "The sage sprinkled the dew on a copper vessel.",
+        explanationMar: "ऋषींनी दव तांब्याच्या भांड्यावर शिंपडले."
+      },
+      {
+        questionEng: "What happened when the dew was sprinkled on the copper vessel?",
+        questionMar: "दव तांब्याच्या भांड्यावर शिंपडल्यावर काय झाले?",
+        options: [
+          { eng: "It turned into gold", mar: "ते सोन्यात बदलले" },
+          { eng: "It turned into silver", mar: "ते चांदीत बदलले" },
+          { eng: "Nothing happened", mar: "काहीच झाले नाही" },
+          { eng: "It exploded", mar: "ते स्फोट झाले" }
+        ],
+        correct: 2,
+        explanationEng: "Nothing happened — the copper vessel remained copper.",
+        explanationMar: "काहीच झाले नाही — तांब्याचे भांडे तांबेच राहिले."
+      },
+      {
+        questionEng: "How did Rama Natha feel when nothing happened?",
+        questionMar: "काहीच न झाल्यावर रामा नाथाला कसे वाटले?",
+        options: [
+          { eng: "Disappointed / confused", mar: "निराश / गोंधळलेले" },
+          { eng: "Happy", mar: "आनंदी" },
+          { eng: "Angry at his wife", mar: "त्याच्या पत्नीवर रागावले" },
+          { eng: "Proud", mar: "अभिमानी" }
+        ],
+        correct: 0,
+        explanationEng: "He was disappointed and confused when nothing happened.",
+        explanationMar: "काहीच न झाल्यावर तो निराश आणि गोंधळला."
+      },
+      {
+        questionEng: "What did the sage reveal?",
+        questionMar: "ऋषींनी काय उघड केले?",
+        options: [
+          { eng: "The dew was magic", mar: "दव जादुई होते" },
+          { eng: "There was no magic potion", mar: "जादुई औषध नव्हतेच" },
+          { eng: "Copper was magic", mar: "तांबे जादुई होते" },
+          { eng: "His wife was magic", mar: "त्याची पत्नी जादुई होती" }
+        ],
+        correct: 1,
+        explanationEng: "The sage revealed there was no magic potion at all.",
+        explanationMar: "ऋषींनी सांगितले की जादुई औषध अस्तित्वातच नव्हते."
+      },
+      {
+        questionEng: "What was the real 'magic' in the story?",
+        questionMar: "कथेतील खरी 'जादू' काय होती?",
+        options: [
+          { eng: "Dew", mar: "दव" },
+          { eng: "Copper", mar: "तांबे" },
+          { eng: "Hard work", mar: "कष्ट" },
+          { eng: "The sage's blessings", mar: "ऋषींचे आशीर्वाद" }
+        ],
+        correct: 2,
+        explanationEng: "The real magic was hard work and perseverance.",
+        explanationMar: "खरी जादू म्हणजे कष्ट आणि चिकाटी होय."
+      },
+      {
+        questionEng: "How did Rama Natha actually become rich?",
+        questionMar: "रामा नाथ प्रत्यक्षात श्रीमंत कसा झाला?",
+        options: [
+          { eng: "By selling bananas through hard work", mar: "कष्टाने केळी विकून" },
+          { eng: "By magic", mar: "जादूने" },
+          { eng: "By finding treasure", mar: "खजिना सापडल्यामुळे" },
+          { eng: "By receiving gold from the sage", mar: "ऋषींकडून सोने मिळाल्यामुळे" }
+        ],
+        correct: 0,
+        explanationEng: "He became rich by selling bananas through hard work.",
+        explanationMar: "कष्टाने केळी विकून तो श्रीमंत झाला."
+      },
+      {
+        questionEng: "What did Rama Natha realise?",
+        questionMar: "रामा नाथाला काय समजले?",
+        options: [
+          { eng: "Magic is real", mar: "जादू खरी आहे" },
+          { eng: "Dew is useless", mar: "दव निरुपयोगी आहे" },
+          { eng: "His wife should work alone", mar: "त्याच्या पत्नीने एकटीने काम करावे" },
+          { eng: "Hard work is the key to success", mar: "कष्ट हीच यशाची गुरुकिल्ली आहे" }
+        ],
+        correct: 3,
+        explanationEng: "He realised that hard work is the key to success.",
+        explanationMar: "त्याला समजले की कष्ट हीच यशाची गुरुकिल्ली आहे."
+      },
+      {
+        questionEng: "What did Rama Natha do after learning the lesson?",
+        questionMar: "धडा शिकल्यानंतर रामा नाथाने काय केले?",
+        options: [
+          { eng: "Left the village", mar: "गाव सोडले" },
+          { eng: "Continued farming / the plantation", mar: "शेती / बागेचे काम चालू ठेवले" },
+          { eng: "Searched for the potion", mar: "औषधाचा शोध घेतला" },
+          { eng: "Became a sage", mar: "ऋषी झाले" }
+        ],
+        correct: 1,
+        explanationEng: "He continued working hard on his plantation.",
+        explanationMar: "त्याने आपल्या बागेत कष्ट करणे चालू ठेवले."
+      },
+      {
+        questionEng: "What is the central theme of the story?",
+        questionMar: "कथेचा मुख्य विषय काय आहे?",
+        options: [
+          { eng: "Magic", mar: "जादू" },
+          { eng: "Travel", mar: "प्रवास" },
+          { eng: "Hard work and perseverance", mar: "कष्ट आणि चिकाटी" },
+          { eng: "Luck", mar: "नशीब" }
+        ],
+        correct: 2,
+        explanationEng: "The central theme is the value of hard work and perseverance.",
+        explanationMar: "मुख्य विषय म्हणजे कष्टाचे आणि चिकाटीचे महत्त्व."
+      },
+      {
+        questionEng: "What does the title 'A Bottle of Dew' refer to?",
+        questionMar: "'अ बॉटल ऑफ ड्यू' या शीर्षकाचा अर्थ काय?",
+        options: [
+          { eng: "The bottle of dew collected over years", mar: "वर्षानुवर्षे गोळा केलेली दवाची बाटली" },
+          { eng: "A bottle of gold", mar: "सोन्याची बाटली" },
+          { eng: "A bottle of honey", mar: "मधाची बाटली" },
+          { eng: "A bottle of milk", mar: "दुधाची बाटली" }
+        ],
+        correct: 0,
+        explanationEng: "The title refers to the bottle of dew that Rama Natha collected over five years.",
+        explanationMar: "हे शीर्षक रामा नाथाने पाच वर्षांत गोळा केलेल्या दवाच्या बाटलीकडे निर्देश करते."
+      },
+      {
+        questionEng: "Which character is practical and supportive?",
+        questionMar: "कोणते पात्र व्यावहारिक आणि आधार देणारे आहे?",
+        options: [
+          { eng: "Rama Natha", mar: "रामा नाथ" },
+          { eng: "Madhumati", mar: "मधुमती" },
+          { eng: "The sage", mar: "ऋषी" },
+          { eng: "His father", mar: "त्याचे वडील" }
+        ],
+        correct: 1,
+        explanationEng: "Madhumati is practical and supportive throughout.",
+        explanationMar: "मधुमती संपूर्ण कथेत व्यावहारिक आणि आधार देणारी आहे."
+      },
+      {
+        questionEng: "Who tricked Rama Natha for his own good?",
+        questionMar: "रामा नाथाच्या भल्यासाठी कोणी त्याला फसवले?",
+        options: [
+          { eng: "The king", mar: "राजा" },
+          { eng: "His father", mar: "त्याचे वडील" },
+          { eng: "The sage", mar: "ऋषी" },
+          { eng: "His wife", mar: "त्याची पत्नी" }
+        ],
+        correct: 2,
+        explanationEng: "The sage tricked him to teach the value of hard work.",
+        explanationMar: "ऋषींनी कष्टाचे महत्त्व शिकवण्यासाठी त्याला फसवले."
+      },
+      {
+        questionEng: "Was the sage's trick harmful?",
+        questionMar: "ऋषींची युक्ती हानिकारक होती का?",
+        options: [
+          { eng: "No, it taught a lesson", mar: "नाही, तिने धडा दिला" },
+          { eng: "Yes, it harmed him", mar: "होय, तिने त्याला हानी केली" },
+          { eng: "Yes, he lost his land", mar: "होय, त्याने जमीन गमावली" },
+          { eng: "No, it was useless", mar: "नाही, ती निरुपयोगी होती" }
+        ],
+        correct: 0,
+        explanationEng: "The trick was beneficial — it taught him a valuable life lesson.",
+        explanationMar: "ती युक्ती फायद्याची होती — तिने त्याला जीवनाचा मौल्यवान धडा दिला."
+      },
+      {
+        questionEng: "What quality did Rama Natha show during the five years?",
+        questionMar: "पाच वर्षांत रामा नाथाने कोणता गुण दाखवला?",
+        options: [
+          { eng: "Anger", mar: "राग" },
+          { eng: "Patience / perseverance", mar: "संयम / चिकाटी" },
+          { eng: "Greed", mar: "लोभ" },
+          { eng: "Laziness", mar: "आळस" }
+        ],
+        correct: 1,
+        explanationEng: "He showed remarkable patience and perseverance.",
+        explanationMar: "त्याने उल्लेखनीय संयम आणि चिकाटी दाखवली."
+      },
+      {
+        questionEng: "What quality did Rama Natha lack at first?",
+        questionMar: "सुरुवातीला रामा नाथात कोणता गुण नव्हता?",
+        options: [
+          { eng: "Kindness", mar: "दयाळूपणा" },
+          { eng: "Honesty", mar: "प्रामाणिकपणा" },
+          { eng: "Understanding the value of hard work", mar: "कष्टाचे महत्त्व समजून घेणे" },
+          { eng: "Cooking", mar: "स्वयंपाक" }
+        ],
+        correct: 2,
+        explanationEng: "He lacked the understanding of the value of hard work.",
+        explanationMar: "त्याला कष्टाचे महत्त्व समजत नव्हते."
+      },
+      {
+        questionEng: "What is dew?",
+        questionMar: "दव म्हणजे काय?",
+        options: [
+          { eng: "Tiny water droplets", mar: "पाण्याचे छोटे थेंब" },
+          { eng: "Gold", mar: "सोने" },
+          { eng: "Honey", mar: "मध" },
+          { eng: "Milk", mar: "दूध" }
+        ],
+        correct: 0,
+        explanationEng: "Dew is formed of tiny water droplets that appear on plants early in the morning.",
+        explanationMar: "दव म्हणजे पहाटे झाडांवर दिसणारे पाण्याचे छोटे थेंब."
+      },
+      {
+        questionEng: "What is a potion?",
+        questionMar: "पोषन (potion) म्हणजे काय?",
+        options: [
+          { eng: "A tree", mar: "झाड" },
+          { eng: "A field", mar: "शेत" },
+          { eng: "A market", mar: "बाजार" },
+          { eng: "A liquid mixture / magic drink", mar: "द्रव मिश्रण / जादुई पेय" }
+        ],
+        correct: 3,
+        explanationEng: "A potion is a liquid mixture, often believed to have magical powers.",
+        explanationMar: "पोषन म्हणजे द्रव मिश्रण, ज्यात जादुई शक्ती असल्याचे मानले जाते."
+      },
+      {
+        questionEng: "What is a plantation?",
+        questionMar: "बाग / प्लांटेशन म्हणजे काय?",
+        options: [
+          { eng: "A shop", mar: "दुकान" },
+          { eng: "An area where crops are grown", mar: "पिके घेतली जाणारी जागा" },
+          { eng: "A city", mar: "शहर" },
+          { eng: "A bottle", mar: "बाटली" }
+        ],
+        correct: 1,
+        explanationEng: "A plantation is a large area where crops are cultivated.",
+        explanationMar: "बाग म्हणजे पिके घेतली जाणारी मोठी जागा."
+      },
+      {
+        questionEng: "What is a sage?",
+        questionMar: "ऋषी म्हणजे काय?",
+        options: [
+          { eng: "A king", mar: "राजा" },
+          { eng: "A farmer", mar: "शेतकरी" },
+          { eng: "A wise man", mar: "शहाणा माणूस" },
+          { eng: "A merchant", mar: "व्यापारी" }
+        ],
+        correct: 2,
+        explanationEng: "A sage is a wise and knowledgeable person.",
+        explanationMar: "ऋषी म्हणजे शहाणा आणि ज्ञानी व्यक्ती."
+      },
+      {
+        questionEng: "What is a landlord?",
+        questionMar: "जमीनदार म्हणजे काय?",
+        options: [
+          { eng: "An owner of land", mar: "जमिनीचा मालक" },
+          { eng: "A seller of dew", mar: "दव विकणारा" },
+          { eng: "A magic potion", mar: "जादुई औषध" },
+          { eng: "A banana", mar: "केळे" }
+        ],
+        correct: 0,
+        explanationEng: "A landlord is a person who owns land.",
+        explanationMar: "जमीनदार म्हणजे जमिनीचा मालक."
+      },
+      {
+        questionEng: "Which is NOT a character in the story?",
+        questionMar: "खालीलपैकी कोणते पात्र कथेत नाही?",
+        options: [
+          { eng: "Rama Natha", mar: "रामा नाथ" },
+          { eng: "Madhumati", mar: "मधुमती" },
+          { eng: "Mahipati", mar: "महिपती" },
+          { eng: "Birbal", mar: "बिरबल" }
+        ],
+        correct: 3,
+        explanationEng: "Birbal is not a character in this story.",
+        explanationMar: "बिरबल या कथेतील पात्र नाही."
+      },
+      {
+        questionEng: "Which is NOT part of the sage's task?",
+        questionMar: "खालीलपैकी कोणते ऋषींच्या कार्याचा भाग नाही?",
+        options: [
+          { eng: "Collect five litres of honey", mar: "पाच लिटर मध गोळा करणे" },
+          { eng: "Collect five litres of dew", mar: "पाच लिटर दव गोळा करणे" },
+          { eng: "Collect for five years", mar: "पाच वर्षे गोळा करणे" },
+          { eng: "Collect from banana plants", mar: "केळीच्या रोपांवरून गोळा करणे" }
+        ],
+        correct: 0,
+        explanationEng: "Collecting honey was not part of the task.",
+        explanationMar: "मध गोळा करणे हे कार्याचा भाग नव्हते."
+      },
+      {
+        questionEng: "Which is NOT true about Rama Natha at the beginning?",
+        questionMar: "सुरुवातीला रामा नाथाबद्दल कोणते विधान खरे नाही?",
+        options: [
+          { eng: "He was obsessed with the magic potion", mar: "तो जादुई औषधाच्या शोधात होता" },
+          { eng: "He neglected the plantation", mar: "त्याने बागेकडे दुर्लक्ष केले" },
+          { eng: "He worked hard on the banana plantation", mar: "तो केळीच्या बागेत कष्ट करत होता" },
+          { eng: "He believed in quick wealth", mar: "तो पटकन श्रीमंत होण्यावर विश्वास ठेवत होता" }
+        ],
+        correct: 2,
+        explanationEng: "At first he did NOT work hard on the plantation.",
+        explanationMar: "सुरुवातीला तो बागेत कष्ट करत नव्हता."
+      },
+      {
+        questionEng: "Which is true about Madhumati?",
+        questionMar: "मधुमतीबद्दल कोणते विधान खरे आहे?",
+        options: [
+          { eng: "She searched for the potion", mar: "तिने औषधाचा शोध घेतला" },
+          { eng: "She sold bananas and saved money", mar: "तिने केळी विकली आणि पैसे साठवले" },
+          { eng: "She visited the sage", mar: "ती ऋषींना भेटायला गेली" },
+          { eng: "She collected honey", mar: "तिने मध गोळा केला" }
+        ],
+        correct: 1,
+        explanationEng: "She sold bananas and saved the money she earned.",
+        explanationMar: "तिने केळी विकली आणि कमावलेले पैसे साठवले."
+      },
+      {
+        questionEng: "Which is true about the sage?",
+        questionMar: "ऋषींबद्दल कोणते विधान खरे आहे?",
+        options: [
+          { eng: "He gave gold", mar: "त्यांनी सोने दिले" },
+          { eng: "He stole money", mar: "त्यांनी पैसे चोरले" },
+          { eng: "He taught the value of hard work", mar: "त्यांनी कष्टाचे महत्त्व शिकवले" },
+          { eng: "He turned copper into gold", mar: "त्यांनी तांबे सोन्यात बदलले" }
+        ],
+        correct: 2,
+        explanationEng: "The sage taught Rama Natha the value of hard work.",
+        explanationMar: "ऋषींनी रामा नाथाला कष्टाचे महत्त्व शिकवले."
+      },
+      {
+        questionEng: "What did Rama Natha initially think would make him rich?",
+        questionMar: "सुरुवातीला रामा नाथाला कशामुळे श्रीमंत होईल असे वाटले?",
+        options: [
+          { eng: "The magic potion", mar: "जादुई औषध" },
+          { eng: "The banana business", mar: "केळीचा व्यवसाय" },
+          { eng: "His wife's savings", mar: "त्याच्या पत्नीची बचत" },
+          { eng: "The sage's gift", mar: "ऋषींची भेट" }
+        ],
+        correct: 0,
+        explanationEng: "He initially believed the magic potion would make him rich.",
+        explanationMar: "सुरुवातीला त्याला वाटले की जादुई औषध त्याला श्रीमंत करेल."
+      },
+      {
+        questionEng: "What actually made him rich?",
+        questionMar: "प्रत्यक्षात त्याला श्रीमंत कशामुळे केले?",
+        options: [
+          { eng: "The magic potion", mar: "जादुई औषध" },
+          { eng: "Dew", mar: "दव" },
+          { eng: "The banana business / hard work", mar: "केळीचा व्यवसाय / कष्ट" },
+          { eng: "The copper vessel", mar: "तांब्याचे भांडे" }
+        ],
+        correct: 2,
+        explanationEng: "The banana business built on hard work made him rich.",
+        explanationMar: "कष्टावर उभा असलेला केळीचा व्यवसाय त्याला श्रीमंत करणारा ठरला."
+      },
+      {
+        questionEng: "Why did the sage choose banana plants?",
+        questionMar: "ऋषींनी केळीची रोपे का निवडली?",
+        options: [
+          { eng: "Bananas were magic", mar: "केळी जादुई होती" },
+          { eng: "To make Rama Natha work on the plantation", mar: "रामा नाथाला बागेत काम करायला लावण्यासाठी" },
+          { eng: "Dew was tasty", mar: "दव चविष्ट होते" },
+          { eng: "The sage liked bananas", mar: "ऋषींना केळी आवडत होती" }
+        ],
+        correct: 1,
+        explanationEng: "He chose banana plants so Rama Natha would work on the plantation.",
+        explanationMar: "त्यांनी केळीची रोपे निवडली जेणेकरून रामा नाथ बागेत काम करेल."
+      },
+      {
+        questionEng: "What did Rama Natha have to do every day?",
+        questionMar: "रामा नाथाला दररोज काय करावे लागत होते?",
+        options: [
+          { eng: "Collect dew", mar: "दव गोळा करणे" },
+          { eng: "Sell bananas", mar: "केळी विकणे" },
+          { eng: "Buy gold", mar: "सोने विकत घेणे" },
+          { eng: "Visit the king", mar: "राजाला भेटणे" }
+        ],
+        correct: 0,
+        explanationEng: "He had to collect dew every day before sunrise.",
+        explanationMar: "त्याला दररोज पहाटे दव गोळा करावे लागत होते."
+      },
+      {
+        questionEng: "What did Rama Natha have to do besides collecting dew?",
+        questionMar: "दव गोळा करण्याव्यतिरिक्त रामा नाथाला काय करावे लागले?",
+        options: [
+          { eng: "Sleep", mar: "झोपणे" },
+          { eng: "Leave the village", mar: "गाव सोडणे" },
+          { eng: "Buy a potion", mar: "औषध विकत घेणे" },
+          { eng: "Care for the banana plants", mar: "केळीच्या रोपांची काळजी घेणे" }
+        ],
+        correct: 3,
+        explanationEng: "He had to care for the banana plants so they would grow.",
+        explanationMar: "त्याला केळीच्या रोपांची काळजी घ्यावी लागली जेणेकरून ती वाढतील."
+      },
+      {
+        questionEng: "What did Madhumati do with the saved money?",
+        questionMar: "मधुमतीने साठवलेल्या पैशांचे काय केले?",
+        options: [
+          { eng: "Threw it away", mar: "फेकून दिले" },
+          { eng: "Saved it", mar: "साठवले" },
+          { eng: "Gave it to the sage", mar: "ऋषींना दिले" },
+          { eng: "Bought magic books", mar: "जादुई पुस्तके विकत घेतली" }
+        ],
+        correct: 1,
+        explanationEng: "She carefully saved the money.",
+        explanationMar: "तिने पैसे काळजीपूर्वक साठवले."
+      },
+      {
+        questionEng: "How did Rama Natha react when the copper vessel did not change?",
+        questionMar: "तांब्याचे भांडे बदलले नाही तेव्हा रामा नाथाने कसा प्रतिसाद दिला?",
+        options: [
+          { eng: "He was disappointed", mar: "तो निराश झाला" },
+          { eng: "He was happy", mar: "तो आनंदी झाला" },
+          { eng: "He was proud", mar: "त्याला अभिमान वाटला" },
+          { eng: "He was angry at his wife", mar: "तो त्याच्या पत्नीवर रागावला" }
+        ],
+        correct: 0,
+        explanationEng: "He was disappointed that nothing happened.",
+        explanationMar: "काहीच न झाल्याने तो निराश झाला."
+      },
+      {
+        questionEng: "What happened to the copper vessel?",
+        questionMar: "तांब्याच्या भांड्याचे काय झाले?",
+        options: [
+          { eng: "It turned into gold", mar: "ते सोन्यात बदलले" },
+          { eng: "It disappeared", mar: "ते गायब झाले" },
+          { eng: "It remained copper", mar: "ते तांबेच राहिले" },
+          { eng: "It became silver", mar: "ते चांदी बनले" }
+        ],
+        correct: 2,
+        explanationEng: "The vessel remained copper — no magic happened.",
+        explanationMar: "भांडे तांबेच राहिले — कोणतीही जादू झाली नाही."
+      },
+      {
+        questionEng: "What lesson did Rama Natha learn?",
+        questionMar: "रामा नाथाने कोणता धडा शिकला?",
+        options: [
+          { eng: "Magic is easy", mar: "जादू सोपी आहे" },
+          { eng: "There is no shortcut to success", mar: "यशाला कोणताही शॉर्टकट नाही" },
+          { eng: "Dew is precious", mar: "दव मौल्यवान आहे" },
+          { eng: "Copper is magic", mar: "तांबे जादुई आहे" }
+        ],
+        correct: 1,
+        explanationEng: "He learned there is no shortcut to success.",
+        explanationMar: "त्याने शिकले की यशाला कोणताही शॉर्टकट नाही."
+      },
+      {
+        questionEng: "What is the moral of the story?",
+        questionMar: "कथेचा बोध काय आहे?",
+        options: [
+          { eng: "Hard work pays", mar: "कष्टाचे फळ मिळते" },
+          { eng: "Magic solves all problems", mar: "जादू सर्व समस्या सोडवते" },
+          { eng: "Money is bad", mar: "पैसा वाईट आहे" },
+          { eng: "Farming is boring", mar: "शेती कंटाळवाणी आहे" }
+        ],
+        correct: 0,
+        explanationEng: "The moral is that hard work always pays off.",
+        explanationMar: "बोध हा आहे की कष्टाचे नेहमी फळ मिळते."
+      },
+      {
+        questionEng: "What did Rama Natha's father own?",
+        questionMar: "रामा नाथाच्या वडिलांच्या मालकीचे काय होते?",
+        options: [
+          { eng: "A shop", mar: "दुकान" },
+          { eng: "A factory", mar: "कारखाना" },
+          { eng: "A banana plantation", mar: "केळीची बाग" },
+          { eng: "A school", mar: "शाळा" }
+        ],
+        correct: 2,
+        explanationEng: "His father owned a banana plantation.",
+        explanationMar: "त्याच्या वडिलांच्या मालकीची केळीची बाग होती."
+      },
+      {
+        questionEng: "What did Rama Natha do with the plantation at first?",
+        questionMar: "सुरुवातीला रामा नाथाने बागेचे काय केले?",
+        options: [
+          { eng: "Cared for it", mar: "काळजी घेतली" },
+          { eng: "Neglected it", mar: "दुर्लक्ष केले" },
+          { eng: "Sold it", mar: "विकली" },
+          { eng: "Gave it away", mar: "दान केली" }
+        ],
+        correct: 1,
+        explanationEng: "He neglected the plantation at first.",
+        explanationMar: "सुरुवातीला त्याने बागेकडे दुर्लक्ष केले."
+      },
+      {
+        questionEng: "Who benefited from the banana plantation?",
+        questionMar: "केळीच्या बागेचा फायदा कोणाला झाला?",
+        options: [
+          { eng: "Rama Natha and Madhumati", mar: "रामा नाथ आणि मधुमती" },
+          { eng: "The sage", mar: "ऋषी" },
+          { eng: "The king", mar: "राजा" },
+          { eng: "His father", mar: "त्याचे वडील" }
+        ],
+        correct: 0,
+        explanationEng: "Rama Natha and Madhumati benefited from the plantation.",
+        explanationMar: "रामा नाथ आणि मधुमती यांना बागेचा फायदा झाला."
+      },
+      {
+        questionEng: "What did the sage ask Rama Natha to bring after five years?",
+        questionMar: "पाच वर्षांनंतर ऋषींनी रामा नाथाला काय आणायला सांगितले?",
+        options: [
+          { eng: "One litre of dew", mar: "एक लिटर दव" },
+          { eng: "Five bananas", mar: "पाच केळी" },
+          { eng: "A gold coin", mar: "सोन्याचे नाणे" },
+          { eng: "Five litres of dew", mar: "पाच लिटर दव" }
+        ],
+        correct: 3,
+        explanationEng: "The sage asked him to bring five litres of dew.",
+        explanationMar: "ऋषींनी त्याला पाच लिटर दव आणायला सांगितले."
+      },
+      {
+        questionEng: "What did the sage do first with the dew?",
+        questionMar: "ऋषींनी प्रथम दवाचे काय केले?",
+        options: [
+          { eng: "Drank it", mar: "ते प्याले" },
+          { eng: "Sprinkled it on a copper vessel", mar: "तांब्याच्या भांड्यावर शिंपडले" },
+          { eng: "Sold it", mar: "ते विकले" },
+          { eng: "Gave it to his wife", mar: "त्याच्या पत्नीला दिले" }
+        ],
+        correct: 1,
+        explanationEng: "He sprinkled the dew on a copper vessel.",
+        explanationMar: "त्यांनी दव तांब्याच्या भांड्यावर शिंपडले."
+      },
+      {
+        questionEng: "Did the dew turn the copper into gold?",
+        questionMar: "दवाने तांबे सोन्यात बदलले का?",
+        options: [
+          { eng: "Yes", mar: "होय" },
+          { eng: "Partially", mar: "अंशतः" },
+          { eng: "No", mar: "नाही" },
+          { eng: "Only at night", mar: "फक्त रात्री" }
+        ],
+        correct: 2,
+        explanationEng: "No, the copper remained copper.",
+        explanationMar: "नाही, तांबे तांबेच राहिले."
+      },
+      {
+        questionEng: "What was the real 'magic' in the story?",
+        questionMar: "कथेतील खरी 'जादू' काय होती?",
+        options: [
+          { eng: "Hard work", mar: "कष्ट" },
+          { eng: "Dew", mar: "दव" },
+          { eng: "Copper", mar: "तांबे" },
+          { eng: "Banana leaves", mar: "केळीची पाने" }
+        ],
+        correct: 0,
+        explanationEng: "The real magic was hard work.",
+        explanationMar: "खरी जादू म्हणजे कष्ट होय."
+      },
+      {
+        questionEng: "Which word best describes the sage?",
+        questionMar: "ऋषींचे वर्णन करण्यासाठी कोणता शब्द सर्वात योग्य आहे?",
+        options: [
+          { eng: "Foolish", mar: "मूर्ख" },
+          { eng: "Wise", mar: "शहाणा" },
+          { eng: "Lazy", mar: "आळशी" },
+          { eng: "Greedy", mar: "लोभी" }
+        ],
+        correct: 1,
+        explanationEng: "The sage is wise and far-sighted.",
+        explanationMar: "ऋषी शहाणे आणि दूरदर्शी आहेत."
+      },
+      {
+        questionEng: "Which word best describes Rama Natha at the end?",
+        questionMar: "शेवटी रामा नाथाचे वर्णन करण्यासाठी कोणता शब्द सर्वात योग्य आहे?",
+        options: [
+          { eng: "Lazy", mar: "आळशी" },
+          { eng: "Greedy", mar: "लोभी" },
+          { eng: "Hardworking", mar: "कष्टाळू" },
+          { eng: "Dishonest", mar: "अप्रामाणिक" }
+        ],
+        correct: 2,
+        explanationEng: "By the end, Rama Natha is hardworking.",
+        explanationMar: "शेवटी रामा नाथ कष्टाळू बनतो."
+      },
+      {
+        questionEng: "Which word best describes Madhumati?",
+        questionMar: "मधुमतीचे वर्णन करण्यासाठी कोणता शब्द सर्वात योग्य आहे?",
+        options: [
+          { eng: "Supportive", mar: "आधार देणारी" },
+          { eng: "Careless", mar: "निष्काळजी" },
+          { eng: "Greedy", mar: "लोभी" },
+          { eng: "Cruel", mar: "क्रूर" }
+        ],
+        correct: 0,
+        explanationEng: "Madhumati is supportive and practical.",
+        explanationMar: "मधुमती आधार देणारी आणि व्यावहारिक आहे."
+      },
+      {
+        questionEng: "What did Rama Natha spend his money on before the sage's visit?",
+        questionMar: "ऋषींच्या भेटीपूर्वी रामा नाथ पैसे कशावर खर्च करत होता?",
+        options: [
+          { eng: "Experiments to find the magic potion", mar: "जादुई औषध शोधण्याच्या प्रयोगांवर" },
+          { eng: "Buying bananas", mar: "केळी विकत घेण्यावर" },
+          { eng: "Building a school", mar: "शाळा बांधण्यावर" },
+          { eng: "Charity", mar: "दानावर" }
+        ],
+        correct: 0,
+        explanationEng: "He wasted money on experiments to find the magic potion.",
+        explanationMar: "त्याने जादुई औषध शोधण्याच्या प्रयोगांवर पैसे वाया घालवले."
+      },
+      {
+        questionEng: "What did Madhumati do while Rama Natha collected dew?",
+        questionMar: "रामा नाथ दव गोळा करत असताना मधुमती काय करत होती?",
+        options: [
+          { eng: "Slept", mar: "झोपत होती" },
+          { eng: "Sold bananas", mar: "केळी विकत होती" },
+          { eng: "Searched for the potion", mar: "औषधाचा शोध घेत होती" },
+          { eng: "Left the village", mar: "गाव सोडले होते" }
+        ],
+        correct: 1,
+        explanationEng: "She sold bananas while Rama Natha collected dew.",
+        explanationMar: "रामा नाथ दव गोळा करत असताना ती केळी विकत होती."
+      },
+      {
+        questionEng: "What did Rama Natha believe about the sage?",
+        questionMar: "रामा नाथ ऋषींबद्दल काय विश्वास ठेवत होता?",
+        options: [
+          { eng: "The sage was a farmer", mar: "ऋषी शेतकरी होते" },
+          { eng: "The sage was a king", mar: "ऋषी राजा होते" },
+          { eng: "The sage knew the magic potion", mar: "ऋषींना जादुई औषध माहीत होते" },
+          { eng: "The sage was a thief", mar: "ऋषी चोर होते" }
+        ],
+        correct: 2,
+        explanationEng: "He believed the sage knew the magic potion.",
+        explanationMar: "त्याला वाटले की ऋषींना जादुई औषध माहीत आहे."
+      },
+      {
+        questionEng: "Why did Rama Natha not question the sage?",
+        questionMar: "रामा नाथाने ऋषींना का प्रश्न विचारला नाही?",
+        options: [
+          { eng: "He believed him / was desperate", mar: "त्याने त्यांच्यावर विश्वास ठेवला / तो हताश होता" },
+          { eng: "He was afraid", mar: "तो घाबरला होता" },
+          { eng: "He was lazy", mar: "तो आळशी होता" },
+          { eng: "His wife told him to", mar: "त्याच्या पत्नीने सांगितले" }
+        ],
+        correct: 0,
+        explanationEng: "He believed the sage and was desperate to get rich.",
+        explanationMar: "त्याने ऋषींवर विश्वास ठेवला आणि तो श्रीमंत होण्यासाठी हताश होता."
+      },
+      {
+        questionEng: "What did the sage want Rama Natha to understand?",
+        questionMar: "ऋषींना रामा नाथाला काय समजवायचे होते?",
+        options: [
+          { eng: "Dew is magic", mar: "दव जादुई आहे" },
+          { eng: "Wealth comes from effort", mar: "संपत्ती कष्टातून मिळते" },
+          { eng: "Copper is valuable", mar: "तांबे मौल्यवान आहे" },
+          { eng: "Bananas are bad", mar: "केळी वाईट आहेत" }
+        ],
+        correct: 1,
+        explanationEng: "He wanted Rama Natha to understand that wealth comes from effort.",
+        explanationMar: "त्यांना रामा नाथाला समजवायचे होते की संपत्ती कष्टातूनच मिळते."
+      },
+      {
+        questionEng: "What type of story is 'A Bottle of Dew'?",
+        questionMar: "'अ बॉटल ऑफ ड्यू' कोणत्या प्रकारची कथा आहे?",
+        options: [
+          { eng: "Science fiction", mar: "विज्ञान कथा" },
+          { eng: "Horror", mar: "भयकथा" },
+          { eng: "A moral / folk tale", mar: "बोधकथा / लोककथा" },
+          { eng: "Adventure", mar: "साहसकथा" }
+        ],
+        correct: 2,
+        explanationEng: "It is a moral / folk tale.",
+        explanationMar: "ती एक बोधकथा / लोककथा आहे."
+      },
+      {
+        questionEng: "Where does the story mainly take place?",
+        questionMar: "कथा मुख्यतः कुठे घडते?",
+        options: [
+          { eng: "A village / farm", mar: "गाव / शेत" },
+          { eng: "A city", mar: "शहर" },
+          { eng: "A palace", mar: "राजवाडा" },
+          { eng: "A school", mar: "शाळा" }
+        ],
+        correct: 0,
+        explanationEng: "The story takes place in a village / farm setting.",
+        explanationMar: "कथा गाव / शेताच्या पार्श्वभूमीवर घडते."
+      },
+      {
+        questionEng: "Which crop is central to the story?",
+        questionMar: "कथेतील मुख्य पीक कोणते आहे?",
+        options: [
+          { eng: "Rice", mar: "भात" },
+          { eng: "Banana", mar: "केळी" },
+          { eng: "Wheat", mar: "गहू" },
+          { eng: "Mango", mar: "आंबा" }
+        ],
+        correct: 1,
+        explanationEng: "Banana is the central crop in the story.",
+        explanationMar: "केळी हे कथेतील मुख्य पीक आहे."
+      },
+      {
+        questionEng: "What does the bottle of dew symbolise?",
+        questionMar: "दवाची बाटली कशाचे प्रतीक आहे?",
+        options: [
+          { eng: "Magic", mar: "जादू" },
+          { eng: "Laziness", mar: "आळस" },
+          { eng: "Hard work disguised as magic", mar: "जादूच्या रूपातील कष्ट" },
+          { eng: "Wealth without effort", mar: "कष्टाशिवाय संपत्ती" }
+        ],
+        correct: 2,
+        explanationEng: "The bottle of dew symbolises hard work disguised as magic.",
+        explanationMar: "दवाची बाटली ही जादूच्या रूपातील कष्टाचे प्रतीक आहे."
+      },
+      {
+        questionEng: "What did Rama Natha do with his money before the sage's visit?",
+        questionMar: "ऋषींच्या भेटीपूर्वी रामा नाथने पैशांचे काय केले?",
+        options: [
+          { eng: "Spent it on experiments", mar: "प्रयोगांवर खर्च केले" },
+          { eng: "Saved it", mar: "साठवले" },
+          { eng: "Gave it to the poor", mar: "गरीबांना दिले" },
+          { eng: "Bought bananas", mar: "केळी विकत घेतली" }
+        ],
+        correct: 0,
+        explanationEng: "He spent his money on experiments to find the potion.",
+        explanationMar: "त्याने औषध शोधण्याच्या प्रयोगांवर पैसे खर्च केले."
+      },
+      {
+        questionEng: "What did Rama Natha stop doing after learning the lesson?",
+        questionMar: "धडा शिकल्यानंतर रामा नाथाने काय करणे थांबवले?",
+        options: [
+          { eng: "Farming", mar: "शेती" },
+          { eng: "Eating", mar: "खाणे" },
+          { eng: "Sleeping", mar: "झोपणे" },
+          { eng: "Searching for magic shortcuts", mar: "जादुई शॉर्टकटचा शोध" }
+        ],
+        correct: 3,
+        explanationEng: "He stopped searching for magic shortcuts.",
+        explanationMar: "त्याने जादुई शॉर्टकटचा शोध थांबवला."
+      },
+      {
+        questionEng: "What did the sage's test prove?",
+        questionMar: "ऋषींच्या चाचणीने काय सिद्ध केले?",
+        options: [
+          { eng: "Dew is magic", mar: "दव जादुई आहे" },
+          { eng: "There was no magic potion", mar: "जादुई औषध नव्हतेच" },
+          { eng: "Copper is gold", mar: "तांबे सोने आहे" },
+          { eng: "His wife was wise", mar: "त्याची पत्नी शहाणी होती" }
+        ],
+        correct: 1,
+        explanationEng: "The test proved there was no magic potion.",
+        explanationMar: "या चाचणीने सिद्ध केले की जादुई औषध नव्हतेच."
+      },
+      {
+        questionEng: "What did Rama Natha gain besides money?",
+        questionMar: "पैशांव्यतिरिक्त रामा नाथाला काय मिळाले?",
+        options: [
+          { eng: "A magic potion", mar: "जादुई औषध" },
+          { eng: "A bottle", mar: "बाटली" },
+          { eng: "Wisdom", mar: "शहाणपण" },
+          { eng: "A copper vessel", mar: "तांब्याचे भांडे" }
+        ],
+        correct: 2,
+        explanationEng: "He gained wisdom and the value of hard work.",
+        explanationMar: "त्याला शहाणपण आणि कष्टाचे महत्त्व मिळाले."
+      },
+      {
+        questionEng: "What did Madhumati gain?",
+        questionMar: "मधुमतीला काय मिळाले?",
+        options: [
+          { eng: "Prosperity / respect", mar: "समृद्धी / आदर" },
+          { eng: "A magic potion", mar: "जादुई औषध" },
+          { eng: "The sage's staff", mar: "ऋषींची काठी" },
+          { eng: "Nothing", mar: "काहीच नाही" }
+        ],
+        correct: 0,
+        explanationEng: "She gained prosperity and respect.",
+        explanationMar: "तिला समृद्धी आणि आदर मिळाला."
+      },
+      {
+        questionEng: "Which statement is false?",
+        questionMar: "कोणते विधान खोटे आहे?",
+        options: [
+          { eng: "The sage gave a task", mar: "ऋषींनी कार्य दिले" },
+          { eng: "Rama Natha collected dew", mar: "रामा नाथाने दव गोळा केले" },
+          { eng: "Madhumati sold bananas", mar: "मधुमतीने केळी विकली" },
+          { eng: "The sage gave gold", mar: "ऋषींनी सोने दिले" }
+        ],
+        correct: 3,
+        explanationEng: "The sage did NOT give gold — he taught a lesson.",
+        explanationMar: "ऋषींनी सोने दिले नाहीत — त्यांनी धडा शिकवला."
+      },
+      {
+        questionEng: "Which statement is true?",
+        questionMar: "कोणते विधान खरे आहे?",
+        options: [
+          { eng: "The dew turned copper into gold", mar: "दवाने तांबे सोन्यात बदलले" },
+          { eng: "Rama Natha collected dew for five years", mar: "रामा नाथाने पाच वर्षे दव गोळा केले" },
+          { eng: "Rama Natha never farmed", mar: "रामा नाथाने कधीच शेती केली नाही" },
+          { eng: "Madhumati searched for the potion", mar: "मधुमतीने औषधाचा शोध घेतला" }
+        ],
+        correct: 1,
+        explanationEng: "Rama Natha collected dew for five years — this is true.",
+        explanationMar: "रामा नाथाने पाच वर्षे दव गोळा केले — हे खरे आहे."
+      },
+      {
+        questionEng: "What happens first in the story?",
+        questionMar: "कथेत प्रथम काय घडते?",
+        options: [
+          { eng: "Rama Natha is obsessed with the potion", mar: "रामा नाथ औषधाच्या शोधात असतो" },
+          { eng: "The sage tests the dew", mar: "ऋषी दवाची चाचणी करतात" },
+          { eng: "Rama Natha becomes rich", mar: "रामा नाथ श्रीमंत होतो" },
+          { eng: "His wife sells bananas", mar: "त्याची पत्नी केळी विकते" }
+        ],
+        correct: 0,
+        explanationEng: "At the start, Rama Natha is obsessed with the magic potion.",
+        explanationMar: "सुरुवातीला रामा नाथ जादुई औषधाच्या शोधात असतो."
+      },
+      {
+        questionEng: "What happens after the sage's visit?",
+        questionMar: "ऋषींच्या भेटीनंतर काय घडते?",
+        options: [
+          { eng: "Rama Natha leaves", mar: "रामा नाथ निघून जातो" },
+          { eng: "His wife leaves", mar: "त्याची पत्नी निघून जाते" },
+          { eng: "Rama Natha is given the task to collect dew", mar: "रामा नाथाला दव गोळा करण्याचे कार्य दिले जाते" },
+          { eng: "Copper turns into gold", mar: "तांबे सोन्यात बदलते" }
+        ],
+        correct: 2,
+        explanationEng: "After the visit, Rama Natha is given the task of collecting dew.",
+        explanationMar: "भेटीनंतर रामा नाथाला दव गोळा करण्याचे कार्य दिले जाते."
+      },
+      {
+        questionEng: "What happens after five years?",
+        questionMar: "पाच वर्षांनंतर काय घडते?",
+        options: [
+          { eng: "Rama Natha buys gold", mar: "रामा नाथ सोने विकत घेतो" },
+          { eng: "The sage tests the dew", mar: "ऋषी दवाची चाचणी करतात" },
+          { eng: "Rama Natha sells the bottle", mar: "रामा नाथ बाटली विकतो" },
+          { eng: "His wife stops selling bananas", mar: "त्याची पत्नी केळी विकणे थांबवते" }
+        ],
+        correct: 1,
+        explanationEng: "After five years, the sage tests the dew.",
+        explanationMar: "पाच वर्षांनंतर ऋषी दवाची चाचणी करतात."
+      },
+      {
+        questionEng: "What happens last in the story?",
+        questionMar: "कथेत शेवटी काय घडते?",
+        options: [
+          { eng: "The sage visits", mar: "ऋषी भेट देतात" },
+          { eng: "The task is given", mar: "कार्य दिले जाते" },
+          { eng: "The dew is collected", mar: "दव गोळा केले जाते" },
+          { eng: "Rama Natha learns the lesson", mar: "रामा नाथ धडा शिकतो" }
+        ],
+        correct: 3,
+        explanationEng: "At the end, Rama Natha learns the valuable lesson.",
+        explanationMar: "शेवटी रामा नाथ मौल्यवान धडा शिकतो."
+      },
+      {
+        questionEng: "How did Rama Natha collect dew?",
+        questionMar: "रामा नाथाने दव कसे गोळा केले?",
+        options: [
+          { eng: "From banana plants / leaves", mar: "केळीच्या रोपांवरून / पानांवरून" },
+          { eng: "From a river", mar: "नदीतून" },
+          { eng: "From a well", mar: "विहिरीतून" },
+          { eng: "From the market", mar: "बाजारातून" }
+        ],
+        correct: 0,
+        explanationEng: "He collected dew from banana plants / leaves.",
+        explanationMar: "त्याने केळीच्या रोपांवरून / पानांवरून दव गोळा केले."
+      },
+      {
+        questionEng: "Why was dew collected before sunrise?",
+        questionMar: "दव सूर्योदयापूर्वी का गोळा केले जात होते?",
+        options: [
+          { eng: "Bananas grow then", mar: "तेव्हा केळी वाढते" },
+          { eng: "Dew is available then", mar: "तेव्हा दव उपलब्ध असते" },
+          { eng: "The sage sleeps then", mar: "तेव्हा ऋषी झोपतात" },
+          { eng: "The market opens then", mar: "तेव्हा बाजार उघडतो" }
+        ],
+        correct: 1,
+        explanationEng: "Dew is available on plants early in the morning.",
+        explanationMar: "पहाटे रोपांवर दव उपलब्ध असते."
+      },
+      {
+        questionEng: "What did Rama Natha store the dew in?",
+        questionMar: "रामा नाथाने दव कशात साठवले?",
+        options: [
+          { eng: "A basket", mar: "टोपलीत" },
+          { eng: "A pot", mar: "मडक्यात" },
+          { eng: "A bottle", mar: "बाटलीत" },
+          { eng: "A sack", mar: "पोत्यात" }
+        ],
+        correct: 2,
+        explanationEng: "He stored the dew in a bottle.",
+        explanationMar: "त्याने दव बाटलीत साठवले."
+      },
+      {
+        questionEng: "What did the sage ask Rama Natha to do with the dew?",
+        questionMar: "ऋषींनी रामा नाथाला दवाचे काय करायला सांगितले?",
+        options: [
+          { eng: "Bring it to him", mar: "ते त्यांच्याकडे आणणे" },
+          { eng: "Drink it", mar: "ते पिणे" },
+          { eng: "Sell it", mar: "ते विकणे" },
+          { eng: "Pour it into a river", mar: "ते नदीत ओतणे" }
+        ],
+        correct: 0,
+        explanationEng: "He asked Rama Natha to bring the dew to him.",
+        explanationMar: "त्यांनी रामा नाथाला दव त्यांच्याकडे आणायला सांगितले."
+      },
+      {
+        questionEng: "What did Rama Natha think when the copper vessel did not change?",
+        questionMar: "तांब्याचे भांडे बदलले नाही तेव्हा रामा नाथाला काय वाटले?",
+        options: [
+          { eng: "His wife was wrong", mar: "त्याची पत्नी चुकली होती" },
+          { eng: "The magic had failed", mar: "जादू अयशस्वी झाली होती" },
+          { eng: "The sage was a farmer", mar: "ऋषी शेतकरी होते" },
+          { eng: "He was rich", mar: "तो श्रीमंत होता" }
+        ],
+        correct: 1,
+        explanationEng: "He thought the magic had failed.",
+        explanationMar: "त्याला वाटले की जादू अयशस्वी झाली."
+      },
+      {
+        questionEng: "What did the sage tell him?",
+        questionMar: "ऋषींनी त्याला काय सांगितले?",
+        options: [
+          { eng: "The dew was impure", mar: "दव अशुद्ध होते" },
+          { eng: "Try again", mar: "पुन्हा प्रयत्न करा" },
+          { eng: "The real magic is hard work", mar: "खरी जादू कष्ट आहे" },
+          { eng: "Buy gold", mar: "सोने विकत घ्या" }
+        ],
+        correct: 2,
+        explanationEng: "The sage told him the real magic is hard work.",
+        explanationMar: "ऋषींनी सांगितले की खरी जादू कष्ट आहे."
+      },
+      {
+        questionEng: "What did Rama Natha do after realising the truth?",
+        questionMar: "सत्य समजल्यानंतर रामा नाथाने काय केले?",
+        options: [
+          { eng: "Worked on the plantation", mar: "बागेत काम केले" },
+          { eng: "Left the village", mar: "गाव सोडले" },
+          { eng: "Searched for the potion", mar: "औषधाचा शोध घेतला" },
+          { eng: "Became a sage", mar: "ऋषी झाले" }
+        ],
+        correct: 0,
+        explanationEng: "He worked hard on the plantation and prospered.",
+        explanationMar: "त्याने बागेत कष्ट केले आणि भरभराट झाली."
+      },
+      {
+        questionEng: "Which is the best alternative title for the story?",
+        questionMar: "कथेसाठी सर्वोत्तम पर्यायी शीर्षक कोणते?",
+        options: [
+          { eng: "The Magic Copper", mar: "द मॅजिक कॉपर" },
+          { eng: "The Lazy Farmer", mar: "द लेझी फार्मर" },
+          { eng: "The Wise Wife", mar: "द वाईज वाईफ" },
+          { eng: "Hard Work Is True Magic", mar: "हार्ड वर्क इज ट्रू मॅजिक" }
+        ],
+        correct: 3,
+        explanationEng: "'Hard Work Is True Magic' best captures the story's moral.",
+        explanationMar: "'हार्ड वर्क इज ट्रू मॅजिक' हे कथेचा बोध सर्वोत्तमपणे व्यक्त करते."
       }
     ];
 
-    let activeQuestions = [];
-    for (let i = 1; i <= 100; i++) {
-      let baseQ = baseQuestions[(i - 1) % baseQuestions.length];
-      
-      let opts = [
-        { eng: `Option A relating to chapter context and moral principles for item ${i}.`, mar: `पर्याय A: धड्याच्या संदर्भाशी व नैतिक मूल्यांशी संबंधित माहिती #${i}` },
-        { eng: `Option B relating to chapter context and moral principles for item ${i}.`, mar: `पर्याय B: धड्याच्या संदर्भाशी व नैतिक मूल्यांशी संबंधित माहिती #${i}` },
-        { eng: `Option C relating to chapter context and moral principles for item ${i}.`, mar: `पर्याय C: धड्याच्या संदर्भाशी व नैतिक मूल्यांशी संबंधित माहिती #${i}` },
-        { eng: `Option D relating to chapter context and moral principles for item ${i}.`, mar: `पर्याय D: धड्याच्या संदर्भाशी व नैतिक मूल्यांशी संबंधित माहिती #${i}` }
-      ];
-
-      if (i <= 4) {
-        opts = JSON.parse(JSON.stringify(baseQ.options));
-      }
-
-      const pattern = [1, 3, 2, 2, 0];
-      const correctIdx = pattern[(i - 1) % pattern.length];
-
-      if (i > 4) {
-        opts[correctIdx] = {
-          eng: `The most accurate and agriculturally grounded conclusion for question ${i}.`,
-          mar: `प्रश्न ${i} साठी सर्वात अचूक, वास्तवादी आणि योग्य निष्कर्ष.`
-        };
-      }
-
-      activeQuestions.push({
-        questionEng: i <= 4 ? baseQ.questionEng : `Advanced Analytical Question #${i} regarding 'A Bottle of Dew' thematic elements, characters, and plot progression.`,
-        questionMar: i <= 4 ? baseQ.questionMar : `धडा 'अ बॉटल ऑफ ड्यू' मधील पात्रे, कथानक आणि मूल्यांवर आधारित प्रगत विश्लेषणात्मक प्रश्न क्रमांक #${i}.`,
-        options: opts,
-        correct: i <= 4 ? baseQ.correct : correctIdx,
-        explanationEng: `Detailed analytical explanation for question number ${i} emphasizing self-reliance, hard work, and agricultural success.`,
-        explanationMar: `प्रश्न क्रमांक ${i} चे तपशीलवार स्पष्टीकरण: स्वावलंबन, कठोर परिश्रम आणि शेतीतून मिळणारी समृद्धी.`
-      });
-    }
+    // Sanity check: shuffle not required; questions are ready in order
+    console.log("Total questions loaded:", activeQuestions.length);
 
     let currentQuestionIndex = 0;
     let score = 0;
@@ -270,7 +1497,7 @@
     const questionTextEng = document.getElementById('questionTextEng');
     const questionTextMar = document.getElementById('questionTextMar');
     const optionsContainer = document.getElementById('optionsContainer');
-    
+
     const feedbackBox = document.getElementById('feedbackBox');
     const feedbackIcon = document.getElementById('feedbackIcon');
     const feedbackTitle = document.getElementById('feedbackTitle');
