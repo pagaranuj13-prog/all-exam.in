@@ -48,9 +48,10 @@
         <span id="timerDisplay">00:00</span>
       </span>
 
-      <a id="backBtn" href="quiz.html" class="text-[11px] font-semibold bg-neutral-800 hover:bg-neutral-700 text-white px-2.5 py-1 rounded-lg transition">
+      <!-- BACK BUTTON -> previous question -->
+      <button id="backBtn" onclick="goBack()" class="text-[11px] font-semibold bg-neutral-800 hover:bg-neutral-700 text-white px-2.5 py-1 rounded-lg transition">
         <i class="fa-solid fa-arrow-left"></i> मागे जा
-      </a>
+      </button>
     </div>
 
     <!-- QUIZ SCREEN -->
@@ -145,7 +146,6 @@
     const level = 'Medium';
 
     document.getElementById('pageTitle').innerHTML = `धडा ${chapter} - टेस्ट (${level}) <span class="text-amber-400 font-bold text-xs md:text-sm block md:inline marathi-text">(${level} Level)</span>`;
-    document.getElementById('backBtn').href = `quiz.html?chapter=${chapter}`;
     document.getElementById('resultBackBtn').href = `quiz.html?chapter=${chapter}`;
 
 const sh = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
@@ -223,10 +223,22 @@ const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficul
 
     const activeQuestions = chapter === '1' ? buildPaper30(LV) : defaultQuestions;
 
+    // ---- State ----
     let currentQuestionIndex = 0;
-    let score = 0;
+    let userAnswers = new Array(activeQuestions.length).fill(null); // null = not visited, -1 = skipped
     let isAnswered = false;
-    let skipped = 0;
+
+    // ---- Score / Skipped helpers ----
+    function getScore() {
+      let s = 0;
+      userAnswers.forEach((ans, i) => {
+        if (ans !== null && ans !== -1 && ans === activeQuestions[i].correct) s++;
+      });
+      return s;
+    }
+    function getSkipped() {
+      return userAnswers.filter(a => a === -1).length;
+    }
 
     /* ---------- TIMER ---------- */
     const timerDisplay = document.getElementById('timerDisplay');
@@ -265,7 +277,7 @@ const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficul
     const questionTextEng = document.getElementById('questionTextEng');
     const questionTextMar = document.getElementById('questionTextMar');
     const optionsContainer = document.getElementById('optionsContainer');
-    
+
     const feedbackBox = document.getElementById('feedbackBox');
     const feedbackIcon = document.getElementById('feedbackIcon');
     const feedbackTitle = document.getElementById('feedbackTitle');
@@ -274,15 +286,40 @@ const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficul
     const nextBtn = document.getElementById('nextBtn');
     const skipBtn = document.getElementById('skipBtn');
 
-    function renderQuestion() {
-      isAnswered = false;
-      feedbackBox.classList.add('hidden');
-      nextBtn.style.display = 'none';
-      skipBtn.style.display = 'flex';
+    function showFeedback(isCorrect, q) {
+      feedbackBox.classList.remove('hidden');
+      if (isCorrect) {
+        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-emerald-950 border-emerald-600";
+        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+        feedbackTitle.textContent = "बरोबर उत्तर! (Correct Answer)";
+        feedbackTitle.className = "font-bold text-emerald-300 text-sm mb-0.5";
+      } else {
+        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-rose-950 border-rose-600";
+        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
+        feedbackTitle.textContent = "चुकीचे उत्तर! (Incorrect Answer)";
+        feedbackTitle.className = "font-bold text-rose-300 text-sm mb-0.5";
+      }
+      feedbackTextEng.textContent = q.explanationEng;
+      feedbackTextMar.textContent = "स्पष्टीकरण: " + q.explanationMar;
+    }
 
+    function renderQuestion() {
       const q = activeQuestions[currentQuestionIndex];
+      const prevAnswer = userAnswers[currentQuestionIndex];
+      isAnswered = (prevAnswer !== null && prevAnswer !== -1);
+
+      feedbackBox.classList.add('hidden');
+
+      if (isAnswered) {
+        nextBtn.style.display = 'flex';
+        skipBtn.style.display = 'none';
+      } else {
+        nextBtn.style.display = 'none';
+        skipBtn.style.display = 'flex';
+      }
+
       questionCounter.textContent = `Question ${currentQuestionIndex + 1}/${activeQuestions.length}`;
-      scoreTracker.textContent = `Score: ${score}`;
+      scoreTracker.textContent = `Score: ${getScore()}`;
       progressBar.style.width = `${((currentQuestionIndex + 1) / activeQuestions.length) * 100}%`;
 
       questionTextEng.textContent = q.questionEng;
@@ -303,9 +340,25 @@ const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficul
             </div>
           </div>
         `;
-        btn.onclick = () => selectOption(idx, btn);
+
+        if (isAnswered) {
+          btn.disabled = true;
+          if (idx === q.correct) {
+            btn.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-emerald-400 bg-emerald-950 font-bold text-white flex items-center justify-between";
+          } else if (idx === prevAnswer) {
+            btn.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-rose-400 bg-rose-950 font-bold text-white flex items-center justify-between";
+          } else {
+            btn.classList.add('opacity-50');
+          }
+        } else {
+          btn.onclick = () => selectOption(idx, btn);
+        }
         optionsContainer.appendChild(btn);
       });
+
+      if (isAnswered) {
+        showFeedback(prevAnswer === q.correct, q);
+      }
     }
 
     function selectOption(selectedIndex, selectedBtn) {
@@ -313,11 +366,12 @@ const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficul
       isAnswered = true;
       skipBtn.style.display = 'none';
 
+      userAnswers[currentQuestionIndex] = selectedIndex;
+
       const q = activeQuestions[currentQuestionIndex];
       const isCorrect = selectedIndex === q.correct;
 
-      if (isCorrect) score++;
-      scoreTracker.textContent = `Score: ${score}`;
+      scoreTracker.textContent = `Score: ${getScore()}`;
 
       const optionButtons = optionsContainer.children;
       Array.from(optionButtons).forEach((btn, idx) => {
@@ -331,21 +385,7 @@ const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficul
         }
       });
 
-      feedbackBox.classList.remove('hidden');
-      if (isCorrect) {
-        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-emerald-950 border-emerald-600";
-        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
-        feedbackTitle.textContent = "बरोबर उत्तर! (Correct Answer)";
-        feedbackTitle.className = "font-bold text-emerald-300 text-sm mb-0.5";
-      } else {
-        feedbackBox.className = "p-3 rounded-xl mb-4 text-sm border bg-rose-950 border-rose-600";
-        feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
-        feedbackTitle.textContent = "चुकीचे उत्तर! (Incorrect Answer)";
-        feedbackTitle.className = "font-bold text-rose-300 text-sm mb-0.5";
-      }
-
-      feedbackTextEng.textContent = q.explanationEng;
-      feedbackTextMar.textContent = "स्पष्टीकरण: " + q.explanationMar;
+      showFeedback(isCorrect, q);
 
       nextBtn.style.display = 'flex';
       nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -353,17 +393,28 @@ const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficul
 
     function skipQuestion() {
       if (isAnswered) return;
-      skipped++;
+      userAnswers[currentQuestionIndex] = -1;
       nextQuestion();
     }
 
     function nextQuestion() {
-      currentQuestionIndex++;
-      if (currentQuestionIndex < activeQuestions.length) {
+      if (currentQuestionIndex < activeQuestions.length - 1) {
+        currentQuestionIndex++;
         renderQuestion();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         showResults();
+      }
+    }
+
+    // ---- NEW: goBack (fix for "मागे जा" button) ----
+    function goBack() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.location.href = `quiz.html?chapter=${chapter}`;
       }
     }
 
@@ -372,11 +423,13 @@ const LV = /^e/i.test(level) ? 'Easy' : /^m/i.test(level) ? 'Medium' : 'Difficul
       quizScreen.classList.add('hidden');
       resultScreen.classList.remove('hidden');
 
-      const percentage = Math.round((score / activeQuestions.length) * 100);
-      document.getElementById('finalScore').textContent = `${score}/${activeQuestions.length}`;
+      const finalScore = getScore();
+      const percentage = Math.round((finalScore / activeQuestions.length) * 100);
+
+      document.getElementById('finalScore').textContent = `${finalScore}/${activeQuestions.length}`;
       document.getElementById('finalPercentage').textContent = `${percentage}%`;
       document.getElementById('finalTime').textContent = formatTime(totalSeconds);
-      document.getElementById('finalSkipped').textContent = skipped;
+      document.getElementById('finalSkipped').textContent = getSkipped();
 
       const perfMsg = document.getElementById('performanceMessage');
       if (percentage === 100) {
