@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Quiz | all-exam.in</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Poppins','Hind',sans-serif;color:#fff;color-scheme:dark;min-height:100vh;background:#000;overflow-x:hidden}
+.marathi-text{font-family:'Hind',sans-serif}
+.custom-shadow{box-shadow:0 0 0 1px rgba(255,255,255,.04),0 20px 50px -15px rgba(251,191,36,.18)}
+</style>
+</head>
+<body class="flex flex-col justify-between min-h-screen p-3 md:p-5">
+<header class="max-w-2xl w-full mx-auto mb-3 text-center"><h1 id="pageTitle" class="text-xl md:text-2xl font-extrabold"></h1></header>
+<main class="max-w-xl w-full mx-auto bg-neutral-950 rounded-2xl p-4 md:p-6 custom-shadow border border-neutral-800">
+  <div class="flex justify-between items-center mb-4 border-b border-neutral-800 pb-2.5 gap-2">
+    <span class="text-[11px] font-bold text-emerald-300 bg-emerald-950 px-2.5 py-1 rounded-full border border-emerald-700"><i class="fa-solid fa-language"></i> English + मराठी अर्थ</span>
+    <span class="text-[12px] font-extrabold text-indigo-200 bg-indigo-950 px-2.5 py-1 rounded-full border border-indigo-700"><i class="fa-solid fa-stopwatch"></i> <span id="timerDisplay">00:00</span></span>
+    <button onclick="goBack()" class="text-[11px] font-semibold bg-neutral-800 hover:bg-neutral-700 px-2.5 py-1 rounded-lg"><i class="fa-solid fa-arrow-left"></i> मागे जा</button>
+  </div>
+
+  <div id="quizScreen">
+    <div class="mb-3">
+      <div class="flex justify-between text-xs font-bold text-neutral-300 mb-1"><span id="questionCounter"></span><span id="scoreTracker" class="text-emerald-400"></span></div>
+      <div class="w-full bg-neutral-800 rounded-full h-2 overflow-hidden border border-neutral-700"><div id="progressBar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full rounded-full transition-all duration-300"></div></div>
+    </div>
+    <div class="mb-4 bg-neutral-900 p-4 rounded-xl border border-neutral-700">
+      <h3 id="qEng" class="text-base md:text-lg font-bold leading-snug"></h3>
+      <p id="qMar" class="text-sm md:text-base font-semibold text-emerald-300 marathi-text mt-1.5"></p>
+    </div>
+    <div id="optionsContainer" class="space-y-2.5 mb-4"></div>
+    <div id="feedbackBox" class="hidden p-3 rounded-xl mb-4 text-sm border">
+      <div class="flex items-start gap-2"><div id="feedbackIcon" class="text-lg mt-0.5"></div>
+        <div><h4 id="feedbackTitle" class="font-bold text-sm mb-0.5"></h4>
+        <p id="feedbackEng" class="font-medium"></p>
+        <p id="feedbackMar" class="text-neutral-200 font-semibold marathi-text mt-1 pt-1 border-t border-neutral-700"></p></div></div>
+    </div>
+    <button id="skipBtn" onclick="skipQuestion()" class="w-full py-2.5 mb-2 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 border-2 border-amber-500/60 font-bold text-xs md:text-sm rounded-xl flex items-center justify-center gap-1.5"><i class="fa-solid fa-forward"></i> प्रश्न वगळा (Skip Question)</button>
+    <button id="nextBtn" onclick="nextQuestion()" class="hidden w-full py-2.5 bg-white hover:bg-neutral-200 text-black font-bold text-xs md:text-sm rounded-xl items-center justify-center gap-1.5">पुढचा प्रश्न (Next Question) <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+
+  <div id="resultScreen" class="hidden text-center py-2">
+    <div class="w-12 h-12 bg-amber-400/15 text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-2 text-xl"><i class="fa-solid fa-trophy"></i></div>
+    <h2 class="text-lg md:text-xl font-extrabold">Quiz Completed!</h2>
+    <p class="text-emerald-300 font-bold marathi-text text-sm mb-3">अभिनंदन! टेस्ट पूर्ण झाली!</p>
+    <div class="bg-gradient-to-br from-amber-950/60 to-emerald-950/60 rounded-xl p-3 border border-amber-700/60 mb-4 max-w-sm mx-auto">
+      <div class="grid grid-cols-3 divide-x divide-neutral-700">
+        <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Total Score</span><span id="finalScore" class="text-xl font-extrabold text-emerald-400"></span></div>
+        <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Percentage</span><span id="finalPercentage" class="text-xl font-extrabold"></span></div>
+        <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Time Taken</span><span id="finalTime" class="text-xl font-extrabold text-indigo-300"></span></div>
+      </div>
+      <p class="mt-2 text-xs font-bold text-neutral-200">वगळलेले प्रश्न (Skipped): <span id="finalSkipped">0</span></p>
+      <p id="performanceMessage" class="mt-2 text-xs font-bold text-amber-200 bg-amber-400/15 py-1 px-2 rounded-lg inline-block marathi-text"></p>
+    </div>
+    <a id="resultBackBtn" href="quiz.html" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 font-bold rounded-xl text-xs inline-flex items-center gap-1.5"><i class="fa-solid fa-rotate-right"></i> पुन्हा प्रयत्न करा / मागे जा</a>
+  </div>
+</main>
+<footer class="mt-4 text-center text-[11px] text-neutral-400"><p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p></footer>
+
+<!-- ===== QUESTION BANK: paste the full Chapter 2 text here, exactly as written (LEVEL: EASY / MEDIUM / DIFFICULT / ULTRA) ===== -->
+<script type="text/plain" id="bank">
+LEVEL: ULTRA — 100 Questions
+
+1. Q: What kind of poem is 'The Raven and the Fox'? / 'द रेवन अँड द फॉक्स' कोणत्या प्रकारची कविता?
+   [A] A fable in verse  [B] A sonnet  [C] An ode  [D] A ballad   ✓A
+   E: A fable in verse. / पद्यातील दंतकथा.
+
+2. Q: Who is the main protagonist? / मुख्य नायक कोण?
+   [A] The raven  [B] The fox  [C] The tree  [D] The cheese   ✓A
+   E: The raven. / कावळा.
+
+3. Q: Who is the antagonist? / प्रतिनायक कोण?
+   [A] The fox  [B] The raven  [C] The poet  [D] The narrator   ✓A
+   E: The fox. / कोल्हा.
+
+4. Q: The cheese in the poem represents ___. / कवितेत चीज ___ दर्शवते.
+   [A] The reward the fox wants  [B] Hunger  [C] Wisdom  [D] Friendship   ✓A
+   E: The cheese is the reward the fox wants. / चीज हे कोल्ह्याला हवे असलेले बक्षीस आहे.
+
+5. Q: The raven's beak is important because ___. / कावळ्याची चोच महत्त्वाची आहे कारण ___.
+   [A] it holds the cheese  [B] it is used for flying  [C] it holds the fox's praise  [D] it is used for hunting   ✓A
+   E: The raven holds the cheese in its beak until it opens to sing. / गाण्यासाठी चोच उघडताच चीज पडते.
+
+6. Q: Where does the story take place? / कथा कुठे घडते?
+   [A] On a tree  [B] On the ground  [C] In a river  [D] In a cave   ✓A
+   E: On a tree. / झाडावर.
+
+7. Q: How many pieces of cheese did the raven have? / कावळ्याकडे चीजचे किती तुकडे होते?
+   [A] One  [B] Two  [C] Three  [D] None   ✓A
+   E: The raven had one piece of cheese. / कावळ्याकडे चीजचा एकच तुकडा होता.
+
+8. Q: What is the raven's first reaction to the fox? / कोल्ह्याबद्दल कावळ्याची पहिली प्रतिक्रिया काय?
+   [A] It is pleased by the praise  [B] It attacks the fox  [C] It flies away  [D] It hides the cheese   ✓A
+   E: The raven is pleased by the praise. / कावळा स्तुतीने खूश होतो.
+
+9. Q: The fox's strategy is ___. / कोल्ह्याची रणनीती?
+   [A] Deception  [B] Honesty  [C] Friendship  [D] Force   ✓A
+   E: Deception. / फसवणूक.
+
+10. Q: The raven's fatal flaw is ___. / कावळ्याचा घातक दोष?
+   [A] Vanity  [B] Greed  [C] Anger  [D] Laziness   ✓A
+   E: Vanity. / व्यर्थ गर्व.
+
+11. Q: Which qualities does the fox praise in the raven? / कोल्हा कावळ्याच्या कोणत्या गुणांची स्तुती करतो?
+   [A] Beauty and voice  [B] Speed and strength  [C] Wisdom and kindness  [D] Wealth and land   ✓A
+   E: The fox praises the raven's beauty and voice. / कोल्हा कावळ्याचे सौंदर्य आणि आवाज यांची स्तुती करतो.
+
+12. Q: What did the raven do that caused the cheese to fall? / चीज का पडली?
+   [A] Opened its beak  [B] Flew away  [C] Attacked the fox  [D] Dropped it   ✓A
+   E: Opened its beak. / चोच उघडली.
+
+13. Q: Which character is the poem's trickster? / कवितेतील फसवणारे पात्र कोण?
+   [A] The fox  [B] The raven  [C] The poet  [D] The tree   ✓A
+   E: The fox tricks the raven. / कोल्हा कावळ्याला फसवतो.
+
+14. Q: How many main characters does the poem have? / कवितेत किती मुख्य पात्रे आहेत?
+   [A] Two  [B] Three  [C] Four  [D] One   ✓A
+   E: The raven and the fox are the two main characters. / कावळा आणि कोल्हा ही दोन मुख्य पात्रे आहेत.
+
+15. Q: What does the fox's 'cunning smile' imply? / 'cunning smile' काय दर्शवते?
+   [A] Satisfaction  [B] Sadness  [C] Anger  [D] Fear   ✓A
+   E: Satisfaction. / समाधान.
+
+16. Q: Which quality should a listener avoid, according to the poem? / कवितेनुसार श्रोत्याने कोणता गुण टाळावा?
+   [A] Believing excessive praise  [B] Being polite  [C] Working hard  [D] Sharing food   ✓A
+   E: The poem warns against believing excessive praise. / कविता अतिरिक्त स्तुतीवर विश्वास ठेवू नका असे सांगते.
+
+17. Q: The poem is an example of ___. / कविता ___ चे उदाहरण?
+   [A] Fable with moral  [B] Epic  [C] Sonnet  [D] Haiku   ✓A
+   E: Fable. / दंतकथा.
+
+18. Q: The fox's trick succeeds because the raven is ___. / कोल्ह्याची युक्ती यशस्वी होते कारण कावळा ___ आहे.
+   [A] vain  [B] wise  [C] strong  [D] hungry   ✓A
+   E: Vanity makes the raven easy to fool. / गर्वामुळे कावळा सहज फसतो.
+
+19. Q: What characterizes the fox's words? / कोल्ह्याच्या शब्दांचे वैशिष्ट्य?
+   [A] Insincere praise  [B] Honest advice  [C] Angry threats  [D] Friendly jokes   ✓A
+   E: Insincere praise. / खोटी स्तुती.
+
+20. Q: The raven's failure is due to ___. / कावळ्याचे अपयश कशामुळे?
+   [A] Its ego  [B] Its hunger  [C] Its sleep  [D] Its anger   ✓A
+   E: Its ego. / त्याचा अहंकार.
+
+21. Q: What is the opposite of 'flattery'? / 'flattery' चा विरुद्धार्थी काय?
+   [A] Honest criticism  [B] Praise  [C] Flattery again  [D] Silence   ✓A
+   E: Honest criticism is the opposite of false praise. / खरी टीका ही खोट्या स्तुतीच्या विरुद्ध आहे.
+
+22. Q: The word 'cunning' describes ___. / 'cunning' कोणाचे वर्णन?
+   [A] The fox  [B] The raven  [C] The tree  [D] The cheese   ✓A
+   E: The fox. / कोल्हा.
+
+23. Q: What does the raven 'wish' to do? / कावळा काय इच्छितो?
+   [A] Be heard  [B] Fight  [C] Fly  [D] Eat alone   ✓A
+   E: Be heard. / ऐकले जाणे.
+
+24. Q: The moral teaches us to ___. / बोध काय शिकवतो?
+   [A] Not trust flatterers  [B] Never eat cheese  [C] Avoid trees  [D] Fear foxes   ✓A
+   E: Not trust flatterers. / खुशामतखोरांवर विश्वास ठेवू नका.
+
+25. Q: Who is the fox's main target in the poem? / कवितेत कोल्ह्याचे मुख्य लक्ष्य कोण?
+   [A] The raven  [B] The owl  [C] The sparrow  [D] The crow   ✓A
+   E: The fox's target is the raven. / कोल्ह्याचे लक्ष्य कावळा आहे.
+
+26. Q: Which emotion does the raven show in the poem? / कवितेत कावळ्याची कोणती भावना दिसते?
+   [A] Pride  [B] Fear  [C] Sadness  [D] Anger   ✓A
+   E: The raven is proud. / कावळा गर्विष्ठ आहे.
+
+27. Q: Which tone does the poem's moral have? / कवितेच्या बोधाचा सूर कसा आहे?
+   [A] Cautionary  [B] Romantic  [C] Humorous  [D] Angry   ✓A
+   E: The moral is cautionary, warning readers. / बोध सावध करणारा आहे.
+
+28. Q: The poem uses animals to ___. / कविता प्राण्यांचा वापर कशासाठी करते?
+   [A] Teach a human lesson  [B] Entertain only  [C] Show nature  [D] Describe scenery   ✓A
+   E: Teach a human lesson. / मानवी धडा शिकवण्यासाठी.
+
+29. Q: What lesson does the raven's mistake teach? / कावळ्याच्या चुकीतून कोणता धडा मिळतो?
+   [A] Do not trust flattery  [B] Always eat fast  [C] Fly higher  [D] Sing louder   ✓A
+   E: The raven's mistake teaches us not to trust flattery. / कावळ्याच्या चुकीतून खुशामतीवर विश्वास न ठेवण्याचा धडा मिळतो.
+
+30. Q: Which of these is a fable? / यापैकी कोणती दंतकथा आहे?
+   [A] A short story with animals and a moral  [B] A long poem about war  [C] A diary entry  [D] A news report   ✓A
+   E: A fable is a short story with animals and a moral. / दंतकथा ही प्राणी आणि बोध असलेली छोटी गोष्ट असते.
+
+31. Q: Which human weakness does the poem mainly criticize? / कविता कोणत्या मानवी दोषावर टीका करते?
+   [A] Vanity  [B] Hard work  [C] Kindness  [D] Honesty   ✓A
+   E: The poem criticizes human vanity. / कविता मानवी गर्वावर टीका करते.
+
+32. Q: What is the 'prize' from the fox's view? / कोल्ह्याच्या दृष्टीने 'बक्षीस'?
+   [A] The cheese  [B] The raven  [C] The tree  [D] The song   ✓A
+   E: The cheese. / चीज.
+
+33. Q: Who are the victims in the poem? / कवितेतील बळी कोण?
+   [A] Vain listeners  [B] Hunters  [C] Farmers  [D] Poets   ✓A
+   E: Vain listeners who fall for flattery are the victims. / खुशामतीला बळी पडणारे गर्विष्ठ श्रोते बळी ठरतात.
+
+34. Q: The fox can deceive the raven because ___. / कोल्हा कावळ्याला का फसवू शकतो?
+   [A] The raven is vain  [B] The raven is asleep  [C] The fox is stronger  [D] The tree helps   ✓A
+   E: The raven is vain. / कावळा गर्विष्ठ आहे.
+
+35. Q: What element of fable is present? / दंतकथेचा कोणता घटक?
+   [A] Animal characters  [B] Magic  [C] Historical figures  [D] Songs   ✓A
+   E: Animal characters. / प्राणी पात्रे.
+
+36. Q: What does the raven do first after the fox's praise? / कोल्ह्याच्या स्तुतीनंतर कावळा सर्वप्रथम काय करतो?
+   [A] Happily prepares to sing  [B] Attacks the fox  [C] Runs away  [D] Sleeps   ✓A
+   E: The raven happily prepares to sing. / कावळा आनंदाने गाण्याची तयारी करतो.
+
+37. Q: The poem is written in the form of ___. / ही कविता ___ रूपात लिहिली आहे.
+   [A] Verse  [B] Prose drama  [C] Diary  [D] Letter   ✓A
+   E: The poem is written in verse. / ही कविता पद्यात आहे.
+
+38. Q: Which real-life behaviour does the story warn against? / कथा कोणत्या खऱ्या आयुष्यातील वर्तनाविरुद्ध इशारा देते?
+   [A] Believing false compliments  [B] Working hard  [C] Helping friends  [D] Saving money   ✓A
+   E: The story warns against believing false compliments. / कथा खोट्या कौतुकावर विश्वास ठेवण्याविरुद्ध इशारा देते.
+
+39. Q: What might the fox represent? / खऱ्या आयुष्यात कोल्हा कशाचे प्रतीक?
+   [A] Manipulators and flatterers  [B] Doctors  [C] Students  [D] Teachers   ✓A
+   E: Manipulators. / हाताळणी करणारे.
+
+40. Q: The poem's moral is delivered ___. / बोध कधी दिला जातो?
+   [A] At the end  [B] At the start  [C] In the middle  [D] Never   ✓A
+   E: At the end. / शेवटी.
+
+41. Q: The poem is a fable. / कविता दंतकथा आहे.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+42. Q: The raven is the antagonist. / कावळा प्रतिनायक आहे.
+   [A] True  [B] False   ✓B
+   E: False — the fox is. / खोटे — कोल्हा आहे.
+
+43. Q: The fox uses flattery. / कोल्हा खुशामत वापरतो.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+44. Q: The raven is cautious. / कावळा सावध आहे.
+   [A] True  [B] False   ✓B
+   E: False. / खोटे.
+
+45. Q: The cheese is eaten by the raven. / चीज कावळ्याने खाल्ली.
+   [A] True  [B] False   ✓B
+   E: False — fox took it. / खोटे — कोल्ह्याने घेतले.
+
+46. Q: The fox catches the cheese. / कोल्हा चीज पकडतो.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+47. Q: The moral is explicit in the poem. / बोध स्पष्टपणे दिला आहे.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+48. Q: The poem is about birds only. / कविता फक्त पक्ष्यांबद्दल आहे.
+   [A] True  [B] False   ✓B
+   E: False — human lesson. / खोटे — मानवी धडा.
+
+49. Q: The raven is described as beautiful by the fox. / कोल्ह्याने कावळ्याला सुंदर म्हटले.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+50. Q: The fox is honest. / कोल्हा प्रामाणिक आहे.
+   [A] True  [B] False   ✓B
+   E: False. / खोटे.
+
+51. Q: The fable is written in prose form. / ही दंतकथा गद्य स्वरूपात आहे.
+   [A] True  [B] False   ✓B
+   E: False — it is written in verse. / खोटे — ती पद्यात आहे.
+
+52. Q: The fox leaves empty-handed. / कोल्हा रिकाम्या हाताने जातो.
+   [A] True  [B] False   ✓B
+   E: False. / खोटे.
+
+53. Q: The poem shows the importance of being careful. / कविता सावध राहण्याचे महत्त्व दाखवते.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+54. Q: The raven is a wise bird. / कावळा शहाणा पक्षी आहे.
+   [A] True  [B] False   ✓B
+   E: False. / खोटे.
+
+55. Q: The fox is a fool. / कोल्हा मूर्ख आहे.
+   [A] True  [B] False   ✓B
+   E: False. / खोटे.
+
+56. Q: The poem's moral is useful for people of all ages. / कवितेचा बोध सर्व वयोगटांसाठी उपयोगी आहे.
+   [A] True  [B] False   ✓A
+   E: True — its lesson applies to all ages. / खरे — त्याचा बोध सर्व वयोगटांना लागू होतो.
+
+57. Q: The raven checks the fox's words before trusting them. / कावळा विश्वास ठेवण्यापूर्वी कोल्ह्याचे शब्द तपासतो.
+   [A] True  [B] False   ✓B
+   E: False — the raven trusts the fox's praise without checking. / खोटे — कावळा कोल्ह्याची स्तुती तपासल्याशिवाय विश्वास ठेवतो.
+
+58. Q: The poem criticizes vanity. / कविता व्यर्थ गर्वावर टीका करते.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+59. Q: The raven lives in a cave. / कावळा गुहेत राहतो.
+   [A] True  [B] False   ✓B
+   E: False — the raven sits on a tree. / खोटे — कावळा झाडावर बसलेला असतो.
+
+60. Q: The raven's downfall is caused by flattery. / कावळ्याचे पतन खुशामतीमुळे होते.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+61. Q: The poem ends with the cheese with the fox. / कविता कोल्ह्याकडे चीज असल्याने संपते.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+62. Q: The fable teaches us to be wary of excessive praise. / अतिरिक्त स्तुतीपासून सावध राहा असे शिकवते.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+63. Q: The fox's flattering guise hides his true intent. / कोल्ह्याचे खुशामतीचे रूप त्याचा खरा हेतू लपवते.
+   [A] True  [B] False   ✓A
+   E: True — the flattering guise hides his real purpose. / खरे — खुशामतीचे रूप त्याचा खरा हेतू लपवते.
+
+64. Q: The fox is portrayed as a hero. / कोल्हा नायक म्हणून दाखवला आहे.
+   [A] True  [B] False   ✓B
+   E: False. / खोटे.
+
+65. Q: The moral is 'Never trust anyone.' / बोध 'कोणावरही विश्वास ठेवू नका' आहे.
+   [A] True  [B] False   ✓B
+   E: False — specifically flatterers. / खोटे — विशेषतः खुशामतखोर.
+
+66. Q: The raven falls for deception. / कावळा फसवणुकीला बळी पडतो.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+67. Q: The poem shows the power of manipulation. / कविता हाताळणीची शक्ती दाखवते.
+   [A] True  [B] False   ✓A
+   E: True. / खरे.
+
+68. Q: The raven shares the cheese with the fox. / कावळा कोल्ह्याला चीज वाटून देतो.
+   [A] True  [B] False   ✓B
+   E: False — the raven does not share it. / खोटे — कावळा ते वाटत नाही.
+
+69. Q: The raven has good judgment. / कावळ्याचा निर्णय चांगला आहे.
+   [A] True  [B] False   ✓B
+   E: False. / खोटे.
+
+70. Q: The fox's flattery was about the cheese. / कोल्ह्याची स्तुती चीजबद्दल होती.
+   [A] True  [B] False   ✓B
+   E: False — about beauty/voice. / खोटे — सौंदर्य/आवाजाबद्दल.
+
+71. Q: Synonym of 'cunning'? / 'cunning' चा समानार्थी?
+   [A] sly  [B] weak  [C] slow  [D] kind   ✓A
+   E: Sly. / धूर्त.
+
+72. Q: Antonym of 'foolish'? / 'foolish' चा विरुद्धार्थी?
+   [A] wise  [B] silly  [C] stupid  [D] slow   ✓A
+   E: Wise. / शहाणा.
+
+73. Q: Synonym of 'praise'? / 'praise' चा समानार्थी?
+   [A] Compliment  [B] Insult  [C] Silence  [D] Anger   ✓A
+   E: Compliment means a kind expression of praise. / कौतुक म्हणजे प्रेमळ स्तुती.
+
+74. Q: Synonym of 'trust'? / 'trust' चा समानार्थी?
+   [A] Believe  [B] Doubt  [C] Refuse  [D] Ignore   ✓A
+   E: Believe means to trust. / 'believe' म्हणजे विश्वास ठेवणे.
+
+75. Q: Synonym of 'beautiful'? / 'beautiful' चा समानार्थी?
+   [A] lovely  [B] ugly  [C] bad  [D] plain   ✓A
+   E: Lovely. / सुंदर.
+
+76. Q: Antonym of 'praise'? / 'praise' चा विरुद्धार्थी?
+   [A] criticize  [B] compliment  [C] flatter  [D] admire   ✓A
+   E: Criticize. / टीका करणे.
+
+77. Q: Synonym of 'appearance'? / 'appearance' चा समानार्थी?
+   [A] Look  [B] Sound  [C] Smell  [D] Taste   ✓A
+   E: Look is a synonym of appearance. / 'look' हा 'appearance' चा समानार्थी शब्द आहे.
+
+78. Q: Synonym of 'clever'? / 'clever' चा समानार्थी?
+   [A] smart  [B] slow  [C] dull  [D] silly   ✓A
+   E: Smart. / हुशार.
+
+79. Q: Antonym of 'trust'? / 'trust' चा विरुद्धार्थी?
+   [A] distrust  [B] believe  [C] rely  [D] hope   ✓A
+   E: Distrust. / अविश्वास.
+
+80. Q: Antonym of 'sit'? / 'sit' चा विरुद्धार्थी?
+   [A] Stand  [B] Sleep  [C] Sing  [D] Rest   ✓A
+   E: Stand is the opposite of sit. / 'stand' हा 'sit' चा विरुद्धार्थी आहे.
+
+81. Q: Synonym of 'foolish'? / 'foolish' चा समानार्थी?
+   [A] silly  [B] wise  [C] clever  [D] smart   ✓A
+   E: Silly. / मूर्ख.
+
+82. Q: Antonym of 'happy'? / 'happy' चा विरुद्धार्थी?
+   [A] sad  [B] glad  [C] joyful  [D] pleased   ✓A
+   E: Sad. / दुःखी.
+
+83. Q: Antonym of 'large'? / 'large' चा विरुद्धार्थी?
+   [A] Small  [B] Big  [C] Huge  [D] Tall   ✓A
+   E: Small is the opposite of large. / 'small' हा 'large' चा विरुद्धार्थी आहे.
+
+84. Q: Antonym of 'arrogant'? / 'arrogant' चा विरुद्धार्थी?
+   [A] Humble  [B] Proud  [C] Vain  [D] Loud   ✓A
+   E: Humble is the opposite of arrogant. / 'humble' हा 'arrogant' चा विरुद्धार्थी आहे.
+
+85. Q: Antonym of 'beautiful'? / 'beautiful' चा विरुद्धार्थी?
+   [A] ugly  [B] pretty  [C] lovely  [D] attractive   ✓A
+   E: Ugly. / कुरूप.
+
+86. Q: Antonym of 'strong'? / 'strong' चा विरुद्धार्थी?
+   [A] Weak  [B] Bold  [C] Brave  [D] Firm   ✓A
+   E: Weak is the opposite of strong. / 'weak' हा 'strong' चा विरुद्धार्थी आहे.
+
+87. Q: Synonym of 'speak'? / 'speak' चा समानार्थी?
+   [A] say  [B] sing  [C] shout  [D] whisper   ✓A
+   E: Say. / बोलणे.
+
+88. Q: Antonym of 'honest'? / 'honest' चा विरुद्धार्थी?
+   [A] dishonest  [B] truthful  [C] sincere  [D] fair   ✓A
+   E: Dishonest. / अप्रामाणिक.
+
+89. Q: Synonym of 'deceive'? / 'deceive' चा समानार्थी?
+   [A] Mislead  [B] Help  [C] Praise  [D] Teach   ✓A
+   E: Mislead means to deceive. / 'mislead' म्हणजे फसवणे.
+
+90. Q: Antonym of 'empty'? / 'empty' चा विरुद्धार्थी?
+   [A] Full  [B] Clean  [C] Bright  [D] Heavy   ✓A
+   E: Full is the opposite of empty. / 'full' हा 'empty' चा विरुद्धार्थी आहे.
+
+91. Q: Synonym of 'wish'? / 'wish' चा समानार्थी?
+   [A] desire  [B] hate  [C] fear  [D] ignore   ✓A
+   E: Desire. / इच्छा.
+
+92. Q: Antonym of 'before'? / 'before' चा विरुद्धार्थी?
+   [A] after  [B] first  [C] early  [D] soon   ✓A
+   E: After. / नंतर.
+
+93. Q: Meaning of 'cheese'? / 'cheese' चा अर्थ?
+   [A] A dairy food  [B] A vegetable  [C] A fruit  [D] A grain   ✓A
+   E: A dairy food. / दुग्धजन्य पदार्थ.
+
+94. Q: Synonym of 'also'? / 'also' चा समानार्थी?
+   [A] too  [B] only  [C] not  [D] never   ✓A
+   E: Too. / देखील.
+
+95. Q: Antonym of 'always'? / 'always' चा विरुद्धार्थी?
+   [A] never  [B] often  [C] sometimes  [D] usually   ✓A
+   E: Never. / कधीच नाही.
+
+96. Q: Synonym of 'big'? / 'big' चा समानार्थी?
+   [A] Large  [B] Tiny  [C] Thin  [D] Soft   ✓A
+   E: Large means big. / 'large' म्हणजे मोठा.
+
+97. Q: Antonym of 'reward'? / 'reward' चा विरुद्धार्थी?
+   [A] Punishment  [B] Gift  [C] Prize  [D] Bonus   ✓A
+   E: Punishment is the opposite of reward. / 'punishment' हा 'reward' चा विरुद्धार्थी आहे.
+
+98. Q: Who is the source of this fable? / या दंतकथेचा मूळ स्रोत?
+   [A] Aesop  [B] Shakespeare  [C] Keats  [D] Wordsworth   ✓A
+   E: Aesop. / ईसाप.
+
+99. Q: Synonym of 'lesson'? / 'lesson' चा समानार्थी?
+   [A] Moral  [B] Story  [C] Song  [D] Joke   ✓A
+   E: Moral is a synonym of lesson here. / येथे 'moral' हा 'lesson' चा समानार्थी आहे.
+
+100. Q: Which word means 'proud of oneself'? / 'स्वतःबद्दल गर्विष्ठ' असा अर्थ कोणता शब्द देतो?
+   [A] Vain  [B] Humble  [C] Shy  [D] Kind   ✓A
+   E: Vain means proud of oneself. / 'vain' म्हणजे स्वतःबद्दल गर्विष्ठ.
+
+</script>
+
+<script>
+const params = new URLSearchParams(location.search);
+const chapter = params.get('chapter') || '2';
+const rawLevel = 'ultra';
+const level = ['easy','medium','difficult','ultra'].includes(rawLevel) ? rawLevel : 'easy';
+const levelLabel = level[0].toUpperCase() + level.slice(1);
+const TITLES = { '2': 'The Raven and the Fox' };
+const TF_MAR = { True: 'बरोबर', False: 'चूक' };
+
+document.getElementById('pageTitle').innerHTML =
+  `धडा ${chapter} - टेस्ट <span class="text-amber-400 font-bold text-xs md:text-sm block md:inline marathi-text">(${levelLabel} Level${TITLES[chapter] ? ' · ' + TITLES[chapter] : ''})</span>`;
+document.getElementById('resultBackBtn').href = `quiz.html?chapter=${chapter}`;
+
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const split = t => { const i = t.lastIndexOf(' / '); return i < 0 ? [t.trim(), ''] : [t.slice(0, i).trim(), t.slice(i + 3).trim()]; };
+const shuffle = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
+
+function parseBank(raw, lvl) {
+  const block = raw.split(/LEVEL:\s*/i).slice(1).find(s => s.trim().toLowerCase().startsWith(lvl));
+  if (!block) return [];
+  const re = /^\s*\d+\.\s+(?:Q:\s*)?(.+)\n\s*(\[A\].*?)\s*✓([A-D])\s*\n\s*E:\s*(.+)$/gm;
+  const out = []; let m;
+  while ((m = re.exec(block))) {
+    const [qe, qm] = split(m[1]);
+    const [ee, em] = split(m[4]);
+    let opts = m[2].split(/\[[A-D]\]\s*/).slice(1).map(s => s.trim());
+    let correct = m[3].charCodeAt(0) - 65;
+    const isTF = opts.length === 2 && opts[0] === 'True';
+    if (!isTF) { // answers are all "A" in the source, so shuffle
+      const ans = opts[correct]; opts = shuffle(opts); correct = opts.indexOf(ans);
+    }
+    out.push({ questionEng: qe, questionMar: qm, options: opts.map(t => ({ eng: t, mar: TF_MAR[t] || '' })), correct, explanationEng: ee, explanationMar: em });
+  }
+  return out;
+}
+
+const activeQuestions = parseBank(document.getElementById('bank').textContent, level);
+if (!activeQuestions.length) {
+  document.getElementById('quizScreen').innerHTML = '<p class="text-center text-amber-300 marathi-text py-6">या लेव्हलसाठी प्रश्न उपलब्ध नाहीत.</p>';
+}
+
+let cur = 0, isAnswered = false;
+const userAnswers = new Array(activeQuestions.length).fill(null); // null=unvisited, -1=skipped
+const $ = id => document.getElementById(id);
+const getScore = () => userAnswers.reduce((s, a, i) => s + (a !== null && a !== -1 && a === activeQuestions[i].correct ? 1 : 0), 0);
+const getSkipped = () => userAnswers.filter(a => a === -1).length;
+
+/* timer */
+const startTime = Date.now(); let timerInterval, totalSeconds = 0;
+const fmt = s => { const h = Math.floor(s / 3600), m = String(Math.floor(s % 3600 / 60)).padStart(2, '0'), ss = String(s % 60).padStart(2, '0'); return h ? `${String(h).padStart(2, '0')}:${m}:${ss}` : `${m}:${ss}`; };
+const tick = () => { totalSeconds = Math.floor((Date.now() - startTime) / 1000); $('timerDisplay').textContent = fmt(totalSeconds); };
+const OK = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-emerald-400 bg-emerald-950 font-bold flex items-center justify-between";
+const BAD = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-rose-400 bg-rose-950 font-bold flex items-center justify-between";
+
+function showFeedback(ok, q) {
+  const fb = $('feedbackBox');
+  fb.className = "p-3 rounded-xl mb-4 text-sm border " + (ok ? "bg-emerald-950 border-emerald-600" : "bg-rose-950 border-rose-600");
+  $('feedbackIcon').innerHTML = ok ? '<i class="fa-solid fa-circle-check text-emerald-400"></i>' : '<i class="fa-solid fa-circle-xmark text-rose-400"></i>';
+  $('feedbackTitle').textContent = ok ? "बरोबर उत्तर! (Correct Answer)" : "चुकीचे उत्तर! (Incorrect Answer)";
+  $('feedbackTitle').className = "font-bold text-sm mb-0.5 " + (ok ? "text-emerald-300" : "text-rose-300");
+  $('feedbackEng').textContent = q.explanationEng;
+  $('feedbackMar').textContent = "स्पष्टीकरण: " + q.explanationMar;
+}
+
+function renderQuestion() {
+  if (!activeQuestions.length) return;
+  const q = activeQuestions[cur], prev = userAnswers[cur];
+  isAnswered = prev !== null && prev !== -1;
+  $('feedbackBox').classList.add('hidden');
+  $('nextBtn').style.display = isAnswered ? 'flex' : 'none';
+  $('skipBtn').style.display = isAnswered ? 'none' : 'flex';
+  $('questionCounter').textContent = `Question ${cur + 1}/${activeQuestions.length}`;
+  $('scoreTracker').textContent = `Score: ${getScore()}`;
+  $('progressBar').style.width = `${(cur + 1) / activeQuestions.length * 100}%`;
+  $('qEng').textContent = q.questionEng;
+  $('qMar').textContent = q.questionMar;
+  const box = $('optionsContainer'); box.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const b = document.createElement('button');
+    b.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-neutral-700 hover:border-emerald-400 hover:bg-emerald-400/10 transition flex items-center justify-between group bg-neutral-900";
+    b.innerHTML = `<div class="flex items-start gap-2.5"><span class="w-6 h-6 rounded-lg bg-neutral-800 group-hover:bg-emerald-400 group-hover:text-black flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">${String.fromCharCode(65 + idx)}</span><div><p class="text-sm md:text-base font-semibold">${esc(opt.eng)}</p>${opt.mar ? `<p class="text-xs md:text-sm font-medium text-emerald-300 marathi-text mt-0.5">${esc(opt.mar)}</p>` : ''}</div></div>`;
+    if (isAnswered) {
+      b.disabled = true;
+      if (idx === q.correct) b.className = OK; else if (idx === prev) b.className = BAD; else b.classList.add('opacity-50');
+    } else b.onclick = () => selectOption(idx);
+    box.appendChild(b);
+  });
+  if (isAnswered) showFeedback(prev === q.correct, q);
+}
+
+function selectOption(i) {
+  if (isAnswered) return;
+  isAnswered = true; userAnswers[cur] = i;
+  const q = activeQuestions[cur], ok = i === q.correct;
+  $('scoreTracker').textContent = `Score: ${getScore()}`;
+  Array.from($('optionsContainer').children).forEach((b, idx) => {
+    b.disabled = true;
+    if (idx === q.correct) b.className = OK; else if (idx === i) b.className = BAD; else b.classList.add('opacity-50');
+  });
+  showFeedback(ok, q);
+  $('skipBtn').style.display = 'none';
+  $('nextBtn').style.display = 'flex';
+  $('nextBtn').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function skipQuestion() { if (isAnswered) return; userAnswers[cur] = -1; nextQuestion(); }
+function nextQuestion() {
+  if (cur < activeQuestions.length - 1) { cur++; renderQuestion(); scrollTo({ top: 0, behavior: 'smooth' }); }
+  else showResults();
+}
+function goBack() {
+  if (cur > 0) { cur--; renderQuestion(); scrollTo({ top: 0, behavior: 'smooth' }); }
+  else location.href = `quiz.html?chapter=${chapter}`;
+}
+function showResults() {
+  clearInterval(timerInterval); tick();
+  $('quizScreen').classList.add('hidden'); $('resultScreen').classList.remove('hidden');
+  const s = getScore(), n = activeQuestions.length, pct = Math.round(s / n * 100);
+  $('finalScore').textContent = `${s}/${n}`; $('finalPercentage').textContent = `${pct}%`;
+  $('finalTime').textContent = fmt(totalSeconds); $('finalSkipped').textContent = getSkipped();
+  $('performanceMessage').textContent = pct === 100 ? "उत्तुंग यश! तुम्ही सर्व प्रश्नांची उत्तरे बरोबर दिली आहेत." : pct >= 50 ? "छान प्रयत्न! तुमचा अभ्यास चांगला आहे." : "पुन्हा एकदा धडा वाचा आणि सराव करा!";
+  scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+timerInterval = setInterval(tick, 1000);
+renderQuestion();
+</script>
+</body>
+</html>

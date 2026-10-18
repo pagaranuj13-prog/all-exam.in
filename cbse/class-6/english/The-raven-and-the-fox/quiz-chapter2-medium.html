@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Quiz | all-exam.in</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Poppins','Hind',sans-serif;color:#fff;color-scheme:dark;min-height:100vh;background:#000;overflow-x:hidden}
+.marathi-text{font-family:'Hind',sans-serif}
+.custom-shadow{box-shadow:0 0 0 1px rgba(255,255,255,.04),0 20px 50px -15px rgba(251,191,36,.18)}
+</style>
+</head>
+<body class="flex flex-col justify-between min-h-screen p-3 md:p-5">
+<header class="max-w-2xl w-full mx-auto mb-3 text-center"><h1 id="pageTitle" class="text-xl md:text-2xl font-extrabold"></h1></header>
+<main class="max-w-xl w-full mx-auto bg-neutral-950 rounded-2xl p-4 md:p-6 custom-shadow border border-neutral-800">
+  <div class="flex justify-between items-center mb-4 border-b border-neutral-800 pb-2.5 gap-2">
+    <span class="text-[11px] font-bold text-emerald-300 bg-emerald-950 px-2.5 py-1 rounded-full border border-emerald-700"><i class="fa-solid fa-language"></i> English + मराठी अर्थ</span>
+    <span class="text-[12px] font-extrabold text-indigo-200 bg-indigo-950 px-2.5 py-1 rounded-full border border-indigo-700"><i class="fa-solid fa-stopwatch"></i> <span id="timerDisplay">00:00</span></span>
+    <button onclick="goBack()" class="text-[11px] font-semibold bg-neutral-800 hover:bg-neutral-700 px-2.5 py-1 rounded-lg"><i class="fa-solid fa-arrow-left"></i> मागे जा</button>
+  </div>
+
+  <div id="quizScreen">
+    <div class="mb-3">
+      <div class="flex justify-between text-xs font-bold text-neutral-300 mb-1"><span id="questionCounter"></span><span id="scoreTracker" class="text-emerald-400"></span></div>
+      <div class="w-full bg-neutral-800 rounded-full h-2 overflow-hidden border border-neutral-700"><div id="progressBar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full rounded-full transition-all duration-300"></div></div>
+    </div>
+    <div class="mb-4 bg-neutral-900 p-4 rounded-xl border border-neutral-700">
+      <h3 id="qEng" class="text-base md:text-lg font-bold leading-snug"></h3>
+      <p id="qMar" class="text-sm md:text-base font-semibold text-emerald-300 marathi-text mt-1.5"></p>
+    </div>
+    <div id="optionsContainer" class="space-y-2.5 mb-4"></div>
+    <div id="feedbackBox" class="hidden p-3 rounded-xl mb-4 text-sm border">
+      <div class="flex items-start gap-2"><div id="feedbackIcon" class="text-lg mt-0.5"></div>
+        <div><h4 id="feedbackTitle" class="font-bold text-sm mb-0.5"></h4>
+        <p id="feedbackEng" class="font-medium"></p>
+        <p id="feedbackMar" class="text-neutral-200 font-semibold marathi-text mt-1 pt-1 border-t border-neutral-700"></p></div></div>
+    </div>
+    <button id="skipBtn" onclick="skipQuestion()" class="w-full py-2.5 mb-2 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 border-2 border-amber-500/60 font-bold text-xs md:text-sm rounded-xl flex items-center justify-center gap-1.5"><i class="fa-solid fa-forward"></i> प्रश्न वगळा (Skip Question)</button>
+    <button id="nextBtn" onclick="nextQuestion()" class="hidden w-full py-2.5 bg-white hover:bg-neutral-200 text-black font-bold text-xs md:text-sm rounded-xl items-center justify-center gap-1.5">पुढचा प्रश्न (Next Question) <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+
+  <div id="resultScreen" class="hidden text-center py-2">
+    <div class="w-12 h-12 bg-amber-400/15 text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-2 text-xl"><i class="fa-solid fa-trophy"></i></div>
+    <h2 class="text-lg md:text-xl font-extrabold">Quiz Completed!</h2>
+    <p class="text-emerald-300 font-bold marathi-text text-sm mb-3">अभिनंदन! टेस्ट पूर्ण झाली!</p>
+    <div class="bg-gradient-to-br from-amber-950/60 to-emerald-950/60 rounded-xl p-3 border border-amber-700/60 mb-4 max-w-sm mx-auto">
+      <div class="grid grid-cols-3 divide-x divide-neutral-700">
+        <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Total Score</span><span id="finalScore" class="text-xl font-extrabold text-emerald-400"></span></div>
+        <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Percentage</span><span id="finalPercentage" class="text-xl font-extrabold"></span></div>
+        <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Time Taken</span><span id="finalTime" class="text-xl font-extrabold text-indigo-300"></span></div>
+      </div>
+      <p class="mt-2 text-xs font-bold text-neutral-200">वगळलेले प्रश्न (Skipped): <span id="finalSkipped">0</span></p>
+      <p id="performanceMessage" class="mt-2 text-xs font-bold text-amber-200 bg-amber-400/15 py-1 px-2 rounded-lg inline-block marathi-text"></p>
+    </div>
+    <a id="resultBackBtn" href="quiz.html" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 font-bold rounded-xl text-xs inline-flex items-center gap-1.5"><i class="fa-solid fa-rotate-right"></i> पुन्हा प्रयत्न करा / मागे जा</a>
+  </div>
+</main>
+<footer class="mt-4 text-center text-[11px] text-neutral-400"><p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p></footer>
+
+<!-- ===== QUESTION BANK: paste the full Chapter 2 text here, exactly as written (LEVEL: EASY / MEDIUM / DIFFICULT / ULTRA) ===== -->
+<script type="text/plain" id="bank">
+LEVEL: MEDIUM — 50 Questions
+
+1. Q: Why did the fox flatter the raven? / कोल्ह्याने कावळ्याची स्तुती का केली?
+   [A] To get the cheese  [B] To make friends  [C] To sing together  [D] To warn him   ✓A
+   E: The fox wanted the cheese. / कोल्ह्याला चीज हवे होते.
+
+2. Q: 'Guise' means ___. / 'guise' चा अर्थ?
+   [A] Appearance  [B] Sound  [C] Smell  [D] Touch   ✓A
+   E: Guise means appearance. / guise म्हणजे दिसणे.
+
+3. Q: 'Perched' means ___. / 'perched' चा अर्थ?
+   [A] Sat on  [B] Flew  [C] Ran  [D] Slept   ✓A
+   E: Perched means sat/rested on. / perched म्हणजे बसले.
+
+4. Q: 'Flattering guise' means ___. / 'flattering guise' म्हणजे?
+   [A] Deceptive appearance  [B] Real praise  [C] Honest look  [D] Angry face   ✓A
+   E: Deceptive appearance. / फसवणारे रूप.
+
+5. Q: What did the raven open to sing? / गाण्यासाठी कावळ्याने काय उघडले?
+   [A] Its beak  [B] Its wings  [C] Its eyes  [D] Its feathers   ✓A
+   E: Its beak. / त्याची चोच.
+
+6. Q: What is the main theme? / मुख्य विषय?
+   [A] Vanity and flattery  [B] Love  [C] War  [D] Nature   ✓A
+   E: Vanity and flattery. / व्यर्थ गर्व व खुशामत.
+
+7. Q: The fox's true motive was ___. / कोल्ह्याचा खरा हेतू?
+   [A] Self-interest  [B] Friendship  [C] Charity  [D] Justice   ✓A
+   E: Self-interest. / स्वार्थ.
+
+8. Q: The raven's weakness was ___. / कावळ्याची कमकुवतता?
+   [A] Vanity  [B] Sleep  [C] Hunger  [D] Anger   ✓A
+   E: Vanity. / व्यर्थ गर्व.
+
+9. Q: Who delivers the moral? / बोध कोण देतो?
+   [A] The fox  [B] The raven  [C] The poet  [D] The tree   ✓A
+   E: The fox delivers the moral. / कोल्हा बोध देतो.
+
+10. Q: The poem's tone is ___. / कवितेचा सूर?
+   [A] Cautionary  [B] Happy  [C] Romantic  [D] Sad   ✓A
+   E: Cautionary tone. / सावध करणारा सूर.
+
+11. Q: The word 'cheese' in the poem is a ___. / कवितेत 'cheese' हा शब्द ___ आहे.
+   [A] Noun  [B] Verb  [C] Adjective  [D] Adverb   ✓A
+   E: 'Cheese' is a noun. / 'cheese' हे नाम आहे.
+
+12. Q: 'Cunning smile' describes ___. / 'cunning smile' कोणाचे?
+   [A] The fox  [B] The raven  [C] The poet  [D] The tree   ✓A
+   E: The fox. / कोल्हा.
+
+13. Q: The raven's action shows ___. / कावळ्याची कृती काय दर्शवते?
+   [A] Foolishness  [B] Wisdom  [C] Strength  [D] Kindness   ✓A
+   E: Foolishness. / मूर्खपणा.
+
+14. Q: The poem criticizes ___. / कविता कशावर टीका करते?
+   [A] Flattery and vanity  [B] Hard work  [C] Friendship  [D] Love   ✓A
+   E: Flattery and vanity. / खुशामत व व्यर्थ गर्व.
+
+15. Q: 'Learn, friend' — who says this? / 'शिका, मित्र' कोण म्हणतो?
+   [A] The fox  [B] The raven  [C] The poet  [D] A narrator   ✓A
+   E: The fox says it. / कोल्हा म्हणतो.
+
+16. Q: What kind of flattery did the fox use? / कोल्ह्याने कोणती खुशामत केली?
+   [A] Praise about beauty and voice  [B] Praise about money  [C] Praise about food  [D] Praise about home   ✓A
+   E: About beauty and voice. / सौंदर्य व आवाजाबद्दल.
+
+17. Q: Why does the raven open its beak? / कावळा चोच का उघडतो?
+   [A] To sing  [B] To eat  [C] To fly  [D] To shout   ✓A
+   E: To sing. / गाण्यासाठी.
+
+18. Q: What does the fox's flattery target? / कोल्ह्याची स्तुती कशाला लक्ष्य करते?
+   [A] The raven's ego  [B] Its hunger  [C] Its sleep  [D] Its fear   ✓A
+   E: The raven's ego. / कावळ्याचा अहंकार.
+
+19. Q: The raven symbolizes ___. / कावळा ___ चे प्रतीक?
+   [A] People who fall for flattery  [B] People who help others  [C] Farmers  [D] Soldiers   ✓A
+   E: People who fall for flattery. / खुशामतीला बळी पडणारे लोक.
+
+20. Q: The fox symbolizes ___. / कोल्हा ___ चे प्रतीक?
+   [A] Manipulators  [B] Doctors  [C] Students  [D] Teachers   ✓A
+   E: Manipulators. / हाताळणी करणारे.
+
+21. Q: What lesson does the poem teach? / कविता कोणता धडा शिकवते?
+   [A] Not to trust flatterers  [B] Never eat cheese  [C] Avoid trees  [D] Fear foxes   ✓A
+   E: Not to trust flatterers. / खुशामतखोरांवर विश्वास ठेवू नका.
+
+22. Q: What is 'insincere praise'? / 'insincere praise' म्हणजे?
+   [A] Flattery  [B] Compliment  [C] Advice  [D] Question   ✓A
+   E: Flattery. / खुशामत.
+
+23. Q: 'Flattering' in 'flattering guise' is a ___. / 'flattering guise' मधील 'flattering' ___ आहे.
+   [A] Adjective  [B] Noun  [C] Verb  [D] Adverb   ✓A
+   E: 'Flattering' describes the guise, so it is an adjective. / 'flattering' विशेषण आहे.
+
+24. Q: What could the raven have done differently? / कावळा काय वेगळे करू शकला असता?
+   [A] Ignored the flattery  [B] Eaten faster  [C] Fought the fox  [D] Sung louder   ✓A
+   E: Ignored the flattery. / खुशामतीकडे दुर्लक्ष केले असते.
+
+25. Q: The cheese's fall symbolizes ___. / चीजचे पडणे कशाचे प्रतीक?
+   [A] The cost of vanity  [B] Power of money  [C] Joy of eating  [D] Anger of fox   ✓A
+   E: The cost of vanity. / व्यर्थ गर्वाची किंमत.
+
+26. Q: What does the poem primarily deal with? / कविता मुख्यतः कशाबद्दल?
+   [A] Human folly  [B] Nature  [C] Love  [D] Friendship   ✓A
+   E: Human folly. / मानवी मूर्खपणा.
+
+27. Q: Why does the raven fall for flattery? / कावळा खुशामतीला का बळी पडतो?
+   [A] Because of vanity  [B] Because of hunger  [C] Because of fear  [D] Because of greed   ✓A
+   E: Because of vanity. / व्यर्थ गर्वामुळे.
+
+28. Q: What is the effect of the fox's flattery? / कोल्ह्याच्या खुशामतीचा परिणाम?
+   [A] The raven drops the cheese  [B] The raven flies away  [C] The fox runs away  [D] The tree falls   ✓A
+   E: The raven drops the cheese. / कावळ्याच्या हातून चीज पडते.
+
+29. Q: How is the fox described in the poem? / कवितेत कोल्ह्याचे वर्णन कसे?
+   [A] Crafty  [B] Lazy  [C] Silly  [D] Brave   ✓A
+   E: Crafty. / धूर्त.
+
+30. Q: The raven is described as ___. / कावळा ___ आहे.
+   [A] Proud  [B] Humble  [C] Shy  [D] Kind   ✓A
+   E: Proud. / गर्विष्ठ.
+
+31. [Article] ___ eagle flew above the tree. / ___ गरुड झाडावरून उडत होता.
+   [A] A  [B] An  [C] The  [D] Some   ✓B
+   E: 'Eagle' starts with a vowel sound, so 'an'. / 'eagle' स्वराने सुरू होतो, म्हणून 'an'.
+
+32. [Verb] Yesterday the fox ___ very hungry. / काल कोल्हा खूप भुकेलेला ___.
+   [A] was  [B] were  [C] is  [D] are   ✓A
+   E: 'The fox' is singular, so 'was'. / 'the fox' एकवचन → was.
+
+33. [Article] It was ___ ordinary tree. / ते ___ साधे झाड होते.
+   [A] an  [B] a  [C] the  [D] some   ✓A
+   E: "an" before vowel "o". / स्वर "o" पूर्वी "an".
+
+34. [Article] ___ cheese fell on the ground. / ___ चीज जमिनीवर पडली.
+   [A] The  [B] A  [C] An  [D] Some   ✓A
+   E: Specific reference → "the". / विशिष्ट संदर्भ → "the".
+
+35. [Article] The fox is ___ cunning animal. / कोल्हा ___ धूर्त प्राणी आहे.
+   [A] a  [B] an  [C] the  [D] no article   ✓A
+   E: "a" before consonant. / व्यंजनापूर्वी "a".
+
+36. [Tense] By the time the fox spoke, the raven ___ sitting. / कोल्हा बोलला तेव्हा कावळा ___ होता.
+   [A] had been  [B] has been  [C] was  [D] is   ✓A
+   E: Past perfect continuous. / Past perfect continuous.
+
+37. [Tense] Before the fox arrived, the raven ___ a nap. / कोल्हा येण्यापूर्वी कावळ्याने एक डुलकी ___.
+   [A] had taken  [B] takes  [C] taking  [D] will take   ✓A
+   E: Past perfect for an action before another past action. / भूतकाळातील आधीची क्रिया → past perfect.
+
+38. [Tense] The fox ___ the cheese soon. / कोल्ह्याला लवकरच चीज ___.
+   [A] will get  [B] got  [C] gets  [D] getting   ✓A
+   E: Future simple. / Future simple.
+
+39. [Tense] The raven ___ when the fox praised it. / कोल्ह्याने स्तुती केली तेव्हा कावळा ___ होता.
+   [A] was singing  [B] has sung  [C] sings  [D] sing   ✓A
+   E: Past continuous. / Past continuous.
+
+40. [Tense] If the raven had been quiet, the fox ___ the cheese. / कावळा शांत असता तर कोल्ह्याला चीज ___ नसते.
+   [A] would not have got  [B] will not get  [C] does not get  [D] getting   ✓A
+   E: Third conditional. / Third conditional.
+
+41. [Verb] The raven ___ tricked. / कावळा ___ फसवला गेला.
+   [A] was  [B] were  [C] is  [D] are   ✓A
+   E: Passive voice singular. / Passive एकवचन.
+
+42. [Verb] The fox and the raven ___ animals. / कोल्हा व कावळा ___ प्राणी आहेत.
+   [A] are  [B] is  [C] was  [D] have   ✓A
+   E: Compound subject → are. / जोड शब्द → are.
+
+43. [Verb] Neither of the birds ___ wise. / दोन्ही पक्ष्यांपैकी कोणीही ___ शहाणा नव्हता.
+   [A] was  [B] were  [C] are  [D] have   ✓A
+   E: "Neither" → singular. / "Neither" → एकवचन.
+
+44. [Verb] Each of the animals ___ a role. / प्रत्येक प्राण्याची ___ भूमिका होती.
+   [A] has  [B] have  [C] are  [D] were   ✓A
+   E: "Each" → singular. / "Each" → एकवचन.
+
+45. [Verb] The moral of the poem ___ very clear. / कवितेचा बोध खूप स्पष्ट ___.
+   [A] is  [B] are  [C] were  [D] have   ✓A
+   E: 'The moral' is singular, so 'is'. / 'moral' एकवचन → is.
+
+46. [Adverb] The raven ___ accepted the praise. / कावळ्याने स्तुती ___ स्वीकारली.
+   [A] eagerly  [B] eager  [C] eagerness  [D] more eager   ✓A
+   E: Adverb modifies 'accepted' → eagerly. / क्रियाविशेषण → eagerly.
+
+47. [Adverb] The fox ___ smiled at the raven. / कोल्हा कावळ्याकडे ___ हसला.
+   [A] slyly  [B] sly  [C] slyness  [D] more sly   ✓A
+   E: Adverb = slyly. / क्रियाविशेषण = slyly.
+
+48. [Adverb] The fox ___ watched the raven. / कोल्हा कावळ्याकडे ___ पाहत होता.
+   [A] carefully  [B] careful  [C] carefulness  [D] more careful   ✓A
+   E: Adverb = carefully. / क्रियाविशेषण = carefully.
+
+49. [Adverb] The fox moved ___. / कोल्हा ___ हलला.
+   [A] quietly  [B] quiet  [C] quietness  [D] more quiet   ✓A
+   E: Adverb = quietly. / क्रियाविशेषण = quietly.
+
+50. [Adjective] The raven was ___ to believe the fox. / कोल्ह्यावर विश्वास ठेवणे कावळ्यासाठी ___ होते.
+   [A] foolish  [B] foolishly  [C] foolishness  [D] more foolish   ✓A
+   E: 'Was' is followed by an adjective → foolish. / 'was' नंतर विशेषण → foolish.
+
+</script>
+
+<script>
+const params = new URLSearchParams(location.search);
+const chapter = params.get('chapter') || '2';
+const rawLevel = 'medium';
+const level = ['easy','medium','difficult','ultra'].includes(rawLevel) ? rawLevel : 'easy';
+const levelLabel = level[0].toUpperCase() + level.slice(1);
+const TITLES = { '2': 'The Raven and the Fox' };
+const TF_MAR = { True: 'बरोबर', False: 'चूक' };
+
+document.getElementById('pageTitle').innerHTML =
+  `धडा ${chapter} - टेस्ट <span class="text-amber-400 font-bold text-xs md:text-sm block md:inline marathi-text">(${levelLabel} Level${TITLES[chapter] ? ' · ' + TITLES[chapter] : ''})</span>`;
+document.getElementById('resultBackBtn').href = `quiz.html?chapter=${chapter}`;
+
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const split = t => { const i = t.lastIndexOf(' / '); return i < 0 ? [t.trim(), ''] : [t.slice(0, i).trim(), t.slice(i + 3).trim()]; };
+const shuffle = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
+
+function parseBank(raw, lvl) {
+  const block = raw.split(/LEVEL:\s*/i).slice(1).find(s => s.trim().toLowerCase().startsWith(lvl));
+  if (!block) return [];
+  const re = /^\s*\d+\.\s+(?:Q:\s*)?(.+)\n\s*(\[A\].*?)\s*✓([A-D])\s*\n\s*E:\s*(.+)$/gm;
+  const out = []; let m;
+  while ((m = re.exec(block))) {
+    const [qe, qm] = split(m[1]);
+    const [ee, em] = split(m[4]);
+    let opts = m[2].split(/\[[A-D]\]\s*/).slice(1).map(s => s.trim());
+    let correct = m[3].charCodeAt(0) - 65;
+    const isTF = opts.length === 2 && opts[0] === 'True';
+    if (!isTF) { // answers are all "A" in the source, so shuffle
+      const ans = opts[correct]; opts = shuffle(opts); correct = opts.indexOf(ans);
+    }
+    out.push({ questionEng: qe, questionMar: qm, options: opts.map(t => ({ eng: t, mar: TF_MAR[t] || '' })), correct, explanationEng: ee, explanationMar: em });
+  }
+  return out;
+}
+
+const activeQuestions = parseBank(document.getElementById('bank').textContent, level);
+if (!activeQuestions.length) {
+  document.getElementById('quizScreen').innerHTML = '<p class="text-center text-amber-300 marathi-text py-6">या लेव्हलसाठी प्रश्न उपलब्ध नाहीत.</p>';
+}
+
+let cur = 0, isAnswered = false;
+const userAnswers = new Array(activeQuestions.length).fill(null); // null=unvisited, -1=skipped
+const $ = id => document.getElementById(id);
+const getScore = () => userAnswers.reduce((s, a, i) => s + (a !== null && a !== -1 && a === activeQuestions[i].correct ? 1 : 0), 0);
+const getSkipped = () => userAnswers.filter(a => a === -1).length;
+
+/* timer */
+const startTime = Date.now(); let timerInterval, totalSeconds = 0;
+const fmt = s => { const h = Math.floor(s / 3600), m = String(Math.floor(s % 3600 / 60)).padStart(2, '0'), ss = String(s % 60).padStart(2, '0'); return h ? `${String(h).padStart(2, '0')}:${m}:${ss}` : `${m}:${ss}`; };
+const tick = () => { totalSeconds = Math.floor((Date.now() - startTime) / 1000); $('timerDisplay').textContent = fmt(totalSeconds); };
+const OK = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-emerald-400 bg-emerald-950 font-bold flex items-center justify-between";
+const BAD = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-rose-400 bg-rose-950 font-bold flex items-center justify-between";
+
+function showFeedback(ok, q) {
+  const fb = $('feedbackBox');
+  fb.className = "p-3 rounded-xl mb-4 text-sm border " + (ok ? "bg-emerald-950 border-emerald-600" : "bg-rose-950 border-rose-600");
+  $('feedbackIcon').innerHTML = ok ? '<i class="fa-solid fa-circle-check text-emerald-400"></i>' : '<i class="fa-solid fa-circle-xmark text-rose-400"></i>';
+  $('feedbackTitle').textContent = ok ? "बरोबर उत्तर! (Correct Answer)" : "चुकीचे उत्तर! (Incorrect Answer)";
+  $('feedbackTitle').className = "font-bold text-sm mb-0.5 " + (ok ? "text-emerald-300" : "text-rose-300");
+  $('feedbackEng').textContent = q.explanationEng;
+  $('feedbackMar').textContent = "स्पष्टीकरण: " + q.explanationMar;
+}
+
+function renderQuestion() {
+  if (!activeQuestions.length) return;
+  const q = activeQuestions[cur], prev = userAnswers[cur];
+  isAnswered = prev !== null && prev !== -1;
+  $('feedbackBox').classList.add('hidden');
+  $('nextBtn').style.display = isAnswered ? 'flex' : 'none';
+  $('skipBtn').style.display = isAnswered ? 'none' : 'flex';
+  $('questionCounter').textContent = `Question ${cur + 1}/${activeQuestions.length}`;
+  $('scoreTracker').textContent = `Score: ${getScore()}`;
+  $('progressBar').style.width = `${(cur + 1) / activeQuestions.length * 100}%`;
+  $('qEng').textContent = q.questionEng;
+  $('qMar').textContent = q.questionMar;
+  const box = $('optionsContainer'); box.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const b = document.createElement('button');
+    b.className = "w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-neutral-700 hover:border-emerald-400 hover:bg-emerald-400/10 transition flex items-center justify-between group bg-neutral-900";
+    b.innerHTML = `<div class="flex items-start gap-2.5"><span class="w-6 h-6 rounded-lg bg-neutral-800 group-hover:bg-emerald-400 group-hover:text-black flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">${String.fromCharCode(65 + idx)}</span><div><p class="text-sm md:text-base font-semibold">${esc(opt.eng)}</p>${opt.mar ? `<p class="text-xs md:text-sm font-medium text-emerald-300 marathi-text mt-0.5">${esc(opt.mar)}</p>` : ''}</div></div>`;
+    if (isAnswered) {
+      b.disabled = true;
+      if (idx === q.correct) b.className = OK; else if (idx === prev) b.className = BAD; else b.classList.add('opacity-50');
+    } else b.onclick = () => selectOption(idx);
+    box.appendChild(b);
+  });
+  if (isAnswered) showFeedback(prev === q.correct, q);
+}
+
+function selectOption(i) {
+  if (isAnswered) return;
+  isAnswered = true; userAnswers[cur] = i;
+  const q = activeQuestions[cur], ok = i === q.correct;
+  $('scoreTracker').textContent = `Score: ${getScore()}`;
+  Array.from($('optionsContainer').children).forEach((b, idx) => {
+    b.disabled = true;
+    if (idx === q.correct) b.className = OK; else if (idx === i) b.className = BAD; else b.classList.add('opacity-50');
+  });
+  showFeedback(ok, q);
+  $('skipBtn').style.display = 'none';
+  $('nextBtn').style.display = 'flex';
+  $('nextBtn').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function skipQuestion() { if (isAnswered) return; userAnswers[cur] = -1; nextQuestion(); }
+function nextQuestion() {
+  if (cur < activeQuestions.length - 1) { cur++; renderQuestion(); scrollTo({ top: 0, behavior: 'smooth' }); }
+  else showResults();
+}
+function goBack() {
+  if (cur > 0) { cur--; renderQuestion(); scrollTo({ top: 0, behavior: 'smooth' }); }
+  else location.href = `quiz.html?chapter=${chapter}`;
+}
+function showResults() {
+  clearInterval(timerInterval); tick();
+  $('quizScreen').classList.add('hidden'); $('resultScreen').classList.remove('hidden');
+  const s = getScore(), n = activeQuestions.length, pct = Math.round(s / n * 100);
+  $('finalScore').textContent = `${s}/${n}`; $('finalPercentage').textContent = `${pct}%`;
+  $('finalTime').textContent = fmt(totalSeconds); $('finalSkipped').textContent = getSkipped();
+  $('performanceMessage').textContent = pct === 100 ? "उत्तुंग यश! तुम्ही सर्व प्रश्नांची उत्तरे बरोबर दिली आहेत." : pct >= 50 ? "छान प्रयत्न! तुमचा अभ्यास चांगला आहे." : "पुन्हा एकदा धडा वाचा आणि सराव करा!";
+  scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+timerInterval = setInterval(tick, 1000);
+renderQuestion();
+</script>
+</body>
+</html>
