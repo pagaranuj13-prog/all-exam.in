@@ -1,68 +1,92 @@
 <!DOCTYPE html>
-<html lang="mr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>टेस्ट लेव्हल्स | all-exam.in</title>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>परीक्षा निवड | all-exam.in</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;padding:24px;background:#f4f5fa;color:#222;font-family:Arial,"Noto Sans Devanagari",sans-serif}
 .wrap{max-width:900px;margin:0 auto}
-.back{display:inline-block;background:#6c757d;color:#fff;padding:10px 16px;border-radius:6px;font-weight:bold;font-size:15px;text-decoration:none}
-h1{font-size:24px;margin:32px 0 20px;padding-bottom:10px;border-bottom:2px solid #007bff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
-.card{background:#fff;border:2px solid #007bff;border-radius:10px;padding:24px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.05)}
-.card h2{font-size:20px;color:#333;margin:10px 0}
-.card p{color:#666;font-size:14px;margin-bottom:20px}
-.btn{background:#28a745;color:#fff;border:0;padding:10px 20px;border-radius:6px;font:bold 15px Arial,"Noto Sans Devanagari",sans-serif;text-decoration:none;cursor:pointer;display:inline-block}
-.btn:hover{background:#218838}
-footer{margin-top:40px;padding-top:20px;border-top:1px solid #ddd;text-align:center;color:#777}
-</style></head><body><div class="wrap">
-<a class="back" href="index.html">&larr; मागे जा</a>
-<h1 id="title">धडा टेस्ट निवडा</h1>
-<div class="grid">
-  <!-- Test One Card (Easy) -->
-  <div class="card" style="border-color: #28a745;">
-       <h2>Test One</h2>
-    <p>सोप्या प्रश्नांची टेस्ट (Easy)</p>
-   <a href="a-bottle-of-dew/quiz-easy.html" class="btn">टेस्ट सुरू करा</a>
-  </div>
-  <!-- Test Two Card (Medium) -->
-  <div class="card" style="border-color: #ffc107;">
-    <h2>Test Two</h2>
-    <p>मध्यम प्रश्नांची टेस्ट (Medium)</p>
-    <a href="a-bottle-of-dew/quiz-medium.html" class="btn" style="background:#ffc107; color:#000;">टेस्ट सुरू करा</a>
-  </div>
-  <!-- Test Three Card (Difficult) -->
-  <div class="card" style="border-color: #dc3545;">
-    <h2>Test Three</h2>
-    <p>कठीण प्रश्नांची टेस्ट (Difficult)</p>
-     <a href="a-bottle-of-dew/quiz-difficult.html" class="btn" style="background:#dc3545;">टेस्ट सुरू करा</a>
-  </div>
-   <!-- Test Four Card (Ultra Difficult / अति कठीण) -->
-    <div class="card" style="border-color: #6f42c1;">
-      <h2>Test Four</h2>
-      <p>अति कठीण प्रश्नांची टेस्ट (Ultra Difficult)</p>
-      <a href="a-bottle-of-dew/ultra.html" class="btn" style="background: #6f42c1;">टेस्ट सुरू करा</a>
-    </div>
-<div class="card" style="border-color: #dc3545;">
-  <h2>Test Three</h2>
-  <p>कठीण प्रश्नांची टेस्ट (Difficult)</p>
-  <a href="The-raven-and-the-fox/quiz-chapter2-difficult.html" class="btn" style="background:#dc3545;">टेस्ट सुरू करा</a>
+.back{display:inline-block;background:#6c757d;color:#fff;padding:10px 16px;border-radius:6px;font-weight:bold;text-decoration:none}
+h1{font-size:22px;margin:28px 0 20px;padding-bottom:10px;border-bottom:2px solid #007bff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{background:#fff;border:2px solid var(--bd);border-radius:10px;padding:18px;text-align:center}
+.card h2{font-size:18px;margin:0 0 6px}
+.card p{font-size:14px;color:#444;margin:0 0 12px}
+.btn{display:inline-block;background:var(--bt);color:#fff;padding:8px 18px;border-radius:6px;font-weight:bold;text-decoration:none}
+.soon{color:#b35c00;font-weight:bold;margin:20px 0}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid #ddd;text-align:center;color:#777;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← धडे यादी</a>
+  <h1 id="title"></h1>
+  <div id="cards" class="grid"></div>
+  <footer>© 2026 all-exam.in | सर्व हक्क सुरक्षित.</footer>
 </div>
 
-<div class="card" style="border-color: #6f42c1;">
-  <h2>Test Four</h2>
-  <p>अति कठीण प्रश्नांची टेस्ट (Ultra Difficult)</p>
-  <a href="The-raven-and-the-fox/quiz-chapter2-ultra.html" class="btn" style="background:#6f42c1;">टेस्ट सुरू करा</a>
-</div>
-</div>
-<footer>© 2026 all-exam.in | सर्व हक्क सुरक्षित.</footer>
-</div>
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const chapter = urlParams.get('chapter');
-if(chapter) {
-  document.getElementById('title').textContent = "धडा " + chapter + " - टेस्ट लेव्हल निवडा";
+// ====== सर्व धड्यांची माहिती ======
+// folder: धड्याचे folder नाव (GitHub मधील नावाप्रमाणे, case-sensitive)
+// ready : फाईल्स upload झाल्यावर true करा
+// files : फाईलनावे बदलायची असल्यास येथे द्या; नसल्यास quiz-chapterN-LEVEL.html गृहित धरले जाते
+const CHAPTERS = {
+  1:  {name:"A Bottle of Dew", folder:"a-bottle-of-dew", ready:true,
+       files:{easy:"quiz-easy.html", medium:"quiz-medium.html", difficult:"quiz-difficult.html", ultra:"ultra.html"}},
+  2:  {name:"The Raven and the Fox", folder:"The-raven-and-the-fox", ready:true},
+  3:  {name:"Rama to the Rescue", folder:"rama-to-the-rescue"},
+  4:  {name:"The Unlikely Best Friends", folder:"the-unlikely-best-friends"},
+  5:  {name:"A Friend's Prayer", folder:"a-friends-prayer"},
+  6:  {name:"The Chair", folder:"the-chair"},
+  7:  {name:"Neem Baba", folder:"neem-baba"},
+  8:  {name:"What a Bird Thought", folder:"what-a-bird-thought"},
+  9:  {name:"Spices that Heal Us", folder:"spices-that-heal-us"},
+  10: {name:"Change of Heart", folder:"change-of-heart"},
+  11: {name:"The Winner", folder:"the-winner"},
+  12: {name:"Yoga - A Way of Life", folder:"yoga-a-way-of-life"},
+  13: {name:"Hamara Bharat - Incredible India!", folder:"hamara-bharat-incredible-india"},
+  14: {name:"The Kites", folder:"the-kites"},
+  15: {name:"Ila Sachani: Embroidering Dreams with her Feet", folder:"ila-sachani-embroidering-dreams-with-her-feet"},
+  16: {name:"National War Memorial", folder:"national-war-memorial"}
+};
+
+const LEVELS = [
+  {key:"easy",      label:"Easy",      mr:"सोपी",   color:"#16a34a", bd:"#22c55e"},
+  {key:"medium",    label:"Medium",    mr:"मध्यम",  color:"#2563eb", bd:"#3b82f6"},
+  {key:"difficult", label:"Difficult", mr:"कठीण",   color:"#dc3545", bd:"#dc3545"},
+  {key:"ultra",     label:"Ultra",     mr:"अति कठीण", color:"#6f42c1", bd:"#6f42c1"}
+];
+
+// ====== पृष्ठ तयार करणे ======
+const params = new URLSearchParams(location.search);
+const n = parseInt(params.get("chapter"), 10);
+const ch = CHAPTERS[n];
+const title = document.getElementById("title");
+const cards = document.getElementById("cards");
+
+if (!ch) {
+  title.textContent = "धडा सापडला नाही";
+  cards.innerHTML = '<p class="soon">कृपया योग्य धडा निवडा.</p>';
+} else {
+  title.textContent = `धडा ${n} - ${ch.name}`;
+  if (!ch.ready) {
+    cards.innerHTML = '<p class="soon">या धड्याची परीक्षा लवकरच उपलब्ध होईल.</p>';
+  } else {
+    LEVELS.forEach(lv => {
+      const file = (ch.files && ch.files[lv.key]) || `quiz-chapter${n}-${lv.key}.html`;
+      const c = document.createElement("div");
+      c.className = "card";
+      c.style.setProperty("--bd", lv.bd);
+      c.style.setProperty("--bt", lv.color);
+      c.innerHTML = `<h2>Test ${LEVELS.indexOf(lv)+1}</h2>
+        <p>${lv.mr} प्रश्नांची टेस्ट (${lv.label})</p>
+        <a class="btn" href="${ch.folder}/${file}">टेस्ट सुरू करा</a>`;
+      cards.appendChild(c);
+    });
+  }
 }
-function startTest(level) {
-  alert("तुम्ही धडा " + (chapter || '') + " साठी " + level + " लेव्हल निवडली आहे. टेस्ट लवकरच सुरू होईल!");
-}
-</script></body></html>
+</script>
+</body>
+</html>
