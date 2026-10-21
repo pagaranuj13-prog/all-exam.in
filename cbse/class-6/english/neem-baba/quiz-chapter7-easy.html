@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Quiz | all-exam.in</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Poppins','Hind',sans-serif;color:#fff;color-scheme:dark;min-height:100vh;background:#000;overflow-x:hidden}
+    .marathi-text{font-family:'Hind',sans-serif}
+    .custom-shadow{box-shadow:0 0 0 1px rgba(255,255,255,.04),0 20px 50px -15px rgba(251,191,36,.18)}
+  </style>
+</head>
+<body class="flex flex-col justify-between min-h-screen p-3 md:p-5">
+  <header class="max-w-2xl w-full mx-auto mb-3 text-center">
+    <h1 id="pageTitle" class="text-xl md:text-2xl font-extrabold"></h1>
+  </header>
+
+  <main class="max-w-xl w-full mx-auto bg-neutral-950 rounded-2xl p-4 md:p-6 custom-shadow border border-neutral-800">
+    <div class="flex justify-between items-center mb-4 border-b border-neutral-800 pb-2.5 gap-2">
+      <span class="text-[11px] font-bold text-emerald-300 bg-emerald-950 px-2.5 py-1 rounded-full border border-emerald-700"><i class="fa-solid fa-language"></i> English + मराठी अर्थ</span>
+      <span class="text-[12px] font-extrabold text-indigo-200 bg-indigo-950 px-2.5 py-1 rounded-full border border-indigo-700"><i class="fa-solid fa-stopwatch"></i> <span id="timerDisplay">00:00</span></span>
+      <button onclick="goBack()" class="text-[11px] font-semibold bg-neutral-800 hover:bg-neutral-700 px-2.5 py-1 rounded-lg"><i class="fa-solid fa-arrow-left"></i> मागे जा</button>
+    </div>
+
+    <div id="quizScreen">
+      <div class="mb-3">
+        <div class="flex justify-between text-xs font-bold text-neutral-300 mb-1"><span id="questionCounter"></span><span id="scoreTracker" class="text-emerald-400"></span></div>
+        <div class="w-full bg-neutral-800 rounded-full h-2 overflow-hidden border border-neutral-700"><div id="progressBar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full rounded-full transition-all duration-300" style="width:0%"></div></div>
+      </div>
+      <div class="mb-4 bg-neutral-900 p-4 rounded-xl border border-neutral-700">
+        <h3 id="qEng" class="text-base md:text-lg font-bold leading-snug"></h3>
+        <p id="qMar" class="text-sm md:text-base font-semibold text-emerald-300 marathi-text mt-1.5"></p>
+      </div>
+      <div id="optionsContainer" class="space-y-2.5 mb-4"></div>
+      <div id="feedbackBox" class="hidden p-3 rounded-xl mb-4 text-sm border">
+        <div class="flex items-start gap-2"><div id="feedbackIcon" class="text-lg mt-0.5"></div>
+          <div><h4 id="feedbackTitle" class="font-bold text-sm mb-0.5"></h4>
+          <p id="feedbackEng" class="font-medium"></p>
+          <p id="feedbackMar" class="text-neutral-200 font-semibold marathi-text mt-1 pt-1 border-t border-neutral-700"></p></div></div>
+      </div>
+      <button id="skipBtn" onclick="skipQuestion()" class="w-full py-2.5 mb-2 bg-amber-400/10 hover:bg-amber-400/20 text-amber-300 border-2 border-amber-500/60 font-bold text-xs md:text-sm rounded-xl"><i class="fa-solid fa-forward"></i> <span>प्रश्न वगळा (Skip Question)</span></button>
+      <button id="nextBtn" onclick="nextQuestion()" class="hidden w-full py-2.5 bg-white hover:bg-neutral-200 text-black font-bold text-xs md:text-sm rounded-xl items-center justify-center gap-1.5"><span>पुढचा प्रश्न (Next Question)</span> <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <div id="resultScreen" class="hidden text-center py-2">
+      <div class="w-12 h-12 bg-amber-400/15 text-amber-400 rounded-xl flex items-center justify-center mx-auto mb-2 text-xl"><i class="fa-solid fa-trophy"></i></div>
+      <h2 class="text-lg md:text-xl font-extrabold">Quiz Completed!</h2>
+      <p class="text-emerald-300 font-bold marathi-text text-sm mb-3">अभिनंदन! टेस्ट पूर्ण झाली!</p>
+      <div class="bg-gradient-to-br from-amber-950/60 to-emerald-950/60 rounded-xl p-3 border border-amber-700/60 mb-4 max-w-sm mx-auto">
+        <div class="grid grid-cols-3 divide-x divide-neutral-700">
+          <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Total Score</span><span id="finalScore" class="text-xl font-extrabold text-emerald-400">0/0</span></div>
+          <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Percentage</span><span id="finalPercentage" class="text-xl font-extrabold">0%</span></div>
+          <div class="p-1"><span class="block text-[10px] font-bold text-neutral-300 uppercase">Time Taken</span><span id="finalTime" class="text-xl font-extrabold text-indigo-300">00:00</span></div>
+        </div>
+        <p class="mt-2 text-xs font-bold text-neutral-200">वगळलेले प्रश्न (Skipped): <span id="finalSkipped">0</span></p>
+        <p id="performanceMessage" class="mt-2 text-xs font-bold text-amber-200 bg-amber-400/15 py-1 px-2 rounded-lg inline-block marathi-text"></p>
+      </div>
+      <a id="resultBackBtn" href="quiz.html" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 font-bold rounded-xl text-xs inline-flex items-center gap-1.5"><i class="fa-solid fa-rotate-right"></i> पुन्हा प्रयत्न करा / मागे जा</a>
+    </div>
+  </main>
+
+  <footer class="mt-4 text-center text-[11px] text-neutral-400"><p>&copy; 2026 all-exam.in | सर्व हक्क सुरक्षित.</p></footer>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const chapter = params.get('chapter') || '7';
+    const level = 'easy';
+    const levelLabel = 'Easy';
+    const TITLES = { '7': 'Neem Baba' };
+
+    document.getElementById('pageTitle').innerHTML = `धडा ${chapter} - टेस्ट <span class="text-amber-400 font-bold text-xs md:text-sm block md:inline marathi-text">(${levelLabel} Level${TITLES[chapter] ? ' · ' + TITLES[chapter] : ''})</span>`;
+    document.getElementById('resultBackBtn').href = `quiz.html?chapter=${chapter}`;
+
+    const activeQuestions = [
+      { questionEng:'Who is Neem Baba?', questionMar:'नीम बाबा कोण होते?', options:[{eng:'A wise old man who cared for trees', mar:'झाडांची काळजी घेणारा एक ज्ञानी वृद्ध'},{eng:'A king of the city', mar:'शहराचा राजा'},{eng:'A cricket player', mar:'क्रिकेटपटू'},{eng:'A famous doctor', mar:'प्रसिद्ध डॉक्टर'}], correct:0, explanationEng:'Neem Baba is a wise old man who values nature and teaches others to care for trees.', explanationMar:'नीम बाबा हे एक ज्ञानी वृद्ध माणूस होते, ज्यांनी निसर्गाची आणि झाडांची काळजी घेण्याची शिकवण दिली.' },
+      { questionEng:'What is the main quality of Neem Baba?', questionMar:'नीम बाबांची मुख्य गुणवैशिष्ट्ये कोणती आहेत?', options:[{eng:'Kindness and wisdom', mar:'दयाळूपणा आणि ज्ञान'},{eng:'Rudeness and anger', mar:'अभद्रता आणि राग'},{eng:'Fear and laziness', mar:'भीती आणि आलस्य'},{eng:'Greed and selfishness', mar:'लोभीपणा आणि स्वार्थ' }], correct:0, explanationEng:'He is remembered for his wisdom and his caring nature.', explanationMar:'त्याला त्याचे ज्ञान आणि दयाळूपणा यामुळे स्मरून ठेवले जाते.' },
+      { questionEng:'What does Neem Baba usually teach children?', questionMar:'नीम बाबा नेहमी मुलांना काय शिकवतात?', options:[{eng:'To respect nature', mar:'निसर्गाचा आदर करायला'},{eng:'To cheat others', mar:'इतरांची फसवणूक करायला'},{eng:'To ignore plants', mar:'झाडांकडे दुर्लक्ष करायला'},{eng:'To waste water', mar:'पाणी व्यर्थ करायला'}], correct:0, explanationEng:'The story highlights the importance of taking care of nature and the environment.', explanationMar:'कथेत निसर्गाची काळजी घेण्याची आणि पर्यावरणाची गरज यावर भर दिला आहे.' },
+      { questionEng:'What is the importance of neem trees?', questionMar:'नीम झाडांचे महत्त्व काय आहे?', options:[{eng:'They provide shade and medicine', mar:'ते सावली आणि औषध देतात'},{eng:'They make cars', mar:'ते कार तयार करतात'},{eng:'They cook food', mar:'ते अन्न बनवतात'},{eng:'They sing songs', mar:'ते गाणी गातात'}], correct:0, explanationEng:'Neem trees are valued for their shade, healing properties, and usefulness in nature.', explanationMar:'नीम झाडांना सावली, औषधगुण आणि नैसर्गिक उपयोगामुळे महत्त्व आहे.' },
+      { questionEng:'Why do people remember Neem Baba?', questionMar:'लोक नीम बाबांची आठवण का ठेवतात?', options:[{eng:'Because he cared for nature', mar:'कारण तो निसर्गाची काळजी घेत असे'},{eng:'Because he was a singer', mar:'कारण तो गायक होता'},{eng:'Because he was a king', mar:'कारण तो राजा होता'},{eng:'Because he lived in space', mar:'कारण तो अवकाशात राहत होता'}], correct:0, explanationEng:'His kindness and love for nature made him a memorable and inspiring figure.', explanationMar:'त्याच्या दयाळूपणा आणि निसर्गप्रेमामुळे तो स्मरणीय आणि प्रेरणादायी व्यक्तिमत्त्व झाला.' },
+      { questionEng:'A place where trees grow is called a ___.', questionMar:'ज्या ठिकाणी झाडे वाढतात त्याला ___ म्हणतात.', options:[{eng:'forest', mar:'जंगल'},{eng:'school', mar:'शाळा'},{eng:'hospital', mar:'रुग्णालय'},{eng:'office', mar:'कार्यालय'}], correct:0, explanationEng:'A forest is a large area covered with trees.', explanationMar:'जंगल म्हणजे झाडांनी व्यापलेले मोठे क्षेत्र.' },
+      { questionEng:'Choose the correct opposite of the word "kind".', questionMar:'"kind" या शब्दाचा योग्य विरुद्धार्थी शब्द निवडा.', options:[{eng:'cruel', mar:'क्रूर'},{eng:'happy', mar:'सुखी'},{eng:'bright', mar:'चमकदार'},{eng:'fast', mar:'वेगवान'}], correct:0, explanationEng:'The opposite of kind is cruel.', explanationMar:'kind चा विरुद्धार्थी शब्द cruel आहे.' },
+      { questionEng:'Complete the sentence: We should ___ trees and plants.', questionMar:'वाक्य पूर्ण करा: आपण झाडे आणि रोपे ___ केली पाहिजेत.', options:[{eng:'care for', mar:'काळजी घ्यावी'},{eng:'ignore', mar:'दुर्लक्ष करावे'},{eng:'break', mar:'फोडावी'},{eng:'burn', mar:'जाळावी'}], correct:0, explanationEng:'It is important to care for trees and plants for a healthy environment.', explanationMar:'स्वस्थ पर्यावरणासाठी झाडे आणि रोपे यांची काळजी घेणे आवश्यक आहे.' },
+      { questionEng:'The neem tree is known for its ___.', questionMar:'नीम झाडाला ___ साठी ओळखले जाते.', options:[{eng:'medicinal value', mar:'औषधी गुण'},{eng:'metallic value', mar:'धातूचे मूल्य'},{eng:'musical value', mar:'संगीताचे मूल्य'},{eng:'dancing value', mar:'नृत्याचे मूल्य'}], correct:0, explanationEng:'Neem is well known for its medicinal and healing properties.', explanationMar:'नीम हे औषधी आणि उपचारात्मक गुणांसाठी ओळखले जाते.' },
+      { questionEng:'A person who teaches good values is called a ___.', questionMar:'ज्याने चांगली मूल्ये शिकवली त्या व्यक्तीला ___ म्हणतात.', options:[{eng:'teacher', mar:'शिक्षक'},{eng:'farmer', mar:'शेतकरी'},{eng:'driver', mar:'ड्रायव्हर'},{eng:'builder', mar:'बांधकामकार'}], correct:0, explanationEng:'A teacher guides students and teaches values and knowledge.', explanationMar:'शिक्षक विद्यार्थ्यांना ज्ञान आणि मूल्ये शिकवतो.' }
+    ];
+
+    let cur = 0, isAnswered = false;
+    const userAnswers = new Array(activeQuestions.length).fill(null);
+    const $ = id => document.getElementById(id);
+    const getScore = () => userAnswers.reduce((s, a, i) => s + (a !== null && a !== -1 && a === activeQuestions[i].correct ? 1 : 0), 0);
+    const getSkipped = () => userAnswers.filter(a => a === -1).length;
+
+    const startTime = Date.now();
+    let timerInterval, totalSeconds = 0;
+    const fmt = s => { const h = Math.floor(s / 3600); const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0'); const ss = String(s % 60).padStart(2, '0'); return h > 0 ? `${String(h).padStart(2, '0')}:${m}:${ss}` : `${m}:${ss}`; };
+    const tick = () => { totalSeconds = Math.floor((Date.now() - startTime) / 1000); $('timerDisplay').textContent = fmt(totalSeconds); };
+    const OK = 'w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-emerald-400 bg-emerald-950 font-bold flex items-center justify-between';
+    const BAD = 'w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-rose-400 bg-rose-950 font-bold flex items-center justify-between';
+
+    function showFeedback(ok, q) {
+      const fb = $('feedbackBox');
+      fb.className = 'p-3 rounded-xl mb-4 text-sm border ' + (ok ? 'bg-emerald-950 border-emerald-600' : 'bg-rose-950 border-rose-600');
+      $('feedbackIcon').innerHTML = ok ? '<i class="fa-solid fa-circle-check text-emerald-400"></i>' : '<i class="fa-solid fa-circle-xmark text-rose-400"></i>';
+      $('feedbackTitle').textContent = ok ? 'बरोबर उत्तर! (Correct Answer)' : 'चुकीचे उत्तर! (Incorrect Answer)';
+      $('feedbackTitle').className = 'font-bold text-sm mb-0.5 ' + (ok ? 'text-emerald-300' : 'text-rose-300');
+      $('feedbackEng').textContent = q.explanationEng;
+      $('feedbackMar').textContent = 'स्पष्टीकरण: ' + q.explanationMar;
+    }
+
+    function renderQuestion() {
+      const q = activeQuestions[cur], prev = userAnswers[cur];
+      isAnswered = prev !== null && prev !== -1;
+      $('feedbackBox').classList.add('hidden');
+      $('nextBtn').style.display = isAnswered ? 'flex' : 'none';
+      $('skipBtn').style.display = isAnswered ? 'none' : 'flex';
+      $('questionCounter').textContent = `Question ${cur + 1}/${activeQuestions.length}`;
+      $('scoreTracker').textContent = `Score: ${getScore()}`;
+      $('progressBar').style.width = `${((cur + 1) / activeQuestions.length) * 100}%`;
+      $('qEng').textContent = q.questionEng;
+      $('qMar').textContent = q.questionMar;
+      const box = $('optionsContainer'); box.innerHTML = '';
+      q.options.forEach((opt, idx) => {
+        const b = document.createElement('button');
+        b.className = 'w-full text-left p-2.5 md:p-3 rounded-xl border-2 border-neutral-700 hover:border-emerald-400 hover:bg-emerald-400/10 transition flex items-center justify-between group bg-neutral-900';
+        b.innerHTML = `<div class="flex items-start gap-2.5"><span class="w-6 h-6 rounded-lg bg-neutral-800 group-hover:bg-emerald-400 group-hover:text-black flex items-center justify-center font-bold text-xs transition shrink-0 mt-0.5">${String.fromCharCode(65 + idx)}</span><div><p class="text-sm md:text-base font-semibold text-white">${opt.eng}</p><p class="text-xs md:text-sm font-medium text-emerald-300 marathi-text mt-0.5">${opt.mar}</p></div></div>`;
+        if (isAnswered) {
+          b.disabled = true;
+          if (idx === q.correct) b.className = OK; else if (idx === prev) b.className = BAD; else b.classList.add('opacity-50');
+        } else {
+          b.onclick = () => selectOption(idx);
+        }
+        box.appendChild(b);
+      });
+      if (isAnswered) showFeedback(prev === q.correct, q);
+    }
+
+    function selectOption(i) {
+      if (isAnswered) return;
+      isAnswered = true; userAnswers[cur] = i;
+      const q = activeQuestions[cur], ok = i === q.correct;
+      $('scoreTracker').textContent = `Score: ${getScore()}`;
+      Array.from($('optionsContainer').children).forEach((b, idx) => {
+        b.disabled = true;
+        if (idx === q.correct) b.className = OK; else if (idx === i) b.className = BAD; else b.classList.add('opacity-50');
+      });
+      showFeedback(ok, q);
+      $('skipBtn').style.display = 'none';
+      $('nextBtn').style.display = 'flex';
+      $('nextBtn').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function skipQuestion() {
+      if (isAnswered) return;
+      userAnswers[cur] = -1; nextQuestion();
+    }
+
+    function nextQuestion() {
+      if (cur < activeQuestions.length - 1) { cur++; renderQuestion(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      else showResults();
+    }
+
+    function goBack() {
+      if (cur > 0) { cur--; renderQuestion(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      else location.href = `quiz.html?chapter=${chapter}`;
+    }
+
+    function showResults() {
+      clearInterval(timerInterval); tick();
+      $('quizScreen').classList.add('hidden'); $('resultScreen').classList.remove('hidden');
+      const s = getScore(), n = activeQuestions.length, pct = Math.round((s / n) * 100);
+      $('finalScore').textContent = `${s}/${n}`; $('finalPercentage').textContent = `${pct}%`;
+      $('finalTime').textContent = fmt(totalSeconds); $('finalSkipped').textContent = getSkipped();
+      $('performanceMessage').textContent = pct === 100 ? 'उत्तुंग यश! तुम्ही सर्व प्रश्नांची उत्तरे बरोबर दिली आहेत.' : pct >= 50 ? 'छान प्रयत्न! तुमचा अभ्यास चांगला आहे.' : 'पुन्हा एकदा धडा वाचा आणि सराव करा!';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    timerInterval = setInterval(tick, 1000);
+    renderQuestion();
+  </script>
+</body>
+</html>
